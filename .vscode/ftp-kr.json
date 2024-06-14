@@ -1,0 +1,16 @@
+{
+    "host": "45.119.213.190",
+    "username": "cybertech@ovanglobal.com",
+    "password": "kYAZn26bE9DdLbMK3hQL",
+    "remotePath": "/domains/ovanglobal.com/public_html/ovancare/",
+    "protocol": "ftp",
+    "port": 0,
+    "fileNameEncoding": "utf8",
+    "autoUpload": true,
+    "autoDelete": false,
+    "autoDownload": false,
+    "ignore": [
+        ".git",
+        "/.vscode"
+    ]
+}
