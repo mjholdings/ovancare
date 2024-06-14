@@ -118,7 +118,7 @@
 
 				<div class="about-top-text">
 
-					<p class="sub-title">OVANGLOBAL</p>
+					<p class="sub-title">OvanCare</p>
 
 					<h1><?= __('store.about_us') ?></h1>
 
@@ -166,13 +166,13 @@
 
 			<div class="title-about">
 
-				<h6>OVANGLOBAL</h6>
+				<h6>OvanCare</h6>
 
 				<div class="line"></div>
 
 				<h2>TẦM NHÌN-SỨ MỆNH-GIÁ TRỊ</h2>
 
-				<!--				<span>OvanGlobal dolor sit amet, consectetur adipiscing elit.</span>-->
+				<!--				<span>OvanCare dolor sit amet, consectetur adipiscing elit.</span>-->
 
 			</div>
 

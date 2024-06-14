@@ -1,8 +1,8 @@
 <?php if ( ! defined("BASEPATH")) exit("No direct script access allowed");
 $db["default"]["hostname"] = "localhost";
-$db["default"]["username"] = "admin_mjgroupdemo";
-$db["default"]["password"] = '2fbCbn2n3M6QW2pzB5kM';
-$db["default"]["database"] = "admin_mjgroupdemo";
+$db["default"]["username"] = "ovanglobal_caredb";
+$db["default"]["password"] = 'PbqWsSSRhdrv4UNXkTnP';
+$db["default"]["database"] = "ovanglobal_caredb";
 $db["default"]["dbport"] = "3306";
 $db["default"]["dbdriver"] = "mysqli";
 $db["default"]["dbprefix"] = "";
