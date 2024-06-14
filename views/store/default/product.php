@@ -40,7 +40,7 @@ OvanCare
 
                                                                                                                                                         }
 
-                                                                                                                                                    } ?> <?= (!empty($product['product_name'])) ? $product['product_name'] : "OvanGlobal"; ?></p>
+                                                                                                                                                    } ?> <?= (!empty($product['product_name'])) ? $product['product_name'] : "OvanCare"; ?></p>
 
             </div>
 
@@ -252,7 +252,7 @@ OvanCare
 
                 <div class="pr-title">
 
-                    <h1><?= (!empty($product['product_name'])) ? $product['product_name'] : "What is OvanGlobal?"; ?></h1>
+                    <h1><?= (!empty($product['product_name'])) ? $product['product_name'] : "What is OvanCare?"; ?></h1>
 
 
 
@@ -480,7 +480,7 @@ OvanCare
 
                             <?php else : ?>
 
-                                <button data-product_id="<?= $product['product_id'] ?>" data-product_name="<?= (!empty($product['product_name'])) ? $product['product_name'] : 'OvanGlobal' ?>" class="button-cart btn btn-cart-detail btn-cart">
+                                <button data-product_id="<?= $product['product_id'] ?>" data-product_name="<?= (!empty($product['product_name'])) ? $product['product_name'] : 'OvanCare' ?>" class="button-cart btn btn-cart-detail btn-cart">
 
                                     <span><?php echo __('store.add_to_cart') ?></span></button>
 
@@ -838,7 +838,7 @@ OvanCare
 
 
 
-                            <p><?= (!empty($rating['rating_comments'])) ? $rating['rating_comments'] : "OvanGlobal is simply dummy text of the printing and typesetting industry. OvanGlobal has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing OvanGlobal passages, and more recently with desktop publishing software like Aldus PageMaker including versions of OvanGlobal."; ?></p>
+                            <p><?= (!empty($rating['rating_comments'])) ? $rating['rating_comments'] : "OvanCare is simply dummy text of the printing and typesetting industry. OvanCare has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing OvanCare passages, and more recently with desktop publishing software like Aldus PageMaker including versions of OvanCare."; ?></p>
 
                         </div>
 

@@ -942,11 +942,11 @@ $logo = ($store_setting['logo']) ? base_url('assets/images/site/'.$store_setting
 
                   <ul>
 
-                    <li><a href="#">OvanGlobal</a></li>
+                    <li><a href="#">OvanCare</a></li>
 
-                    <li><a href="#">OvanGlobal</a></li>
+                    <li><a href="#">OvanCare</a></li>
 
-                    <li><a href="#">OvanGlobal</a></li>
+                    <li><a href="#">OvanCare</a></li>
 
                   </ul>
 
@@ -964,11 +964,11 @@ $logo = ($store_setting['logo']) ? base_url('assets/images/site/'.$store_setting
 
                   <ul>
 
-                    <li><a href="#">OvanGlobal</a></li>
+                    <li><a href="#">OvanCare</a></li>
 
-                    <li><a href="#">OvanGlobal</a></li>
+                    <li><a href="#">OvanCare</a></li>
 
-                    <li><a href="#">OvanGlobal</a></li>
+                    <li><a href="#">OvanCare</a></li>
 
                   </ul>
 
@@ -986,31 +986,11 @@ $logo = ($store_setting['logo']) ? base_url('assets/images/site/'.$store_setting
 
                   <ul>
 
-                    <li><a href="#">OvanGlobal</a></li>
+                    <li><a href="#">OvanCare</a></li>
 
-                    <li><a href="#">OvanGlobal</a></li>
+                    <li><a href="#">OvanCare</a></li>
 
-                    <li><a href="#">OvanGlobal</a></li>
-
-                  </ul>
-
-                </div>
-
-              </div>
-
-              <div class="col-6 col-md-2">
-
-                <div class="ft-col">
-
-                  <h3>OvanGlobal</h3>
-
-                  <ul>
-
-                    <li><a href="#">OvanGlobal</a></li>
-
-                    <li><a href="#">OvanGlobal</a></li>
-
-                    <li><a href="#">OvanGlobal</a></li>
+                    <li><a href="#">OvanCare</a></li>
 
                   </ul>
 
@@ -1022,15 +1002,35 @@ $logo = ($store_setting['logo']) ? base_url('assets/images/site/'.$store_setting
 
                 <div class="ft-col">
 
-                  <h3>OvanGlobal</h3>
+                  <h3>OvanCare</h3>
 
                   <ul>
 
-                    <li><a href="#">OvanGlobal</a></li>
+                    <li><a href="#">OvanCare</a></li>
 
-                    <li><a href="#">OvanGlobal</a></li>
+                    <li><a href="#">OvanCare</a></li>
 
-                    <li><a href="#">OvanGlobal</a></li>
+                    <li><a href="#">OvanCare</a></li>
+
+                  </ul>
+
+                </div>
+
+              </div>
+
+              <div class="col-6 col-md-2">
+
+                <div class="ft-col">
+
+                  <h3>OvanCare</h3>
+
+                  <ul>
+
+                    <li><a href="#">OvanCare</a></li>
+
+                    <li><a href="#">OvanCare</a></li>
+
+                    <li><a href="#">OvanCare</a></li>
 
                   </ul>
 

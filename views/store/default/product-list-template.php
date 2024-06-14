@@ -42,9 +42,9 @@ OvanCare
 
 					</div>
 
-					<h3>OvanGlobal</h3>
+					<h3>OvanCare</h3>
 
-					<p>What is OvanGlobal?</p>
+					<p>What is OvanCare?</p>
 OvanCare
 					<div class=OvanCareuttons d-flex">
 
@@ -92,9 +92,9 @@ OvanCare
 
 					</div>
 
-					<h3>OvanGlobal</h3>
+					<h3>OvanCare</h3>
 
-					<p>What is OvanGlobal?</p>
+					<p>What is OvanCare?</p>
 OvanCare
 					<div class=OvanCareuttons d-flex">
 
@@ -142,9 +142,9 @@ OvanCare
 
 					</div>
 
-					<h3>OvanGlobal</h3>
+					<h3>OvanCare</h3>
 
-					<p>What is OvanGlobal?</p>
+					<p>What is OvanCare?</p>
 OvanCare
 					<div class=OvanCareuttons d-flex">
 
@@ -192,9 +192,9 @@ OvanCare
 
 					</div>
 
-					<h3>OvanGlobal</h3>
+					<h3>OvanCare</h3>
 
-					<p>What is OvanGlobal?</p>
+					<p>What is OvanCare?</p>
 
 					<div class="product-buttons d-flex">
 
@@ -242,9 +242,9 @@ OvanCare
 
 					</div>
 
-					<h3>OvanGlobal</h3>
+					<h3>OvanCare</h3>
 
-					<p>What is OvanGlobal?</p>
+					<p>What is OvanCare?</p>
 
 					<div class="product-buttons d-flex">
 
@@ -292,9 +292,9 @@ OvanCare
 
 					</div>
 
-					<h3>OvanGlobal</h3>
+					<h3>OvanCare</h3>
 
-					<p>What is OvanGlobal?</p>
+					<p>What is OvanCare?</p>
 
 					<div class="product-buttons d-flex">
 

@@ -38,11 +38,11 @@ OvanCare
 
                         <img src="<?= base_url('assets/login/multiple_pages') ?>/img/icon.png" alt="<?= __('front.client') ?>">
 
-                        <h2><?= (isset($footer->banner_bottom_title) && !empty($footer->banner_bottom_title)) ? $footer->banner_bottom_title : "What is OvanGlobalS?" ?></h2>
+                        <h2><?= (isset($footer->banner_bottom_title) && !empty($footer->banner_bottom_title)) ? $footer->banner_bottom_title : "What is OvanCareS?" ?></h2>
 
-                        <p><?= (isset($footer->banner_bottom_slug) && !empty($footer->banner_bottom_slug)) ? $footer->banner_bottom_slug : "OvanGlobal is simply dummy text of the printing and typesetting industry." ?></p>
+                        <p><?= (isset($footer->banner_bottom_slug) && !empty($footer->banner_bottom_slug)) ? $footer->banner_bottom_slug : "OvanCare is simply dummy text of the printing and typesetting industry." ?></p>
 
-                        <a class="front_button_color front_button_hover_color front_button_text_color" href="<?= $footer->banner_button_link ?>"><?= (isset($footer->banner_button_text) && !empty($footer->banner_button_text)) ? $footer->banner_button_text : "OvanGlobal" ?></a>
+                        <a class="front_button_color front_button_hover_color front_button_text_color" href="<?= $footer->banner_button_link ?>"><?= (isset($footer->banner_button_text) && !empty($footer->banner_button_text)) ? $footer->banner_button_text : "OvanCare" ?></a>
 
                     </div>
 
@@ -228,19 +228,19 @@ OvanCare
 
                   <div class="footer-widget">
 
-                      <h4>OvanGlobal TEXT</h4>
+                      <h4>OvanCare TEXT</h4>
 
                       <ul>
 
-                          <li><a href="">OvanGlobal</a></li>
+                          <li><a href="">OvanCare</a></li>
 
-                          <li><a href="">OvanGlobal</a></li>
+                          <li><a href="">OvanCare</a></li>
 
-                          <li><a href="">OvanGlobal</a></li>
+                          <li><a href="">OvanCare</a></li>
 
-                          <li><a href="">OvanGlobal</a></li>
+                          <li><a href="">OvanCare</a></li>
 
-                          <li><a href="">OvanGlobal</a></li>
+                          <li><a href="">OvanCare</a></li>
 
                       </ul>
 
@@ -252,19 +252,19 @@ OvanCare
 
                   <div class="footer-widget">
 
-                      <h4>OvanGlobal TEXT</h4>
+                      <h4>OvanCare TEXT</h4>
 
                       <ul>
 
-                          <li><a href="">OvanGlobal</a></li>
+                          <li><a href="">OvanCare</a></li>
 
-                          <li><a href="">OvanGlobal</a></li>
+                          <li><a href="">OvanCare</a></li>
 
-                          <li><a href="">OvanGlobal</a></li>
+                          <li><a href="">OvanCare</a></li>
 
-                          <li><a href="">OvanGlobal</a></li>
+                          <li><a href="">OvanCare</a></li>
 
-                          <li><a href="">OvanGlobal</a></li>
+                          <li><a href="">OvanCare</a></li>
 
                       </ul>
 
@@ -276,19 +276,19 @@ OvanCare
 
                   <div class="footer-widget">
 
-                      <h4>OvanGlobal TEXT</h4>
+                      <h4>OvanCare TEXT</h4>
 
                       <ul>
 
-                          <li><a href="">OvanGlobal</a></li>
+                          <li><a href="">OvanCare</a></li>
 
-                          <li><a href="">OvanGlobal</a></li>
+                          <li><a href="">OvanCare</a></li>
 
-                          <li><a href="">OvanGlobal</a></li>
+                          <li><a href="">OvanCare</a></li>
 
-                          <li><a href="">OvanGlobal</a></li>
+                          <li><a href="">OvanCare</a></li>
 
-                          <li><a href="">OvanGlobal</a></li>
+                          <li><a href="">OvanCare</a></li>
 
                       </ul>
 
@@ -300,19 +300,19 @@ OvanCare
 
                   <div class="footer-widget">
 
-                      <h4>OvanGlobal TEXT</h4>
+                      <h4>OvanCare TEXT</h4>
 
                       <ul>
 
-                          <li><a href="">OvanGlobal</a></li>
+                          <li><a href="">OvanCare</a></li>
 
-                          <li><a href="">OvanGlobal</a></li>
+                          <li><a href="">OvanCare</a></li>
 
-                          <li><a href="">OvanGlobal</a></li>
+                          <li><a href="">OvanCare</a></li>
 
-                          <li><a href="">OvanGlobal</a></li>
+                          <li><a href="">OvanCare</a></li>
 
-                          <li><a href="">OvanGlobal</a></li>
+                          <li><a href="">OvanCare</a></li>
 
                       </ul>
 

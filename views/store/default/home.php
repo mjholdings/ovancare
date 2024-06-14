@@ -526,11 +526,11 @@ OvanCare
 
 	<div class="ad-caption">
 
-		<h3><?= (isset($homepage_banner->title) && !empty($homepage_banner->title)) ? $homepage_banner->title : 'OvanGlobal'; ?></h3>
+		<h3><?= (isset($homepage_banner->title) && !empty($homepage_banner->title)) ? $homepage_banner->title : 'OvanCare'; ?></h3>
 
-		<p><?= (isset($homepage_banner->content) && !empty($homepage_banner->content)) ? $homepage_banner->content : 'OvanGlobal is simply dummy text of the printing and typesetting industry.'; ?></p>
+		<p><?= (isset($homepage_banner->content) && !empty($homepage_banner->content)) ? $homepage_banner->content : 'OvanCare is simply dummy text of the printing and typesetting industry.'; ?></p>
 
-		<a href="<?= (isset($homepage_banner->button_link) && !empty($homepage_banner->button_link)) ? $homepage_banner->button_link : '#'; ?>"><?= (isset($homepage_banner->button_text) && !empty($homepage_banner->button_text)) ? $homepage_banner->button_text : 'OvanGlobal'; ?></a>
+		<a href="<?= (isset($homepage_banner->button_link) && !empty($homepage_banner->button_link)) ? $homepage_banner->button_link : '#'; ?>"><?= (isset($homepage_banner->button_text) && !empty($homepage_banner->button_text)) ? $homepage_banner->button_text : 'OvanCare'; ?></a>
 
 	</div>
 OvanCare
@@ -1024,7 +1024,7 @@ OvanCare
 
 						<div class="blog-content">
 
-							<h4>OvanGlobal</h4>
+							<h4>OvanCare</h4>
 
 							<p>
 
@@ -1046,7 +1046,7 @@ OvanCare
 
 						<div class="blog-content">
 
-							<h4>OvanGlobal</h4>
+							<h4>OvanCare</h4>
 
 							<p>
 
@@ -1068,7 +1068,7 @@ OvanCare
 
 						<div class="blog-content">
 
-							<h4>OvanGlobal</h4>
+							<h4>OvanCare</h4>
 
 							<p>
 
@@ -1090,7 +1090,7 @@ OvanCare
 
 						<div class="blog-content">
 
-							<h4>OvanGlobal</h4>
+							<h4>OvanCare</h4>
 
 							<p>
 

@@ -556,7 +556,7 @@ OvanCare
 
             <div class="col-4 col-md-3">
 
-               <h3>OvanGlobal</h3>
+               <h3>OvanCare</h3>
 
                <ul>
 
@@ -576,7 +576,7 @@ OvanCare
 
             <div class="col-4 col-md-3">
 
-               <h3>OvanGlobal</h3>
+               <h3>OvanCare</h3>
 
                <ul>
 
@@ -596,7 +596,7 @@ OvanCare
 
             <div class="col-4 col-md-3">
 
-               <h3>OvanGlobal</h3>
+               <h3>OvanCare</h3>
 
                <ul>
 
@@ -616,7 +616,7 @@ OvanCare
 
             <div class="col-4 col-md-3">
 
-               <h3>OvanGlobal</h3>
+               <h3>OvanCare</h3>
 
                <ul>
 

@@ -116,9 +116,9 @@ OvanCare
 
 						<i class="fa fa-snowflake-o fa-lg front_theme_text_color" aria-hidden="true"></i>
 
-                        <h2 class="front_theme_text_color"><?= (isset($setting->contact_sec_title) && !empty($setting->contact_sec_title)) ? $setting->contact_sec_title : "What is OvanGlobal?"; ?></h2>
+                        <h2 class="front_theme_text_color"><?= (isset($setting->contact_sec_title) && !empty($setting->contact_sec_title)) ? $setting->contact_sec_title : "What is OvanCare?"; ?></h2>
 
-                        <p><?= (isset($setting->contact_sec_subtitle) && !empty($setting->contact_sec_subtitle)) ? $setting->contact_sec_subtitle : "OvanGlobal is simply dummy text of the printing and typesetting industry."; ?></p>
+                        <p><?= (isset($setting->contact_sec_subtitle) && !empty($setting->contact_sec_subtitle)) ? $setting->contact_sec_subtitle : "OvanCare is simply dummy text of the printing and typesetting industry."; ?></p>
 
                     </div>
 

@@ -83,7 +83,7 @@
 				<h6>OVANGLOBAL</h6>
 				<div class="line"></div>
 				<h2>TẦM NHÌN-SỨ MỆNH-GIÁ TRỊ</h2>
-<!--				<span>OvanGlobal dolor sit amet, consectetur adipiscing elit.</span>-->
+<!--				<span>OvanCare dolor sit amet, consectetur adipiscing elit.</span>-->
 			</div>
 			<div class="content-left col-12 col-md-12 col-lg-4 col-xl-6">
 				<div class="content">

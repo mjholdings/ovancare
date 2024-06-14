@@ -434,15 +434,15 @@ OvanCare
 
 								?>
 
-								<a href="javaScript:void(0);">OvanGlobal</a>
+								<a href="javaScript:void(0);">OvanCare</a>
 
-								<a href="javaScript:void(0);" class="active">OvanGlobal</a>
+								<a href="javaScript:void(0);" class="active">OvanCare</a>
 
-								<a href="javaScript:void(0);">OvanGlobal</a>
+								<a href="javaScript:void(0);">OvanCare</a>
 
-								<a href="javaScript:void(0);">OvanGlobal</a>
+								<a href="javaScript:void(0);">OvanCare</a>
 
-								<a href="javaScript:void(0);">OvanGlobal</a>
+								<a href="javaScript:void(0);">OvanCare</a>
 
 								<?php
 

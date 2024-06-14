@@ -504,7 +504,7 @@ if (isset($store_setting['notification']) && sizeOf(json_decode($store_setting['
 
         <div class="container">
 
-            <img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/top-icon.png" /> OvanGlobal is simply dummy text of the printing and typesetting industry.
+            <img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/top-icon.png" /> OvanCare is simply dummy text of the printing and typesetting industry.
 
         </div>
 

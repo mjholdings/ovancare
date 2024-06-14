@@ -74,7 +74,7 @@
 
                             </a>
 
-                            <p class="product-description text-muted"><?= $product['product_short_description'] ?? 'OvanGlobal dolor sit amet, consectetur adipiscing' ?></p>
+                            <p class="product-description text-muted"><?= $product['product_short_description'] ?? 'OvanCare dolor sit amet, consectetur adipiscing' ?></p>
 
                         </div>
 

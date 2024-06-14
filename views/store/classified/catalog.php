@@ -398,7 +398,7 @@
 
                                        </ul>
 
-                                       <p>OvanGlobal dolor sit amet, consectetur adipiscing elit, sed do dolore magna aliqua. In eu mi bibendum neque egestas…</p>
+                                       <p>OvanCare dolor sit amet, consectetur adipiscing elit, sed do dolore magna aliqua. In eu mi bibendum neque egestas…</p>
 
                                        <ul class="entry-meta">
 

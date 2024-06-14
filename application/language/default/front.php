@@ -34,27 +34,27 @@ $lang['amazing_features'] = 'Amazing Features';
 
 $lang['user_friendly'] = 'User Friendly';
 
-$lang['user_friendly_des'] = 'OvanGlobal';
+$lang['user_friendly_des'] = 'OvanCare';
 
 $lang['super_fast_speed'] = 'Super Fast Speed';
 
-$lang['super_fast_speed_des'] = 'OvanGlobal';
+$lang['super_fast_speed_des'] = 'OvanCare';
 
 $lang['24_7_support'] = '24/7 Support';
 
-$lang['24_7_support_des'] = 'OvanGlobal';
+$lang['24_7_support_des'] = 'OvanCare';
 
 $lang['secure'] = 'Secure';
 
-$lang['secure_des'] = 'OvanGlobal';
+$lang['secure_des'] = 'OvanCare';
 
 $lang['awesome_rating'] = 'Awesome Rating';
 
-$lang['awesome_rating_des'] = 'OvanGlobal';
+$lang['awesome_rating_des'] = 'OvanCare';
 
 $lang['award_winning'] = 'Award Winning';
 
-$lang['award_winning_des'] = 'OvanGlobal';
+$lang['award_winning_des'] = 'OvanCare';
 
 $lang['watch_video'] = "Watch Video";
 
@@ -212,7 +212,7 @@ $lang['register'] = 'Register';
 
 $lang['slider_title'] = 'Get Your App Landing Page <br> With Proton Template';
 
-$lang['slider_desc'] = 'OvanGlobal';
+$lang['slider_desc'] = 'OvanCare';
 
 $lang['download_now'] = 'Download Now';
 
@@ -466,12 +466,12 @@ $lang['affiliate_commission'] = 'Affiliate commission:';
 
 $lang['default'] = 'Default';
 
-$lang['faq_answer_if_not_exist'] = "OvanGlobal";
+$lang['faq_answer_if_not_exist'] = "OvanCare";
 
-$lang['login_content_if_not_exist'] = "OvanGlobal";
+$lang['login_content_if_not_exist'] = "OvanCare";
 
-$lang['register_content_if_not_exist'] = "OvanGlobal";
+$lang['register_content_if_not_exist'] = "OvanCare";
 
-$lang['terms_content_if_not_exist'] = "OvanGlobal.";
+$lang['terms_content_if_not_exist'] = "OvanCare.";
 
 $lang['email_sent_instructions'] = 'Please enter the email address you registered with and a password reset link will be sent to you';
