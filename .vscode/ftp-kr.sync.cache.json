@@ -615,7 +615,18 @@
               "modified": false
             },
             "application": {},
-            "assets": {},
+            "assets": {
+              "template": {
+                "css": {
+                  "admin.style.css": {
+                    "type": "-",
+                    "size": 94240,
+                    "lmtime": 1718345081004,
+                    "modified": false
+                  }
+                }
+              }
+            },
             "check.php": {
               "type": "-",
               "size": 7483,
