@@ -482,7 +482,7 @@ if (isset($store_setting['notification']) && sizeOf(json_decode($store_setting['
 
     <!-- Top notification bar -->
 
-    <div class="top-bar bg-main text-white text-center">
+    <!-- <div class="top-bar bg-main text-white text-center">
 
         <div class="container">
 
@@ -490,7 +490,7 @@ if (isset($store_setting['notification']) && sizeOf(json_decode($store_setting['
 
         </div>
 
-    </div>
+    </div> -->
 
     <?php
 
@@ -500,7 +500,7 @@ if (isset($store_setting['notification']) && sizeOf(json_decode($store_setting['
 
     <!-- Dummy Top notification bar -->
 
-    <div class="top-bar bg-main text-white text-center">
+    <!-- <div class="top-bar bg-main text-white text-center">
 
         <div class="container">
 
@@ -508,7 +508,7 @@ if (isset($store_setting['notification']) && sizeOf(json_decode($store_setting['
 
         </div>
 
-    </div>
+    </div> -->
 
 
 

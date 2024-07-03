@@ -614,7 +614,201 @@
               "lmtime": 0,
               "modified": false
             },
-            "application": {},
+            "application": {
+              "views": {
+                "store": {
+                  "default": {
+                    "about.php": {
+                      "type": "-",
+                      "size": 24129,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "cart.php": {
+                      "type": "-",
+                      "size": 1972,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "cart_products_table.php": {
+                      "type": "-",
+                      "size": 3941,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "category.php": {
+                      "type": "-",
+                      "size": 17118,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "checkount-without-pyament.php": {
+                      "type": "-",
+                      "size": 1775,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "checkout.php": {
+                      "type": "-",
+                      "size": 28767,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "checkout_cart.php": {
+                      "type": "-",
+                      "size": 4901,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "checkout_confirm.php": {
+                      "type": "-",
+                      "size": 509,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "checkout_shipping.php": {
+                      "type": "-",
+                      "size": 3767,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "checkout_thankyou.php": {
+                      "type": "-",
+                      "size": 17854,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "contact.php": {
+                      "type": "-",
+                      "size": 5283,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "cookies_consent.php": {
+                      "type": "-",
+                      "size": 8316,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "custom_page.php": {
+                      "type": "-",
+                      "size": 738,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "home.php": {
+                      "type": "-",
+                      "size": 30350,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "layout.php": {
+                      "type": "-",
+                      "size": 37873,
+                      "lmtime": 1719633940157,
+                      "modified": false
+                    },
+                    "lms": {},
+                    "login.php": {
+                      "type": "-",
+                      "size": 11431,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "mini_cart.php": {
+                      "type": "-",
+                      "size": 2709,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "order_list.php": {
+                      "type": "-",
+                      "size": 3480,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "payment_methods.php": {
+                      "type": "-",
+                      "size": 1260,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "policy.php": {
+                      "type": "-",
+                      "size": 957,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "product-list-template.php": {
+                      "type": "-",
+                      "size": 9509,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "product.php": {
+                      "type": "-",
+                      "size": 48011,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "product_list.php": {
+                      "type": "-",
+                      "size": 2337,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "profile.php": {
+                      "type": "-",
+                      "size": 10202,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "shipping.php": {
+                      "type": "-",
+                      "size": 7657,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "thanks.php": {
+                      "type": "-",
+                      "size": 13189,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "user-proudcts.php": {
+                      "type": "-",
+                      "size": 24522,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "vendor_store.php": {
+                      "type": "-",
+                      "size": 24042,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "view_order.php": {
+                      "type": "-",
+                      "size": 12009,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "view_order_details.php": {
+                      "type": "-",
+                      "size": 4039,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "wishlist.php": {
+                      "type": "-",
+                      "size": 3434,
+                      "lmtime": 0,
+                      "modified": false
+                    }
+                  }
+                }
+              }
+            },
             "assets": {
               "template": {
                 "css": {
@@ -623,6 +817,132 @@
                     "size": 94240,
                     "lmtime": 1718345081004,
                     "modified": false
+                  }
+                }
+              },
+              "store": {
+                "default": {
+                  "css": {
+                    "bootstrap-grid.css": {
+                      "type": "-",
+                      "size": 71343,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "bootstrap-grid.css.map": {
+                      "type": "-",
+                      "size": 157643,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "bootstrap-grid.min.css": {
+                      "type": "-",
+                      "size": 50642,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "bootstrap-grid.min.css.map": {
+                      "type": "-",
+                      "size": 115006,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "bootstrap-reboot.css": {
+                      "type": "-",
+                      "size": 5125,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "bootstrap-reboot.css.map": {
+                      "type": "-",
+                      "size": 77215,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "bootstrap-reboot.min.css": {
+                      "type": "-",
+                      "size": 3942,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "bootstrap-reboot.min.css.map": {
+                      "type": "-",
+                      "size": 32551,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "bootstrap.css": {
+                      "type": "-",
+                      "size": 208502,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "bootstrap.css.map": {
+                      "type": "-",
+                      "size": 508537,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "bootstrap.min.css": {
+                      "type": "-",
+                      "size": 162270,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "bootstrap.min.css.map": {
+                      "type": "-",
+                      "size": 654593,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "nouislider.css": {
+                      "type": "-",
+                      "size": 2554,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "placeholder-loading.css": {
+                      "type": "-",
+                      "size": 2241,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "responsive.css": {
+                      "type": "-",
+                      "size": 35785,
+                      "lmtime": 1719633197225,
+                      "modified": false
+                    },
+                    "rtl.css": {
+                      "type": "-",
+                      "size": 12483,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "slick-theme.css": {
+                      "type": "-",
+                      "size": 3349,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "style.css": {
+                      "type": "-",
+                      "size": 100484,
+                      "lmtime": 1719647905654,
+                      "modified": false
+                    },
+                    "sweetalert2.min.css": {
+                      "type": "-",
+                      "size": 24444,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "thankyou.css": {
+                      "type": "-",
+                      "size": 4819,
+                      "lmtime": 0,
+                      "modified": false
+                    }
                   }
                 }
               }
@@ -655,7 +975,199 @@
             },
             "models": {},
             "system": {},
-            "views": {}
+            "views": {
+              "store": {
+                "default": {
+                  "about.php": {
+                    "type": "-",
+                    "size": 25085,
+                    "lmtime": 0,
+                    "modified": false
+                  },
+                  "cart.php": {
+                    "type": "-",
+                    "size": 2028,
+                    "lmtime": 0,
+                    "modified": false
+                  },
+                  "cart_products_table.php": {
+                    "type": "-",
+                    "size": 4105,
+                    "lmtime": 0,
+                    "modified": false
+                  },
+                  "category.php": {
+                    "type": "-",
+                    "size": 18122,
+                    "lmtime": 0,
+                    "modified": false
+                  },
+                  "checkount-without-pyament.php": {
+                    "type": "-",
+                    "size": 1838,
+                    "lmtime": 0,
+                    "modified": false
+                  },
+                  "checkout.php": {
+                    "type": "-",
+                    "size": 29566,
+                    "lmtime": 0,
+                    "modified": false
+                  },
+                  "checkout_cart.php": {
+                    "type": "-",
+                    "size": 5089,
+                    "lmtime": 0,
+                    "modified": false
+                  },
+                  "checkout_confirm.php": {
+                    "type": "-",
+                    "size": 519,
+                    "lmtime": 0,
+                    "modified": false
+                  },
+                  "checkout_shipping.php": {
+                    "type": "-",
+                    "size": 3854,
+                    "lmtime": 0,
+                    "modified": false
+                  },
+                  "checkout_thankyou.php": {
+                    "type": "-",
+                    "size": 19707,
+                    "lmtime": 0,
+                    "modified": false
+                  },
+                  "contact.php": {
+                    "type": "-",
+                    "size": 5387,
+                    "lmtime": 0,
+                    "modified": false
+                  },
+                  "cookies_consent.php": {
+                    "type": "-",
+                    "size": 8493,
+                    "lmtime": 0,
+                    "modified": false
+                  },
+                  "custom_page.php": {
+                    "type": "-",
+                    "size": 754,
+                    "lmtime": 0,
+                    "modified": false
+                  },
+                  "home.php": {
+                    "type": "-",
+                    "size": 28088,
+                    "lmtime": 0,
+                    "modified": false
+                  },
+                  "layout.php": {
+                    "type": "-",
+                    "size": 36742,
+                    "lmtime": 1719633914808,
+                    "modified": false
+                  },
+                  "lms": {},
+                  "login.php": {
+                    "type": "-",
+                    "size": 11727,
+                    "lmtime": 0,
+                    "modified": false
+                  },
+                  "mini_cart.php": {
+                    "type": "-",
+                    "size": 2758,
+                    "lmtime": 0,
+                    "modified": false
+                  },
+                  "order_list.php": {
+                    "type": "-",
+                    "size": 3564,
+                    "lmtime": 0,
+                    "modified": false
+                  },
+                  "payment_methods.php": {
+                    "type": "-",
+                    "size": 1316,
+                    "lmtime": 0,
+                    "modified": false
+                  },
+                  "policy.php": {
+                    "type": "-",
+                    "size": 976,
+                    "lmtime": 0,
+                    "modified": false
+                  },
+                  "product-list-template.php": {
+                    "type": "-",
+                    "size": 9972,
+                    "lmtime": 0,
+                    "modified": false
+                  },
+                  "product.php": {
+                    "type": "-",
+                    "size": 50772,
+                    "lmtime": 0,
+                    "modified": false
+                  },
+                  "product_list.php": {
+                    "type": "-",
+                    "size": 2457,
+                    "lmtime": 0,
+                    "modified": false
+                  },
+                  "profile.php": {
+                    "type": "-",
+                    "size": 10447,
+                    "lmtime": 0,
+                    "modified": false
+                  },
+                  "shipping.php": {
+                    "type": "-",
+                    "size": 7838,
+                    "lmtime": 0,
+                    "modified": false
+                  },
+                  "thanks.php": {
+                    "type": "-",
+                    "size": 13492,
+                    "lmtime": 0,
+                    "modified": false
+                  },
+                  "user-proudcts.php": {
+                    "type": "-",
+                    "size": 25828,
+                    "lmtime": 0,
+                    "modified": false
+                  },
+                  "vendor_store.php": {
+                    "type": "-",
+                    "size": 25276,
+                    "lmtime": 0,
+                    "modified": false
+                  },
+                  "view_order.php": {
+                    "type": "-",
+                    "size": 13979,
+                    "lmtime": 0,
+                    "modified": false
+                  },
+                  "view_order_details.php": {
+                    "type": "-",
+                    "size": 4133,
+                    "lmtime": 0,
+                    "modified": false
+                  },
+                  "wishlist.php": {
+                    "type": "-",
+                    "size": 3516,
+                    "lmtime": 0,
+                    "modified": false
+                  }
+                }
+              }
+            }
           }
         }
       }

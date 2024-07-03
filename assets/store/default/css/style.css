@@ -8,10 +8,10 @@
     --color-white: #fff;
     --color-info-dark: #7d8da1;
     --color-dark: #363949;
-    --color-black: #000;
+    --color-black: #00473f;
     --color-light: rgba(132, 139, 200, 0.18);
-    --color-dark-variant: #677483;
-    --color-pink: #f95f7d;
+    --color-dark-variant: #71cfdf;
+    --color-pink: #036371;
     --color-background: #f6f6f9;
     --card-border-radius: 2rem;
     --border-radius-1: 0.4rem;
@@ -33,9 +33,9 @@ body {
     color: #2e4765 !important;
 }
 
-.bg-main {
+/* .bg-main {
     background: var(--color-dark);
-}
+} */
 
 .color2 {
     color: #2e4765 !important;
@@ -68,12 +68,12 @@ body {
     align-items: center;
 }
 
-.headerbar {
+/* .headerbar {
     background: transparent;
     display: block;
     height: 70px;
     width: 100%;
-}
+} */
 
 .nav-item.active .nav-link,
 .nav-item:hover .nav-link {
@@ -100,8 +100,7 @@ header {
 }
 
 #myHeader {
-    position: absolute;
-    top: 39px;
+    /* position: absolute; */
     z-index: 99;
     width: 100%;
     left: 0;
@@ -270,7 +269,7 @@ header .navbar-expand-lg .navbar-nav .nav-link {
 .top-login-btn {
     padding: 5px 14px;
     border-radius: 5px;
-    background: var(--color-dark);
+    background: #027f91;
 }
 
 .header-right-listing ul li.cart-top span {
@@ -286,7 +285,7 @@ header .navbar-expand-lg .navbar-nav .nav-link {
 
 .header-right-listing ul li.cart-top span.cart-count {
     background: red;
-    background: var(--color-dark) 0% 0% no-repeat padding-box;
+    background: var(--color-pink) 0% 0% no-repeat padding-box;
     color: white;
     height: 20px;
     width: 20px;
@@ -382,7 +381,7 @@ li.childrenDropDown {
 }
 
 .category-listing li a {
-    background: var(--color-dark);
+    background: #027f91;
     border-radius: 10px;
     padding: 2px 22px;
     display: block;
@@ -405,7 +404,7 @@ li.childrenDropDown {
     text-align: left;
     font-size: 20px;
     letter-spacing: 0px;
-    color: #3b3735;
+    color: #027f91;
     opacity: 1;
     font-weight: 400;
 }
@@ -590,7 +589,7 @@ center / cover no-repeat;
     opacity: 1;
     width: 51%;
     height: 33px;
-    background-color: #ed125f;
+    background-color: #027f91;
 }
 
 .product-buttons {
@@ -647,7 +646,7 @@ center / cover no-repeat;
 .stats-text h4 {
     font: normal normal bold 20px/27px;
     letter-spacing: 0px;
-    color: #f95f7d;
+    color: #027f91;
     opacity: 1;
     margin: 4px 0;
 }
@@ -672,7 +671,7 @@ center / cover no-repeat;
     justify-content: center;
     align-items: center;
     font: normal normal 19px/16px;
-    background: #2e4765;
+    background: #027f91;
     color: #fff;
 }
 
@@ -687,7 +686,7 @@ center / cover no-repeat;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #ed125f;
+    background-color: #027f91;
     box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
     height: 48px;
     font: normal normal 16px/21px;
@@ -1703,7 +1702,7 @@ header .navbar-expand-lg .navbar-nav .nav-link:hover {
 }
 
 .btn.btn-cart-detail.bg-main2 {
-    background-color: var(--color-dark);
+    background-color: #027f91;
     width: 150px;
     height: 50px;
     border-radius: 25px;
@@ -3635,7 +3634,7 @@ a {
     font-family: 'Be Vietnam Pro';
     letter-spacing: 0px;
     color: var(--color-white);
-    background-color: #ed125f;
+    background-color: #027f91;
     transition: all 0.3s ease;
     font-size: 20px;
     font-weight: 700;
@@ -4571,7 +4570,7 @@ a {
 }
 
 .btn-custom-pink {
-    background-color: var(--color-dark);
+    background-color: var(--color-pink);
     color: var(--color-white);
 }
 

@@ -251,21 +251,21 @@ if (in_array('store', $fbmessager_status)) {
 <?php
 if (isset($store_setting['notification']) && sizeOf(json_decode($store_setting['notification'])) > 0 && !empty(json_decode($store_setting['notification'])[0])) {
     ?>
-    <!-- Top notification bar -->
+    <!-- Top notification bar
     <div class="top-bar bg-main text-white text-center">
         <div class="container">
             <img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/top-icon.png" /> <?= json_decode($store_setting['notification'])[0]; ?>
         </div>
-    </div>
+    </div> -->
     <?php
 } else {
     ?>
     <!-- Dummy Top notification bar -->
-    <div class="top-bar bg-main text-white text-center">
+    <!-- <div class="top-bar bg-main text-white text-center">
         <div class="container">
             <img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/top-icon.png" /> OvanCare is simply dummy text of the printing and typesetting industry.
         </div>
-    </div>
+    </div> -->
 
     <?php
 
