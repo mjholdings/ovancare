@@ -6,7 +6,7 @@
 
 <!-- Banner  -->
 
-<section class="banner-slider">
+<section class="banner-slider mj">
 
 	<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 
@@ -112,7 +112,7 @@
 
 <!-- Top tags -->
 
-<section class="category-tag">
+<section class="category-tag mj">
 
 	<div class="container">
 

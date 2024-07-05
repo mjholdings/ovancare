@@ -1,14 +1,14 @@
-<?php if($category) { ?>
+<?php if ($category) { ?>
 
-<?php
+	<?php
 
 	$image = $category['image'] != '' ? 'assets/images/product/upload/thumb/' . $category['image'] : 'assets/store/default/img/ct-banner-img.png';
 
 	$background_image = $category['background_image'] != '' ? 'assets/images/product/upload/thumb/' . $category['background_image'] : 'assets/store/default/img/ctbg.png';
 
-?>
+	?>
 
-<!-- <section class="single-ctg-banner" style="background-image: url(<?= base_url($background_image) ?>); filter: brightness(90%)">
+	<!-- <section class="single-ctg-banner" style="background-image: url(<?= base_url($background_image) ?>); filter: brightness(90%)">
 
    <div class="container">
 
@@ -35,12 +35,11 @@
 
 
 <style>
-
-	.product-grid-mj{
+	.product-grid-mj {
 
 		display: grid;
 
-		grid-template-columns: repeat(4,1fr);
+		grid-template-columns: repeat(4, 1fr);
 
 		gap: 10px;
 
@@ -48,77 +47,74 @@
 
 
 
-	@media screen and (max-width:1201px){
+	@media screen and (max-width:1201px) {
 
-		.product-grid-mj{
+		.product-grid-mj {
 
-		display: grid;
+			display: grid;
 
-		grid-template-columns: repeat(2,1fr);
+			grid-template-columns: repeat(2, 1fr);
 
-	}
-
-	}
-
-	@media screen and (max-width:768px){
-
-		.product-grid-mj{
-
-		display: grid;
-
-		grid-template-columns: repeat(2,1fr);
+		}
 
 	}
 
-	.product-category-page .catg-property-wrapper .product-wrapper {
+	@media screen and (max-width:768px) {
 
-    width: 22%;
+		.product-grid-mj {
 
-    margin: 0 ;
+			display: grid;
 
-	}
+			grid-template-columns: repeat(2, 1fr);
+
+		}
+
+		.product-category-page .catg-property-wrapper .product-wrapper {
+
+			width: 22%;
+
+			margin: 0;
+
+		}
 
 	}
 
 	@media only screen and (miOvanCare20px) and (max-width: 480px) {
-OvanCare
-    .product-wrapper {OvanCare
-OvanCare
-        min-height: 254px;
+		OvanCare .product-wrapper {
+			OvanCare OvanCare min-height: 254px;
 
-        height: 290px;
+			height: 290px;
 
-		padding: 10px 10px;
+			padding: 10px 10px;
 
-    }
+		}
 
-}
+	}
 
 	@media only screen and (min-width: 1200px) and (max-width: 1300px) {
 
-    .product-wrapper {
+		.product-wrapper {
 
-        width: 100% !important;
+			width: 100% !important;
 
-    }
+		}
 
-	.product-category-page .catg-property-wrapper .product-wrapper {
+		.product-category-page .catg-property-wrapper .product-wrapper {
 
-        width: 29%;
+			width: 29%;
 
-        margin: 10px 0;
+			margin: 10px 0;
 
-    }
+		}
 
-}
-
+	}
 </style>
 
 <section class="product-category-page">
 
-   <div class="container">
+	<div class="container">
 
-      	<div class="category-row">
+		<div class="category-row">
 
 			<div class="sidebar">
 
@@ -128,33 +124,32 @@ OvanCare
 
 					<?php
 
-					function display_with_children($parentRow, $level = 0) { 
+					function display_with_children($parentRow, $level = 0) {
 
-						$space = $level > 0 ? str_repeat("", $level).' ' : '';
+						$space = $level > 0 ? str_repeat("", $level) . ' ' : '';
 
 						foreach ($parentRow as $key => $row) {
 
 
 
-						    echo '<li data-id="'. $row['id'] .'" class="'. ($row['children'] ? 'has-children' : '') .'" ><span>'. $space .'<a href="'. base_url('store/category/'. $row['slug']) .'">'. $row['name']."</a></span>".($row['children'] ? "<i class='fa fa-angle-down icon-category'></i>" : ""); 
+							echo '<li data-id="' . $row['id'] . '" class="' . ($row['children'] ? 'has-children' : '') . '" ><span>' . $space . '<a href="' . base_url('store/category/' . $row['slug']) . '">' . $row['name'] . "</a></span>" . ($row['children'] ? "<i class='fa fa-angle-down icon-category'></i>" : "");
 
-						    if ($row['children']) {
+							if ($row['children']) {
 
-						        echo '<ul  style="display: none;">';display_with_children($row['children'], $level + 1);echo '</ul>';
+								echo '<ul  style="display: none;">';
+								display_with_children($row['children'], $level + 1);
+								echo '</ul>';
+							}
 
-						    }
-
-						    echo '</li>';
-
+							echo '</li>';
 						}
-
 					}
 
 
 
 					echo '<ul class="category_block">';
 
-					echo '<li data-id="0" ><span><a href="'. base_url('store/category/') .'">'.__('store.all_categories').'</a></span>'; 
+					echo '<li data-id="0" ><span><a href="' . base_url('store/category/') . '">' . __('store.all_categories') . '</a></span>';
 
 					display_with_children($category_tree, 0);
 
@@ -162,7 +157,7 @@ OvanCare
 
 					?>
 
-						<!-- <li><a href="#">OvanCare</a></li>
+					<!-- <li><a href="#">OvanCare</a></li>
 
 						<li><a href="#">OvanCare</a></li>
 
@@ -172,7 +167,7 @@ OvanCare
 
 				</div>
 
-				
+
 
 				<div class="sidebar-block mt-4">
 
@@ -190,7 +185,7 @@ OvanCare
 
 				</div>
 
-				
+
 
 				<div class="sidebar-block mt-4">
 
@@ -206,7 +201,7 @@ OvanCare
 
 							<span id="slider-range-value1"></span>
 
-							<span class="dashed"> &nbsp;  - &nbsp; </span>
+							<span class="dashed"> &nbsp; - &nbsp; </span>
 
 							<span id="slider-range-value2"></span>
 
@@ -226,33 +221,33 @@ OvanCare
 
 				</div>
 
-				
+
 
 				<div class="sidebar-block mt-4">
 
 					<h2><?= __('store.product_rating') ?></h2>
 
 					<div class="sidebar-rating-filter">
-OvanCare
+						OvanCare
 						<div class="filter-rating-row">OvanCare
-OvanCare
+							OvanCare
 							<div class="d-flex">OvanCare
-OvanCare
-							<input type="radio" name="rating-filter" value="5">
+								OvanCare
+								<input type="radio" name="rating-filter" value="5">
 
-							<div class="rating-images">
+								<div class="rating-images">
 
-								<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st.png">
+									<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st.png">
 
-								<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st.png">
+									<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st.png">
 
-								<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st.png">
+									<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st.png">
 
-								<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st.png">
+									<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st.png">
 
-								<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st.png">
+									<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st.png">
 
-							</div>
+								</div>
 
 							</div>
 
@@ -260,27 +255,27 @@ OvanCare
 
 						</div>
 
-						
+
 
 						<div class="filter-rating-row">
 
 							<div class="d-flex">
 
-							<input type="radio" name="rating-filter" value="4">
+								<input type="radio" name="rating-filter" value="4">
 
-							<div class="rating-images">
+								<div class="rating-images">
 
-								<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st.png">
+									<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st.png">
 
-								<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st.png">
+									<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st.png">
 
-								<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st.png">
+									<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st.png">
 
-								<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st.png">
+									<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st.png">
 
-								<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st1.png">
+									<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st1.png">
 
-							</div>
+								</div>
 
 							</div>
 
@@ -288,27 +283,27 @@ OvanCare
 
 						</div>
 
-						
+
 
 						<div class="filter-rating-row">
 
 							<div class="d-flex">
 
-							<input type="radio" name="rating-filter" value="3">
+								<input type="radio" name="rating-filter" value="3">
 
-							<div class="rating-images">
+								<div class="rating-images">
 
-								<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st.png">
+									<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st.png">
 
-								<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st.png">
+									<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st.png">
 
-								<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st.png">
+									<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st.png">
 
-								<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st1.png">
+									<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st1.png">
 
-								<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st1.png">
+									<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st1.png">
 
-							</div>
+								</div>
 
 							</div>
 
@@ -316,27 +311,27 @@ OvanCare
 
 						</div>
 
-						
+
 
 						<div class="filter-rating-row">
 
 							<div class="d-flex">
 
-							<input type="radio" name="rating-filter" value="2">
+								<input type="radio" name="rating-filter" value="2">
 
-							<div class="rating-images">
+								<div class="rating-images">
 
-								<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st.png">
+									<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st.png">
 
-								<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st.png">
+									<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st.png">
 
-								<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st1.png">
+									<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st1.png">
 
-								<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st1.png">
+									<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st1.png">
 
-								<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st1.png">
+									<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st1.png">
 
-							</div>
+								</div>
 
 							</div>
 
@@ -344,27 +339,27 @@ OvanCare
 
 						</div>
 
-						
+
 
 						<div class="filter-rating-row">
 
 							<div class="d-flex">
 
-							<input type="radio" name="rating-filter" value="1">
+								<input type="radio" name="rating-filter" value="1">
 
-							<div class="rating-images">
+								<div class="rating-images">
 
-								<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st.png">
+									<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st.png">
 
-								<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st1.png">
+									<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st1.png">
 
-								<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st1.png">
+									<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st1.png">
 
-								<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st1.png">
+									<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st1.png">
 
-								<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st1.png">
+									<img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/st1.png">
 
-							</div>
+								</div>
 
 							</div>
 
@@ -378,49 +373,47 @@ OvanCare
 
 				</div>
 
-				
 
 
 
-				<?php 
+
+				<?php
 
 				$store_setting = $this->Product_model->getSettings('store');
 
-				if($store_setting['is_variation_filter']){ 
+				if ($store_setting['is_variation_filter']) {
 
-				  ?>
+				?>
 
-				<div class="sidebar-block mt-4">
+					<div class="sidebar-block mt-4">
 
-					<h2><?= __('store.color') ?></h2>
+						<h2><?= __('store.color') ?></h2>
 
-					<div class="sidebar-colors">
+						<div class="sidebar-colors">
 
-					<?php 
+							<?php
 
-						if(sizeOf($colors) > 0) {
+							if (sizeOf($colors) > 0) {
 
-							for ($i=0; $i < sizeOf($colors); $i++) { 
+								for ($i = 0; $i < sizeOf($colors); $i++) {
 
-								echo '<span data-color="'.$colors[$i].'" style="background: '.$colors[$i].'"></span>';
-
-							} 
-
-						} else {
+									echo '<span data-color="' . $colors[$i] . '" style="background: ' . $colors[$i] . '"></span>';
+								}
+							} else {
 
 							?>
 
-							<span style="background: #DC143C"></span>
+								<span style="background: #DC143C"></span>
 
-							<span style="background: #CF8D2E"></span>
+								<span style="background: #CF8D2E"></span>
 
-							<span style="background: #f7d060"></span>
+								<span style="background: #f7d060"></span>
 
-							<span style="background: #9400D3"></span>
+								<span style="background: #9400D3"></span>
 
-							<span style="background: #2E8B57"></span>
+								<span style="background: #2E8B57"></span>
 
-							<!-- <span style="background: #BE0027"></span>
+								<!-- <span style="background: #BE0027"></span>
 
 							<span style="background: #CF8D2E"></span>
 
@@ -432,21 +425,21 @@ OvanCare
 
 							<?php
 
-						}
+							}
 
-					?>
+							?>
+
+						</div>
 
 					</div>
 
-				</div>
-
-				  <?php
+				<?php
 
 				}
 
 				?>
 
-				
+
 
 				<div class="sidebar-block mt-4">
 
@@ -454,33 +447,31 @@ OvanCare
 
 					<div class="sidebar-tags">
 
-						<?php 
+						<?php
 
-							if(sizeOf($tags) > 0) {
+						if (sizeOf($tags) > 0) {
 
-								foreach ($tags as $tag) {
+							foreach ($tags as $tag) {
 
-									echo '<a href="javaScript:void(0);" data-tag="'.$tag.'">'.$tag.'</a>';
-
-								}
-
-							} else {
-
-								?>
-
-								<a href="javaScript:void(0);">OvanCare</a>
-
-								<a href="javaScript:void(0);" class="active">OvanCare</a>
-
-								<a href="javaScript:void(0);">OvanCare</a>
-
-								<a href="javaScript:void(0);">OvanCare</a>
-
-								<a href="javaScript:void(0);">OvanCare</a>
-
-								<?php
-
+								echo '<a href="javaScript:void(0);" data-tag="' . $tag . '">' . $tag . '</a>';
 							}
+						} else {
+
+						?>
+
+							<a href="javaScript:void(0);">OvanCare</a>
+
+							<a href="javaScript:void(0);" class="active">OvanCare</a>
+
+							<a href="javaScript:void(0);">OvanCare</a>
+
+							<a href="javaScript:void(0);">OvanCare</a>
+
+							<a href="javaScript:void(0);">OvanCare</a>
+
+						<?php
+
+						}
 
 						?>
 
@@ -488,65 +479,66 @@ OvanCare
 
 				</div>
 
-				
+
 
 			</div>
 
-			
 
-			
 
-			
+
+
+
 
 			<div class="catg-property-wrapper">
 
-				
 
-			<div class="inner-pages-breadcrumb">
 
-				<h2><?= (isset($category['name'])) ? $category['name']: __('store.all_categories') ?></h2>
+				<div class="inner-pages-breadcrumb">
 
-				<p><a href="<?= $home_link ?>"><?= __('store.home') ?></a> / <a href="<?= $base_url ?>category"><?= __('store.categories') ?></a> / <?= (isset($category['name'])) ? $category['name']: __('store.categories') ?></p>
+					<h2><?= (isset($category['name'])) ? $category['name'] : __('store.all_categories') ?></h2>
 
-			</div>
-
-				
-
-			<div class="product-sort-row">
-
-				<p><span></span> <?= __('store.showing') ?> <small id="show-count">0</small> / <small id="total-count">15</small> <?= __('store.results') ?></p>
-
-				<div class="sort-filter">
-
-					<label><?= __('store.sort_by') ?>: </label>
-
-					<select id="sort-by">
-
-						<option value="popular" selected><?= __('store.popular_products') ?></option>
-
-						<option value="low-to-high"><?= __('store.price_low_to_high') ?></option>
-
-						<option value="high-to-low"><?= __('store.price_high_to_low') ?></option>
-
-						<option value="latest"><?= __('store.newest_first') ?></option>
-
-					</select>
+					<p><a href="<?= $home_link ?>"><?= __('store.home') ?></a> / <a href="<?= $base_url ?>category"><?= __('store.categories') ?></a> / <?= (isset($category['name'])) ? $category['name'] : __('store.categories') ?></p>
 
 				</div>
 
+
+
+				<div class="product-sort-row">
+
+					<p><span></span> <?= __('store.showing') ?> <small id="show-count">0</small> / <small id="total-count">15</small> <?= __('store.results') ?></p>
+
+					<div class="sort-filter">
+
+						<label><?= __('store.sort_by') ?>: </label>
+
+						<select id="sort-by">
+
+							<option value="popular" selected><?= __('store.popular_products') ?></option>
+
+							<option value="low-to-high"><?= __('store.price_low_to_high') ?></option>
+
+							<option value="high-to-low"><?= __('store.price_high_to_low') ?></option>
+
+							<option value="latest"><?= __('store.newest_first') ?></option>
+
+						</select>
+
+					</div>
+
+				</div>
+
+
+
+				<div class="product-row product-list product-grid-mj">
+
+				</div>
+
+				<a href="javascript:void(0);" class="see-more" data-next_page="1"><img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/loading.png"><?= __('store.show_more') ?></a>
 			</div>
-
-				
-
-			<div class="product-row product-list product-grid-mj">
-
-			</div>
-
-			<a href="javascript:void(0);" class="see-more" data-next_page="1"><img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/loading.png"><?= __('store.show_more') ?></a></div>
 
 		</div>
 
-   	</div>
+	</div>
 
 </section>
 
@@ -557,20 +549,19 @@ OvanCare
 
 
 <script type="text/javascript">
-
 	$(document).ready(function() {
 
 		load_Product($('#searchProduct').val(), {
 
-			category_slug : '<?= (isset($category['slug'])) ? $category['slug'] : ""; ?>',
+			category_slug: '<?= (isset($category['slug'])) ? $category['slug'] : ""; ?>',
 
 		});
 
 
 
-		
 
-		
+
+
 
 		$(document).on('click', '.sidebar-tags a', function() {
 
@@ -600,17 +591,17 @@ OvanCare
 
 		});
 
-		
 
-		
+
+
 
 		$(document).on('click', '.see-more', function() {
 
 			var url = $(location).attr('href'),
 
-			    parts = url.split("/"),
+				parts = url.split("/"),
 
-			    category_slug = parts[parts.length-1];
+				category_slug = parts[parts.length - 1];
 
 			load_Product($('#searchProduct').val(), {
 
@@ -636,15 +627,15 @@ OvanCare
 
 
 
-		$(document).on('click', ".category_block a", function(e){ 
+		$(document).on('click', ".category_block a", function(e) {
 
-			e.stopPropagation(); 
+			e.stopPropagation();
 
 		});
 
 
 
-		$(document).on('click', ".category_block .has-children", function(e){
+		$(document).on('click', ".category_block .has-children", function(e) {
 
 			e.stopPropagation();
 
@@ -654,7 +645,7 @@ OvanCare
 
 
 
-		$(document).on('change', '#sort-by', function(){
+		$(document).on('change', '#sort-by', function() {
 
 			load_Product($('#searchProduct').val());
 
@@ -662,7 +653,7 @@ OvanCare
 
 
 
-		$(document).on('click', '#filter-price-range', function(){
+		$(document).on('click', '#filter-price-range', function() {
 
 			load_Product($('#searchProduct').val());
 
@@ -670,7 +661,7 @@ OvanCare
 
 
 
-		$(document).on('click', 'input[name="rating-filter"]', function(){
+		$(document).on('click', 'input[name="rating-filter"]', function() {
 
 			load_Product($('#searchProduct').val());
 
@@ -678,7 +669,7 @@ OvanCare
 
 
 
-		$(document).on('click', '#clear-rating-filter', function(){
+		$(document).on('click', '#clear-rating-filter', function() {
 
 			$('input[name="rating-filter"]:checked').prop('checked', false);
 
@@ -688,7 +679,7 @@ OvanCare
 
 
 
-		$(document).on('click', '#clear-all-search', function(){
+		$(document).on('click', '#clear-all-search', function() {
 
 			$('input[name="rating-filter"]:checked').prop('checked', false);
 
@@ -714,7 +705,7 @@ OvanCare
 
 		data.max_price = $('input[name="max-value"]').val();
 
-		if($('input[name="rating-filter"]:checked').length){
+		if ($('input[name="rating-filter"]:checked').length) {
 
 			data.product_avg_rating = $('input[name="rating-filter"]:checked').val();
 
@@ -728,9 +719,9 @@ OvanCare
 
 
 
-		$('.sidebar-tags a').each(function( index ) {
+		$('.sidebar-tags a').each(function(index) {
 
-			if($(this).hasClass('active')){
+			if ($(this).hasClass('active')) {
 
 				data.tags.push($(this).data('tag'));
 
@@ -740,9 +731,9 @@ OvanCare
 
 
 
-		$('.sidebar-colors span').each(function( index ) {
+		$('.sidebar-colors span').each(function(index) {
 
-			if($(this).hasClass('active')){
+			if ($(this).hasClass('active')) {
 
 				data.colors.push($(this).data('color'));
 
@@ -768,9 +759,9 @@ OvanCare
 
 			data: data,
 
-			beforeSend : function() {
+			beforeSend: function() {
 
-				if(ajaxReq != 'ToCancelPrevReq' && ajaxReq.readyState < 4) {
+				if (ajaxReq != 'ToCancelPrevReq' && ajaxReq.readyState < 4) {
 
 					ajaxReq.abort();
 
@@ -780,7 +771,7 @@ OvanCare
 
 			},
 
-			complete : function() {
+			complete: function() {
 
 				$('.btn-search').removeClass('btn-loading');
 
@@ -788,11 +779,11 @@ OvanCare
 
 			success: function(res) {
 
-				if(res.category) {
+				if (res.category) {
 
 
 
-					if(postData.next_page && postData.next_page > 1) {
+					if (postData.next_page && postData.next_page > 1) {
 
 						$('.product-list').append(Mustache.render($('#product-list-template').html(), res.category));
 
@@ -806,7 +797,7 @@ OvanCare
 
 					$('.see-more').data('next_page', res.category.next_page);
 
-					if(res.category.is_last_page) {
+					if (res.category.is_last_page) {
 
 						$('.see-more').hide();
 
@@ -814,7 +805,7 @@ OvanCare
 
 
 
-					if(res.category.total_count) {
+					if (res.category.total_count) {
 
 						$('#total-count').text(res.category.total_count);
 
@@ -822,9 +813,9 @@ OvanCare
 
 
 
-					if(postData.next_page && postData.next_page > 1){
+					if (postData.next_page && postData.next_page > 1) {
 
-						$('#show-count').text((parseInt($('#show-count').text())+res.category.count));
+						$('#show-count').text((parseInt($('#show-count').text()) + res.category.count));
 
 					} else {
 
@@ -832,7 +823,7 @@ OvanCare
 
 					};
 
-					
+
 
 				}
 
@@ -844,11 +835,11 @@ OvanCare
 
 
 
-	<?php if($category) { ?>
+	<?php if ($category) { ?>
 
 		var c = $('[data-id="<?= $category['id'] ?>"]').parents("li");
 
-		var ele = c[c.length-1];
+		var ele = c[c.length - 1];
 
 		//$(ele).find("ul").show()
 
@@ -860,61 +851,61 @@ OvanCare
 
 	$(document).ready(function() {
 
-	$('.noUi-handle').on('click', function() {
+		$('.noUi-handle').on('click', function() {
 
-		$(this).width(50);
+			$(this).width(50);
 
-	});
+		});
 
-	var rangeSlider = document.getElementById('slider-range');
+		var rangeSlider = document.getElementById('slider-range');
 
-	var moneyFormat = wNumb({
+		var moneyFormat = wNumb({
 
-		decimals: 0,
+			decimals: 0,
 
-		thousand: ',',
+			thousand: ',',
 
-		prefix: $('a[data-currency-symbol]').data('currency-symbol'),
+			prefix: $('a[data-currency-symbol]').data('currency-symbol'),
 
-		edit: function(value){
+			edit: function(value) {
 
-			if(value == "$10,000") {
+				if (value == "$10,000") {
 
-				return "$10,000 +";
+					return "$10,000 +";
 
-			} else {
+				} else {
 
-				return value;
+					return value;
+
+				}
 
 			}
 
-		}
+		});
 
-	});
 
-	
 
-	noUiSlider.create(rangeSlider, {
+		noUiSlider.create(rangeSlider, {
 
-		start: [0, 10000],
+			start: [0, 10000],
 
-		step: 50,
+			step: 50,
 
-		range: {
+			range: {
 
-		'min': [0],
+				'min': [0],
 
-		'max': [10000]
+				'max': [10000]
 
-		},
+			},
 
-		format: moneyFormat,
+			format: moneyFormat,
 
-		connect: true
+			connect: true
 
-	});
+		});
 
-	
+
 
 		// Set visual min and max values and also update value hidden form inputs
 
@@ -935,9 +926,4 @@ OvanCare
 		});
 
 	});
-
-
-
-
-
 </script>

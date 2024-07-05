@@ -290,7 +290,7 @@ if (isset($store_setting['notification']) && sizeOf(json_decode($store_setting['
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><img src="<?= base_url('assets/store/default/'); ?>img/menu.png" class="img-toggler" alt="<?= __('store.menu') ?>"></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto">
-                        <li class="nav-item <?= ($page == 'home') ? 'active' : ''; ?>"><a href="<?= $home_link ?>" class="nav-link"><?= __('store.products') ?></a></li>
+                        <li class="nav-item <?= ($page == 'home') ? 'active' : ''; ?>"><a href="<?= $home_link ?>" class="nav-link"><?= __('Trang chủ') ?></a></li>
 
 
                         <li id="dropdownMenu2" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle nav-item <?= ($page == 'product' || $page == 'product_list' || $page == 'category') ? 'active' : ''; ?>">

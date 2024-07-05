@@ -558,11 +558,7 @@ if (isset($store_setting['notification']) && sizeOf(json_decode($store_setting['
 
                     <ul class="navbar-nav mx-auto">
 
-                        <li class="nav-item <?= ($page == 'home') ? 'active' : ''; ?>"><a href="<?= $home_link ?>" class="nav-link"><?= __('store.products') ?></a></li>
-
-
-
-
+                        <li class="nav-item <?= ($page == 'home') ? 'active' : ''; ?>"><a href="<?= $home_link ?>" class="nav-link"><?= __('Trang chủ') ?></a></li>
 
                         <li id="dropdownMenu2" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle nav-item <?= ($page == 'product' || $page == 'product_list' || $page == 'category') ? 'active' : ''; ?>">
 
