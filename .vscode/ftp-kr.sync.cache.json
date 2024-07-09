@@ -696,17 +696,29 @@
                       "lmtime": 0,
                       "modified": false
                     },
+                    "home copy.php": {
+                      "type": "-",
+                      "size": 30356,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "home-product.php": {
+                      "type": "-",
+                      "size": 29575,
+                      "lmtime": 1720167293926,
+                      "modified": false
+                    },
                     "home.php": {
                       "type": "-",
-                      "size": 30350,
-                      "lmtime": 0,
+                      "size": 30959,
+                      "lmtime": 1720167988059,
                       "modified": false
                     },
                     "layout.php": {
                       "type": "-",
-                      "size": 37873,
-                      "lmtime": 1719633940157,
-                      "modified": false
+                      "size": 38747,
+                      "lmtime": 1720164237009,
+                      "modified": true
                     },
                     "lms": {},
                     "login.php": {
@@ -910,7 +922,7 @@
                     "responsive.css": {
                       "type": "-",
                       "size": 35785,
-                      "lmtime": 1719633197225,
+                      "lmtime": 1720164237009,
                       "modified": false
                     },
                     "rtl.css": {
@@ -928,7 +940,7 @@
                     "style.css": {
                       "type": "-",
                       "size": 100484,
-                      "lmtime": 1719647905654,
+                      "lmtime": 1720164237010,
                       "modified": false
                     },
                     "sweetalert2.min.css": {
@@ -998,9 +1010,9 @@
                   },
                   "category.php": {
                     "type": "-",
-                    "size": 18122,
+                    "size": 18149,
                     "lmtime": 0,
-                    "modified": false
+                    "modified": true
                   },
                   "checkount-without-pyament.php": {
                     "type": "-",
@@ -1056,17 +1068,23 @@
                     "lmtime": 0,
                     "modified": false
                   },
-                  "home.php": {
+                  "duong.php": {
                     "type": "-",
-                    "size": 28088,
+                    "size": 28,
                     "lmtime": 0,
                     "modified": false
                   },
+                  "home.php": {
+                    "type": "-",
+                    "size": 28094,
+                    "lmtime": 0,
+                    "modified": true
+                  },
                   "layout.php": {
                     "type": "-",
-                    "size": 36742,
-                    "lmtime": 1719633914808,
-                    "modified": false
+                    "size": 38413,
+                    "lmtime": 1720164237011,
+                    "modified": true
                   },
                   "lms": {},
                   "login.php": {
