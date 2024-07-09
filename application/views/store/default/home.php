@@ -140,7 +140,7 @@
 														</div>
 													</div>
 													<div class="icon-box-text last-reset">
-														<h3 style="text-align: center;font-size: 18px;font-weight: 600;">TRẺ HÓA</h3>
+														<h3 style="text-align: center;font-size: 17px;font-weight: 600;">TRẺ HÓA</h3>
 														<p style="text-align: center;">Gói khỏe, trẻ hóa 2-5T bằng Y Học Tái Tạo &amp; Dưỡng tinh chất</p>
 														<a class="button primary lowercase reveal-icon nut-xem-them" style="border-radius:99px;">
 															<span>Xem thêm</span>
@@ -160,7 +160,7 @@
 														</div>
 													</div>
 													<div class="icon-box-text last-reset item-2">
-														<h3 style="text-align: center;font-size: 18px;font-weight: 600;color: white;">Detox – Thải Độc Toàn Diện</h3>
+														<h3 style="text-align: center;font-size: 17px;font-weight: 600;color: white;">Detox – Thải Độc Toàn Diện</h3>
 														<p style="text-align: center;">Soi Máu, Kiểm Tra<br>
 															&amp; Kết Luận 36 Chỉ Số, phác đồ tầm soát</p>
 														<a class="button primary lowercase reveal-icon nut-xem-them" style="border-radius:99px;">
@@ -181,7 +181,7 @@
 														</div>
 													</div>
 													<div class="icon-box-text last-reset">
-														<h3 style="text-align: center;font-size: 18px;font-weight: 600;">Massage Thư Giãn</h3>
+														<h3 style="text-align: center;font-size: 17px;font-weight: 600;">Massage Thư Giãn</h3>
 														<p style="text-align: center;">Massage thư giãn tinh dầu / đá nóng</p>
 														<a class="button primary lowercase reveal-icon nut-xem-them" style="border-radius:99px;">
 															<span>Xem thêm</span>
@@ -201,7 +201,7 @@
 														</div>
 													</div>
 													<div class="icon-box-text last-reset item-2">
-														<h3 style="text-align: center;font-size: 18px;font-weight: 600;color: white;">Dưỡng Sinh Trị Liệu Đông Y</h3>
+														<h3 style="text-align: center;font-size: 17px;font-weight: 600;color: white;">Dưỡng Sinh Trị Liệu Đông Y</h3>
 														<p style="text-align: center;">DỊCH VỤ TRỊ LIỆU VIP</p>
 														<a class="button primary lowercase reveal-icon nut-xem-them" style="border-radius:99px;">
 															<span>Xem thêm</span>
