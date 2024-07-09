@@ -60,7 +60,7 @@
 			<div class="col-12 col-md-12 col-lg-4 col-xl-6 image-about leoanh-ytb">
 				<div class="img has-hover x md-x lg-x y md-y lg-y" id="image_255026422">
 					<div class="img-inner dark">
-						<img decoding="async" width="467" height="143" src="https://ohbp.vn/wp-content/uploads/2020/06/cau-chuyen-thuong-hieu-png.png" data-src="https://ohbp.vn/wp-content/uploads/2020/06/cau-chuyen-thuong-hieu-png.png" class="attachment-original size-original lazy-load-active" alt="" srcset="https://ohbp.vn/wp-content/uploads/2020/06/cau-chuyen-thuong-hieu-png.png 467w, https://ohbp.vn/wp-content/uploads/2020/06/cau-chuyen-thuong-hieu-png-300x92.png 300w" data-srcset="https://ohbp.vn/wp-content/uploads/2020/06/cau-chuyen-thuong-hieu-png.png 467w, https://ohbp.vn/wp-content/uploads/2020/06/cau-chuyen-thuong-hieu-png-300x92.png 300w" sizes="(max-width: 467px) 100vw, 467px">
+						<img class=" image-story-trademark" decoding="async"src="https://ohbp.vn/wp-content/uploads/2020/06/cau-chuyen-thuong-hieu-png.png" data-src="https://ohbp.vn/wp-content/uploads/2020/06/cau-chuyen-thuong-hieu-png.png" class="attachment-original size-original lazy-load-active" alt="" srcset="https://ohbp.vn/wp-content/uploads/2020/06/cau-chuyen-thuong-hieu-png.png 467w, https://ohbp.vn/wp-content/uploads/2020/06/cau-chuyen-thuong-hieu-png-300x92.png 300w" data-srcset="https://ohbp.vn/wp-content/uploads/2020/06/cau-chuyen-thuong-hieu-png.png 467w, https://ohbp.vn/wp-content/uploads/2020/06/cau-chuyen-thuong-hieu-png-300x92.png 300w" sizes="(max-width: 467px) 100vw, 467px">
 					</div>
 					<style>
 						#image_255026422 {
@@ -68,7 +68,7 @@
 						}
 					</style>
 				</div>
-				<iframe class="iframe-style-founder" src="https://www.youtube.com/embed/JZ3MfKPLUk4?si=Ga7q2czKH52sD4FQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> </iframe>
+				<iframe class="iframe-style-founder " src="https://www.youtube.com/embed/JZ3MfKPLUk4?si=Ga7q2czKH52sD4FQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> </iframe>
 
 			</div>
 			<div class="col-12 col-md-12 col-lg-8 col-xl-6 pt-4">
@@ -124,12 +124,11 @@
 							}
 						</style>
 					</div>
-					<div class="slider-wrapper relative" id="slider-621168895">
+					<div class="slider-wrapper" id="slider-621168895">
 						<div class="slider slider-nav-simple slider-nav-normal slider-nav-light slider-nav-outside slider-style-normal slider-lazy-load-active is-draggable flickity-enabled" ß tabindex="0">
-
-							<div class="flickity-viewport" style="height: 397.914px; touch-action: pan-y;">
+							<div class="flickity-viewport">
 								<div class="flickity-slider" style="">
-									<div class="row row-collapse is-selected flickity-viewport-container" id="row-577537378" style="">
+									<div class="row flickity-slider-list"style="" >
 										<div id="col-182428537" class="">
 											<div class="col-inner text-center">
 												<div class="icon-box featured-box icon-box-center text-center">

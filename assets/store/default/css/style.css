@@ -5583,18 +5583,38 @@ button {
   min-width: 90px;
 }
 
-.about-founder{
-    align-items: center;
+.about-founder {
+  align-items: center;
+}
+.iframe-style-founder {
+  width: 560px;
+  height: 310px;
+}
+
+.image-story-trademark {
+  width: 467px;
+  height: 143px;
+}
+
+.flickity-slider-list{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
 }
 
 @media screen and (max-width: 768px) {
-  .iframe-style-founder{
+  .iframe-style-founder {
     width: 100%;
     height: 310px;
+    margin: 0;
   }
-}
 
-.iframe-style-founder{
-  width: 560px;
-  height: 310px;
+  .image-story-trademark {
+    width: 100%;
+    height: 100%;
+  }
+
+  .flickity-slider-list{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
