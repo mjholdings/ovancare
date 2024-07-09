@@ -75,11 +75,12 @@
 				<div class="">
 					<p><b>OVAN HEALTH </b><b>&amp; BEAUTY PALACE –</b></p>
 					<h2 style='font-weight: 700;'><b style="font-size: 22px;color: #0a0a0a;font-weight: 700;font-size: 22px;margin-bottom:20px;">Giải pháp sức khoẻ trẻ hoá cấp tế bào 5 sao</b></h2>
+					<div class="line-shot"></div>
 					<div class="" style="display: flex;flex-direction: column;gap: 20px;">
 						<p><span style="font-weight: 400;line-height: 24px;">OVANGROUP, với gần 20 năm hoạt động kinh doanh trong lĩnh vực làm đẹp, sức khỏe, tế bào gốc và nghiên cứu ứng dụng công nghệ Plasma, chúng tôi đúc kết kinh nghiệm và phát triển ra mô hình <a href="https://ohbp.vn">Ovan Health &amp; Beauty Palace</a> với mong mỏi mang đưa ứng dụng để xây dựng những liệu pháp tốt nhất để chăm sóc sức khoẻ và trẻ hóa cho từng khách hàng.</span></p>
 						<p><span style="font-weight: 400;line-height: 24px;">Với tâm huyết và đặt lợi ích giá trị cho khách hàng, với đội ngũ chuyên tâm, chúng tôi đã kết hợp để đưa được ứng dụng y học cổ truyền như chăm sóc bấm huyệt, khai thông và kết hợp phương pháp hiện đại như công nghệ Tế bào gốc, công nghệ Plasma và các sản phẩm dưỡng chất thiên nhiên để đưa vào liệu trình kết hợp hiệu quả nhất.</span></p>
+						<div class="long-line"></div>
 					</div>
-					<div class="line"></div>
 					<!-- <div class="contact_about_us">ß
 						<div class="address">
 							<i class='bx bxs-map-pin'></i>
