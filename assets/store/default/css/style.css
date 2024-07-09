@@ -5586,3 +5586,15 @@ button {
 .about-founder{
     align-items: center;
 }
+
+@media screen and (max-width: 768px) {
+  .iframe-style-founder{
+    width: 100%;
+    height: 310px;
+  }
+}
+
+.iframe-style-founder{
+  width: 560px;
+  height: 310px;
+}

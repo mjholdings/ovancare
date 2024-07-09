@@ -68,7 +68,7 @@
 						}
 					</style>
 				</div>
-				<iframe width="560" height="315" src="https://www.youtube.com/embed/JZ3MfKPLUk4?si=Ga7q2czKH52sD4FQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> </iframe>
+				<iframe class="iframe-style-founder" src="https://www.youtube.com/embed/JZ3MfKPLUk4?si=Ga7q2czKH52sD4FQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> </iframe>
 
 			</div>
 			<div class="col-12 col-md-12 col-lg-8 col-xl-6 pt-4">
