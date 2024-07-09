@@ -56,21 +56,31 @@
 <!-- About -->
 <section class="about-home">
 	<div class="container">
-		<div class="row about1">
+		<div class="row about1 about-founder">
 			<div class="col-12 col-md-12 col-lg-4 col-xl-6 image-about leoanh-ytb">
-				<!-- <img src="<?= base_url('assets/store/default/'); ?>img/leoanh.jpg" class="img-fluid img-about-main mt-4" alt="<?= __('store.image') ?>"> -->
+				<div class="img has-hover x md-x lg-x y md-y lg-y" id="image_255026422">
+					<div class="img-inner dark">
+						<img decoding="async" width="467" height="143" src="https://ohbp.vn/wp-content/uploads/2020/06/cau-chuyen-thuong-hieu-png.png" data-src="https://ohbp.vn/wp-content/uploads/2020/06/cau-chuyen-thuong-hieu-png.png" class="attachment-original size-original lazy-load-active" alt="" srcset="https://ohbp.vn/wp-content/uploads/2020/06/cau-chuyen-thuong-hieu-png.png 467w, https://ohbp.vn/wp-content/uploads/2020/06/cau-chuyen-thuong-hieu-png-300x92.png 300w" data-srcset="https://ohbp.vn/wp-content/uploads/2020/06/cau-chuyen-thuong-hieu-png.png 467w, https://ohbp.vn/wp-content/uploads/2020/06/cau-chuyen-thuong-hieu-png-300x92.png 300w" sizes="(max-width: 467px) 100vw, 467px">
+					</div>
+					<style>
+						#image_255026422 {
+							width: 76%;
+						}
+					</style>
+				</div>
 				<iframe width="560" height="315" src="https://www.youtube.com/embed/JZ3MfKPLUk4?si=Ga7q2czKH52sD4FQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> </iframe>
 
 			</div>
 			<div class="col-12 col-md-12 col-lg-8 col-xl-6 pt-4">
-				<div class="about-top-text">
-					<p class="sub-title">OVANCARE</p>
-					<h2><b>Giải pháp sức khoẻ trẻ hoá cấp tế bào 5 sao</b></h2>
-					<!-- <img src="<?= base_url('assets/store/default/'); ?>img/popline.png" class="cn-titlebar mx-0" alt="<?= __('store.image') ?>"> -->
-					<h5>OVANGROUP, với gần 20 năm hoạt động kinh doanh trong lĩnh vực làm đẹp, sức khỏe, tế bào gốc và nghiên cứu ứng dụng công nghệ Plasma, chúng tôi đúc kết kinh nghiệm và phát triển
-						ra mô hình OVANCARE với mong mỏi mang đưa ứng dụng để xây dựng những liệu pháp tốt nhất để chăm sóc sức khoẻ và trẻ hóa cho từng khách hàng.</h5>
+				<div class="">
+					<p><b>OVAN HEALTH </b><b>&amp; BEAUTY PALACE –</b></p>
+					<h2 style='font-weight: 700;'><b style="font-size: 22px;color: #0a0a0a;font-weight: 700;font-size: 22px;margin-bottom:20px;">Giải pháp sức khoẻ trẻ hoá cấp tế bào 5 sao</b></h2>
+					<div class="" style="display: flex;flex-direction: column;gap: 20px;">
+						<p><span style="font-weight: 400;line-height: 24px;">OVANGROUP, với gần 20 năm hoạt động kinh doanh trong lĩnh vực làm đẹp, sức khỏe, tế bào gốc và nghiên cứu ứng dụng công nghệ Plasma, chúng tôi đúc kết kinh nghiệm và phát triển ra mô hình <a href="https://ohbp.vn">Ovan Health &amp; Beauty Palace</a> với mong mỏi mang đưa ứng dụng để xây dựng những liệu pháp tốt nhất để chăm sóc sức khoẻ và trẻ hóa cho từng khách hàng.</span></p>
+						<p><span style="font-weight: 400;line-height: 24px;">Với tâm huyết và đặt lợi ích giá trị cho khách hàng, với đội ngũ chuyên tâm, chúng tôi đã kết hợp để đưa được ứng dụng y học cổ truyền như chăm sóc bấm huyệt, khai thông và kết hợp phương pháp hiện đại như công nghệ Tế bào gốc, công nghệ Plasma và các sản phẩm dưỡng chất thiên nhiên để đưa vào liệu trình kết hợp hiệu quả nhất.</span></p>
+					</div>
 					<div class="line"></div>
-					<!-- <div class="contact_about_us">
+					<!-- <div class="contact_about_us">ß
 						<div class="address">
 							<i class='bx bxs-map-pin'></i>
 							<span><?= !empty($store_setting['address']) ? $store_setting['address'] : 'Default Address'; ?></span>

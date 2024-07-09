@@ -5470,6 +5470,10 @@ a {
   border-radius: 8px;
   display: flex;
   justify-content: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
 
   iframe {
     border-radius: 12px;
@@ -5577,4 +5581,8 @@ a {
 button {
   white-space: nowrap;
   min-width: 90px;
+}
+
+.about-founder{
+    align-items: center;
 }
