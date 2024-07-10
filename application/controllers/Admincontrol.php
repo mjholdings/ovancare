@@ -9365,6 +9365,78 @@ class Admincontrol extends MY_Controller {
 
 		$this->view($data, 'setting/mlm_levels_dao_tao');
 	}
+	public function mlm_levels_nha_phan_phoi_cap_chien_luoc() {
+		
+		$userdetails = $this->userdetails();
+
+		$mlm_status = $this->Product_model->getSettings('referlevel', 'status');
+
+		$data['mlm_status'] = $mlm_status['status'];
+		if ($data['mlm_status']) {
+			$commonSetting = array(
+				'referlevel_hang_hoa',
+				'referlevel_1_hang_hoa',
+				'referlevel_2_hang_hoa',
+				'referlevel_3_hang_hoa',
+				'referlevel_4_hang_hoa',
+				'referlevel_5_hang_hoa',
+				'referlevel_6_hang_hoa',
+				'referlevel_7_hang_hoa',
+				'referlevel_8_hang_hoa',
+				'referlevel_9_hang_hoa',
+				'referlevel_10_hang_hoa',
+				'referlevel_11_hang_hoa',
+				'referlevel_12_hang_hoa',
+				'referlevel_13_hang_hoa',
+				'referlevel_14_hang_hoa',
+				'referlevel_15_hang_hoa',
+				'referlevel_16_hang_hoa',
+				'referlevel_17_hang_hoa',
+				'referlevel_18_hang_hoa',
+				'referlevel_19_hang_hoa',
+				'referlevel_20_hang_hoa',
+				'referlevel_hang_hoa'
+			);
+
+			$post = $this->input->post(null, true);
+
+			if (!empty($post)) {
+
+				if (!isset($post['referlevel']['disabled_for'])) {
+					$post['referlevel']['disabled_for'] = array();
+				}
+
+				foreach ($post as $key => $value) {
+					if (in_array($key, $commonSetting)) {
+						$this->Setting_model->save($key, $value);
+					}
+				}
+
+				if (!isset($json['errors'])) {
+					$json['success'] =  __('admin.setting_saved_successfully');
+				}
+
+				echo json_encode($json);
+				die;
+			}
+
+			$this->load->model('PagebuilderModel');
+
+			$data['CurrencySymbol'] = $this->currency->getSymbol();
+
+			foreach ($commonSetting as $key => $value) {
+
+				$data[$value] 	= $this->Product_model->getSettings($value);
+			}
+
+			$data['getAffiliate'] 	= $this->Product_model->getAffiliateById();
+
+			$data['users_list'] = $this->db->query("SELECT CONCAT(firstname,' ',lastname,' - (',email,')') as name ,id  FROM users WHERE type = 'user'")->result_array();
+		}
+
+		//dd($data);
+		$this->view($data, 'setting/mlm_levels_nha_phan_phoi_cap_chien_luoc');
+	}
 	//end custom
 
 

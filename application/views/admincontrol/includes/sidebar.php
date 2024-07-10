@@ -398,6 +398,10 @@
                       <i class="fas fa-sliders-h"></i>
                       <?= __('Cấp độ Affilicate Đào Tạo') ?>
                   </a>
+                  <a class="dropdown-item px-2" href="<?= base_url('admincontrol/mlm_levels_nha_phan_phoi_cap_chien_luoc') ?>">
+                      <i class="fas fa-sliders-h"></i>
+                      <?= __('Cấp độ Affilicate Nhà Phân Phối Cấp Chiến Lược') ?>
+                  </a>
               </div>
             </li>
 
