@@ -184,7 +184,7 @@
 
 		<h2 class="section-title">
 
-			<?= __('Sản phẩm chiến lược') ?>
+			<?= __('Sức khỏe trẻ hóa cấp tế bào 5 sao') ?>
 
 		</h2>
 

@@ -178,7 +178,7 @@
 <section class="main-categories">
 	<div class="container">
 		<h2 class="section-title">
-			<?= __('Sản phẩm chiến lược') ?>
+			<?= __('Sức khỏe trẻ hóa cấp tế bào 5 sao') ?>
 		</h2>
 		<div class="categories-listing-row-strategy justify-content-center product-strategy">
 			<?php
