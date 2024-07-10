@@ -7582,7 +7582,7 @@ class Admincontrol extends MY_Controller {
 	}
 
 	public function listbranchs($page = 1) {
-		$this->view($data, 'branchs/index');
+		$this->view($data, 'branch/index');
 	}
 
 
