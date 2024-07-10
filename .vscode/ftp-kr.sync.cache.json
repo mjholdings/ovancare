@@ -818,6 +818,54 @@
                       "modified": false
                     }
                   }
+                },
+                "admincontrol": {
+                  "branch": {
+                    "branch_bonus.php": {
+                      "type": "-",
+                      "size": 3736,
+                      "lmtime": 1720066667556,
+                      "modified": false
+                    },
+                    "create.php": {
+                      "type": "-",
+                      "size": 9236,
+                      "lmtime": 1720066667557,
+                      "modified": false
+                    },
+                    "index.php": {
+                      "type": "-",
+                      "size": 3474,
+                      "lmtime": 1720066667557,
+                      "modified": false
+                    },
+                    "update.php": {
+                      "type": "-",
+                      "size": 9034,
+                      "lmtime": 1720066667558,
+                      "modified": false
+                    }
+                  },
+                  "stocks": {
+                    "add_stock.php": {
+                      "type": "-",
+                      "size": 7819,
+                      "lmtime": 1718880225619,
+                      "modified": false
+                    },
+                    "index.php": {
+                      "type": "-",
+                      "size": 7777,
+                      "lmtime": 1720066667585,
+                      "modified": false
+                    },
+                    "stocks_list_tr.php": {
+                      "type": "-",
+                      "size": 6970,
+                      "lmtime": 1718880225620,
+                      "modified": false
+                    }
+                  }
                 }
               },
               "language": {
@@ -828,6 +876,14 @@
                     "lmtime": 1720593713183,
                     "modified": false
                   }
+                }
+              },
+              "controllers": {
+                "Admincontrol.php": {
+                  "type": "-",
+                  "size": 514384,
+                  "lmtime": 1720597278932,
+                  "modified": false
                 }
               }
             },

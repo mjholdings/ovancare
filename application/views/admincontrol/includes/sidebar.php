@@ -257,7 +257,7 @@
                   <i class="fas fa-sliders-h"></i>
                   <?= __('admin.store_clients') ?>
                 </a>
-                <a class="dropdown-item" href="<?= base_url('admincontrol/listbranchs') ?>">
+                <a class="dropdown-item" href="<?= base_url('admincontrol/branch') ?>">
                   <i class="fas fa-sliders-h"></i>
                   <?= __('admin.store_branchs') ?>
                 </a>

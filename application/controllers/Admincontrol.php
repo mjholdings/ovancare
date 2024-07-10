@@ -15207,4 +15207,18 @@ class Admincontrol extends MY_Controller {
 
 		echo json_encode($json);
 	}
+
+	// Chi nhánh
+	public function branch($offset = 0) {
+		$userdetails = $this->userdetails();
+		$this->load->library('pagination');
+		$config['base_url'] = base_url('admincontrol/branch');
+		$config['uri_segment'] = 3;
+		$config['per_page'] = 10;
+		$config['total_rows'] = $this->Product_model->countByTable('branch');
+		$this->pagination->initialize($config);
+		$data['pagination'] = $this->pagination->create_links();
+		$data['branch'] = $this->Product_model->getAllBranch($config['per_page'], $offset);
+		$this->view($data, 'branch/index');
+	}
 }
