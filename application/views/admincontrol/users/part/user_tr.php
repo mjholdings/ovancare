@@ -292,10 +292,6 @@ foreach ($userslist as $users) {  ?>
 
 				<div class="row">
 
-					<div class='col-sm-4 col-md-3'><b><?= __('admin.clicks') ?>:</b> <?php echo (int)$users['click'] + (int)$users['external_click'] + (int)$users['form_click'] + (int)$users['aff_click']; ?> / <?php echo c_format($users['click_commission']) ?></div>
-
-					<div class='col-sm-4 col-md-3'><b><?= __('admin.action_click') ?>:</b> <?= (int)$users['external_action_click'] ?> / <?= c_format($users['action_click_commission']) ?></div>
-
 					<div class='col-sm-4 col-md-3'><b><?= __('admin.sales_commissions') ?>:</b> <?php echo c_format($users['amount'] + $users['external_sale_amount']); ?> / <?php echo c_format($users['sale_commission']); ?></div>
 
 					<div class='col-sm-4 col-md-3'><b><?= __('admin.paid_comm') ?>:</b> <?php echo c_format($users['paid_commition']); ?></div>

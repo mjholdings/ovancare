@@ -147,7 +147,7 @@ class Order_model extends MY_Model{
                             'user_id'      => $product['vendor_id'],
                             'group_id' => $wallet_group_id,
                             'amount'       => $product['vendor_commission'],
-                            'comment'      => 'Vendor Sell Earning Commission for order Id order_id='. $order_id .' | Order By : '. $order_info['firstname'] ." " .$order_info['lastname'] ." | ".c_format($total_deduct)." deducted from order as admin and affiliate commission | sale commission  <br> Sale done from ip_message" ,
+                            'comment'      => 'NCC thu hoa hồng từ Order Id order_id='. $order_id .' | Order By : '. $order_info['firstname'] ." " .$order_info['lastname'] ." | ".c_format($total_deduct)." deducted from order as admin and affiliate commission | sale commission  <br> Sale done from ip_message" ,
                             'type'         => 'vendor_sale_commission',
                             'reference_id_2' => $order_id,
                             'reference_id' => $product['product_id'],

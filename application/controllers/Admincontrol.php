@@ -12034,7 +12034,7 @@ class Admincontrol extends MY_Controller {
 
 					'notification_type'         => 'wallet',
 
-					'notification_title'        => "Transactions status changed",
+					'notification_title'        => "Trạng thái giao dịch đã thay đổi",
 
 					'notification_view_user_id' => $tran->user_id,
 
@@ -12042,7 +12042,7 @@ class Admincontrol extends MY_Controller {
 
 					'notification_actionID'     => $tran->id,
 
-					'notification_description'  => "Transactions #{$id} status changed to " . ($val == 1 ? 'In Wallet' : 'On Hold') . ". Amount is " . c_format($tran->amount),
+					'notification_description'  => "Giao dịch #{$id} trạng thái đã thay đổi thành " . ($val == 1 ? 'In Wallet' : 'On Hold') . ". Amount is " . c_format($tran->amount),
 
 					'notification_is_read'      => '0',
 
