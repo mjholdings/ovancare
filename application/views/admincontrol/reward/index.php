@@ -2,10 +2,10 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header bg-secondary text-white d-flex justify-content-between align-items-center">
-                    <h5><?= __('Khen thưởng') ?></h5>
-                    <div>
-                        <a id="toggle-uploader" href="<?= base_url('admincontrol/create_reward') ?>" class="btn btn-light"><?= __("admin.add_new") ?></a>
-                    </div>
+                <h5><?= __('Khen thưởng') ?></h5>
+                <div>
+                    <a id="toggle-uploader" href="<?= base_url('admincontrol/create_reward') ?>" class="btn btn-light"><?= __("admin.add_new") ?></a>
+                </div>
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
@@ -19,18 +19,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach($reward as $key => $value){ ?>
+                            <?php foreach ($reward as $key => $value) { ?>
                                 <tr>
                                     <td><?= $value['name'] ?></td>
                                     <td><?= c_format($value['minimum_earning']); ?></td>
-                                    <td><?= $value['sale_comission_rate'].'%'; ?></td>
+                                    <td><?= $value['sale_comission_rate'] . '%'; ?></td>
                                     <td>
-                                        <a href="<?= base_url('admincontrol/update_reward/'.$value['id']) ?>" class="btn btn-sm btn-primary">
-                                          <i class="bi bi-pencil"></i>
+                                        <a href="<?= base_url('admincontrol/update_reward/' . $value['id']) ?>" class="btn btn-sm btn-primary">
+                                            <i class="bi bi-pencil"></i>
                                         </a>
 
-                                        <a href="<?= base_url('admincontrol/delete_reward/'.$value['id']) ?>" class="btn btn-sm btn-danger btn-delete">
-                                          <i class="bi bi-trash"></i>
+                                        <a href="<?= base_url('admincontrol/delete_reward/' . $value['id']) ?>" class="btn btn-sm btn-danger btn-delete">
+                                            <i class="bi bi-trash"></i>
                                         </a>
                                     </td>
                                 </tr>

@@ -31,9 +31,10 @@
                             </div>
                             <p class="error-message"></p>
                         </div>
+                        
                         <div class="mb-3">
                             <label class="form-label">
-                                <?= __('Hoa hồng') ?>
+                                <?= __('Hoa hồng doanh thu cá nhân') ?>
                                 <span class="field-description" data-bs-toggle="tooltip" title="<?= __('Hoa hồng') ?>"></span>
                             </label>
                             <div class="input-group">
@@ -41,7 +42,7 @@
                                 <input type="number" class="form-control" name="sale_comission_rate" min="0" step="0.01" value="<?= $reward['sale_comission_rate'] ?>" placeholder="<?= __('admin.sale_comission_rate') ?>">
                             </div>
                             <p class="error-message"></p>
-                        </div>
+                        </div>                        
                     </div>
                     <div class="d-flex justify-content-center">
                         <button type="submit" class="btn btn-primary me-3"><?= __('admin.save') ?></button>

@@ -22,10 +22,12 @@
                     <table class="table table-striped text-center">
                         <thead>
                             <tr>
-                                <th><?= __('admin.level_number') ?></th>
-                                <th><?= __('admin.jump_level') ?></th>
-                                <th><?= __('admin.minimum_earning') ?></th>
-                                <th><?= __('admin.sale_comission_rate') ?></th>
+                                <th><?= __('admin.level_number') ?></th>                                
+                                <th><?= __('Nhảy cấp') ?></th>                                
+                                <th><?= __('admin.minimum_earning') ?></th>                                
+                                <th><?= __('HH cá nhân') ?></th>
+                                <th><?= __('HH trực tiếp') ?></th>
+                                <th><?= __('HH gián tiếp') ?></th>
                                 <th><?= __('admin.bonus') ?></th>
                                 <th><?= __('admin.default_registration_level') ?></th>
                                 <th>#</th>
@@ -45,6 +47,8 @@
                                     </td>
                                     <td><?= c_format($value['minimum_earning']); ?></td>
                                     <td><?= $value['sale_comission_rate'].'%'; ?></td>
+                                    <td><?= $value['sale_comission_direct'].'%'; ?></td>
+                                    <td><?= $value['sale_comission_indirect'].'%'; ?></td>
                                     <td><?= c_format($value['bonus']); ?></td>
                                     <td><?= ($value['default_registration_level']) ? __('admin.default') : '' ?></td>
                                     <td>

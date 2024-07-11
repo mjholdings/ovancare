@@ -15,7 +15,7 @@
                                 <span class="field-description" data-bs-toggle="tooltip" title="<?= __('Tên') ?>"></span>
                             </label>
                             <div class="input-group">
-                                <input type="text" class="form-control" name="name"  placeholder="<?= __('Tên') ?>">
+                                <input type="text" class="form-control" name="name" placeholder="<?= __('Tên') ?>">
                             </div>
                             <p class="error-message"></p>
                         </div>
@@ -29,10 +29,10 @@
                                 <input type="number" class="form-control" name="minimum_earning" min="0" step="0.01" placeholder="<?= __('admin.minimum_earning') ?>">
                             </div>
                             <p class="error-message"></p>
-                        </div>
+                        </div>                        
                         <div class="mb-3">
                             <label class="form-label">
-                                <?= __('Hoa hồng') ?>
+                                <?= __('Hoa hồng doanh thu cá nhân') ?>
                                 <span class="field-description" data-bs-toggle="tooltip" title="<?= __('Hoa hồng') ?>"></span>
                             </label>
                             <div class="input-group">
@@ -41,54 +41,54 @@
                             </div>
                             <p class="error-message"></p>
                         </div>
-                </div>
-                <div class="d-flex justify-content-center">
-                    <button type="submit" class="btn btn-primary me-3"><?= __('admin.save') ?></button>
-                    <button type="submit" class="btn btn-primary" data-redirect='true'><?= __('admin.save_and_close') ?></button>
-                </div>
-            </form>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary me-3"><?= __('admin.save') ?></button>
+                        <button type="submit" class="btn btn-primary" data-redirect='true'><?= __('admin.save_and_close') ?></button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
-<script type="text/javascript">
-    $("button[type='submit']").on('click',function(e){
-        e.preventDefault();
+    <script type="text/javascript">
+        $("button[type='submit']").on('click', function(e) {
+            e.preventDefault();
 
-        $this = $(this);
-        let form = $(this).parents('form');
-        let url = form.attr('action');
+            $this = $(this);
+            let form = $(this).parents('form');
+            let url = form.attr('action');
 
-        $.ajax({
-            type:'POST',
-            dataType:'json',
-            data:form.serialize(),
-            success:function(result){
-                $("input,select").removeClass('error');
-                $(".error-message").text('');
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                data: form.serialize(),
+                success: function(result) {
+                    $("input,select").removeClass('error');
+                    $(".error-message").text('');
 
-                if(result.validation){
-                    $.each(result.validation,function(key,value){
-                        $("[name='"+key+"']").addClass('error');
-                        $("[name='"+key+"']").siblings('.error-message').text(value);
-                        showPrintMessage(value, 'error');
-                    }) 
-                } else {
-                    if (result.status) {
-                          showPrintMessage(result.message, 'success');
-
-                          let redirect = $this.data('redirect');
-                          if (redirect) {
-                            setTimeout(function() {
-                            window.location = '<?= base_url("admincontrol/reward") ?>';
-                            }, 1000);
-                          }
+                    if (result.validation) {
+                        $.each(result.validation, function(key, value) {
+                            $("[name='" + key + "']").addClass('error');
+                            $("[name='" + key + "']").siblings('.error-message').text(value);
+                            showPrintMessage(value, 'error');
+                        })
                     } else {
-                        showPrintMessage(result.message, 'error');
+                        if (result.status) {
+                            showPrintMessage(result.message, 'success');
+
+                            let redirect = $this.data('redirect');
+                            if (redirect) {
+                                setTimeout(function() {
+                                    window.location = '<?= base_url("admincontrol/reward") ?>';
+                                }, 1000);
+                            }
+                        } else {
+                            showPrintMessage(result.message, 'error');
+                        }
+
                     }
-                    
-                }
-            },
-        }); 
-    })
-</script>
+                },
+            });
+        })
+    </script>

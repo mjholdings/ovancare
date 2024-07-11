@@ -3754,6 +3754,10 @@ class Admincontrol extends MY_Controller {
 						$insert['jump_level'] = ($jump_level != '') ? $jump_level : NULL;
 						$insert['minimum_earning'] = $this->input->post('minimum_earning', true);
 						$insert['sale_comission_rate'] = $this->input->post('sale_comission_rate', true);
+						$insert['recruitment_number'] = $this->input->post('recruitment_number', true);
+						$insert['recruitment_level'] = $this->input->post('recruitment_level', true);
+						$insert['sale_comission_direct'] = $this->input->post('sale_comission_direct', true);
+						$insert['sale_comission_indirect'] = $this->input->post('sale_comission_indirect', true);
 						$insert['bonus'] = $this->input->post('bonus', true);
 						$insert['default_registration_level'] = ($this->input->post('default_registration_level')) ? $this->input->post('default_registration_level', true) : 0;
 
@@ -3802,7 +3806,6 @@ class Admincontrol extends MY_Controller {
 						if ($this->input->method() == 'post') {
 							$result['status'] = 0;
 							$result['message'] = __('admin.something_went_wrong');
-
 							$this->load->library('form_validation');
 							$this->form_validation->set_rules('level_number', __('admin.level_number'), 'trim|required|max_length[100]');
 							$this->form_validation->set_rules('minimum_earning', __('admin.minimum_earning'), 'trim|required');
@@ -3815,6 +3818,10 @@ class Admincontrol extends MY_Controller {
 									$update['level_number'] = $this->input->post('level_number', true);
 									$update['jump_level'] = ($jump_level != '') ? $jump_level : NULL;
 									$update['minimum_earning'] = $this->input->post('minimum_earning', true);
+									$update['recruitment_number'] = $this->input->post('recruitment_number', true);
+									$update['recruitment_level'] = $this->input->post('recruitment_level', true);
+									$update['sale_comission_direct'] = $this->input->post('sale_comission_direct', true);
+									$update['sale_comission_indirect'] = $this->input->post('sale_comission_indirect', true);
 									$update['sale_comission_rate'] = $this->input->post('sale_comission_rate', true);
 									$update['bonus'] = $this->input->post('bonus', true);
 									$update['default_registration_level'] = ($this->input->post('default_registration_level')) ? $this->input->post('default_registration_level', true) : 0;
@@ -3927,7 +3934,6 @@ class Admincontrol extends MY_Controller {
 				$insert['name'] = $this->input->post('name', true);
 				$insert['minimum_earning'] = $this->input->post('minimum_earning', true);
 				$insert['sale_comission_rate'] = $this->input->post('sale_comission_rate', true);
-
 				$success = true;
 
 				if ($success) {
@@ -7713,7 +7719,7 @@ class Admincontrol extends MY_Controller {
 	}
 
 
-	
+
 
 	public function listclients($page = 1) {
 
@@ -9366,7 +9372,7 @@ class Admincontrol extends MY_Controller {
 		$this->view($data, 'setting/mlm_levels_dao_tao');
 	}
 	public function mlm_levels_nha_phan_phoi_cap_chien_luoc() {
-		
+
 		$userdetails = $this->userdetails();
 
 		$mlm_status = $this->Product_model->getSettings('referlevel', 'status');
@@ -15431,124 +15437,124 @@ class Admincontrol extends MY_Controller {
 	}
 	// End chi nhánh
 
-// Stocks
-public function stock_listproduct($only_review = false) {
+	// Stocks
+	public function stock_listproduct($only_review = false) {
 
-	$userdetails = $this->userdetails();
+		$userdetails = $this->userdetails();
 
-	$this->load->model('Form_model');
+		$this->load->model('Form_model');
 
-	$store_setting = $this->Product_model->getSettings('store');
+		$store_setting = $this->Product_model->getSettings('store');
 
-	$data['totals'] = $this->Wallet_model->getTotals(array(), true);
+		$data['totals'] = $this->Wallet_model->getTotals(array(), true);
 
-	$filter = array();
+		$filter = array();
 
-	$get = $this->input->get(null, true);
+		$get = $this->input->get(null, true);
 
-	$filter['is_campaign_and_cart_product'] = 1;
+		$filter['is_campaign_and_cart_product'] = 1;
 
-	if (isset($get['category_id']) && $get['category_id']) {
-		$filter['category_id'] = (int)$this->input->get('category_id');
-	}
-
-	if (isset($get['seller_id']) && $get['seller_id']) {
-
-		$filter['seller_id'] = (int)$this->input->get('seller_id');
-	}
-
-	$filter['product_status_in'] =	 '1';
-
-	if ($only_review == 'reviews') {
-
-		$filter['product_status_in'] =	 '0,2,3';
-	}
-
-	set_default_language();
-
-	$data['productlist'] = $this->Product_model->getAllProduct($userdetails['id'], $userdetails['type'], $filter);
-
-
-	$data['client_count'] = $this->db->query('SELECT count(*) as total FROM users WHERE  type like "client"')->row()->total;
-
-	$data['ordercount'] = $this->db->query('SELECT COUNT(op.id) as total FROM `order_products` op LEFT JOIN `order` as o ON o.id = op.order_id WHERE o.status > 0 ')->row()->total;
-
-	$data['categories'] = $this->db->query("SELECT id,name FROM categories")->result_array();
-
-	$data['vendors'] = $this->db->query("SELECT users.id,CONCAT(users.firstname,' ',users.lastname) as name FROM `product_affiliate` INNER JOIN users ON users.id= user_id GROUP by user_id")->result_array();
-
-
-	$data['user'] = $userdetails;
-
-	$this->load->library("socialshare");
-
-	$data['social_share_modal'] =  $this->socialshare->get_dynamic_social_share_btns();
-
-	$this->load->model("Coupon_model");
-
-	$data['coupons'] = $this->Coupon_model->getCoupons();
-
-	$ptotal = $this->db->query('SELECT product_id FROM product')->num_rows();
-
-	foreach ($data['coupons'] as $key => $value) {
-
-		if (strtolower($value['allow_for']) == 's') {
-
-			$data['coupons'][$key]['product_count'] = count(explode(',', $value['products']));
-		} else {
-
-			$data['coupons'][$key]['product_count'] = $ptotal;
+		if (isset($get['category_id']) && $get['category_id']) {
+			$filter['category_id'] = (int)$this->input->get('category_id');
 		}
 
-		$data['coupons'][$key]['count_coupon'] = $this->Coupon_model->getCouponCount($value['coupon_id']);
-	}
-	$data['currentTheme'] = User::getActiveTheme();
-	$data['StoreStatus'] = User::getStoreStatus();
+		if (isset($get['seller_id']) && $get['seller_id']) {
 
-	$data['forms'] = $this->Form_model->getForms();
-
-	foreach ($data['forms'] as $key => $value) {
-
-		$data['forms'][$key]['coupon_name'] = $this->Form_model->getFormCouponname(($value['coupon']) ? $value['coupon'] : 0);
-
-		$data['forms'][$key]['public_page'] = base_url('form/' . $value['seo'] . '/' . base64_encode($this->userdetails()['id']));
-
-		$data['forms'][$key]['count_coupon'] = $this->Form_model->getFormCouponCount($value['form_id']);
-
-		if ($value['coupon']) {
-
-			$data['forms'][$key]['coupon_code'] = $this->Form_model->getFormCouponCode($value['coupon']);
+			$filter['seller_id'] = (int)$this->input->get('seller_id');
 		}
 
-		$data['forms'][$key]['seo'] = str_replace('_', ' ', $value['seo']);
-	}
+		$filter['product_status_in'] =	 '1';
 
-	$data['product_count'] = $this->db->query("SELECT count(p.product_id) as total FROM product p 
+		if ($only_review == 'reviews') {
+
+			$filter['product_status_in'] =	 '0,2,3';
+		}
+
+		set_default_language();
+
+		$data['productlist'] = $this->Product_model->getAllProduct($userdetails['id'], $userdetails['type'], $filter);
+
+
+		$data['client_count'] = $this->db->query('SELECT count(*) as total FROM users WHERE  type like "client"')->row()->total;
+
+		$data['ordercount'] = $this->db->query('SELECT COUNT(op.id) as total FROM `order_products` op LEFT JOIN `order` as o ON o.id = op.order_id WHERE o.status > 0 ')->row()->total;
+
+		$data['categories'] = $this->db->query("SELECT id,name FROM categories")->result_array();
+
+		$data['vendors'] = $this->db->query("SELECT users.id,CONCAT(users.firstname,' ',users.lastname) as name FROM `product_affiliate` INNER JOIN users ON users.id= user_id GROUP by user_id")->result_array();
+
+
+		$data['user'] = $userdetails;
+
+		$this->load->library("socialshare");
+
+		$data['social_share_modal'] =  $this->socialshare->get_dynamic_social_share_btns();
+
+		$this->load->model("Coupon_model");
+
+		$data['coupons'] = $this->Coupon_model->getCoupons();
+
+		$ptotal = $this->db->query('SELECT product_id FROM product')->num_rows();
+
+		foreach ($data['coupons'] as $key => $value) {
+
+			if (strtolower($value['allow_for']) == 's') {
+
+				$data['coupons'][$key]['product_count'] = count(explode(',', $value['products']));
+			} else {
+
+				$data['coupons'][$key]['product_count'] = $ptotal;
+			}
+
+			$data['coupons'][$key]['count_coupon'] = $this->Coupon_model->getCouponCount($value['coupon_id']);
+		}
+		$data['currentTheme'] = User::getActiveTheme();
+		$data['StoreStatus'] = User::getStoreStatus();
+
+		$data['forms'] = $this->Form_model->getForms();
+
+		foreach ($data['forms'] as $key => $value) {
+
+			$data['forms'][$key]['coupon_name'] = $this->Form_model->getFormCouponname(($value['coupon']) ? $value['coupon'] : 0);
+
+			$data['forms'][$key]['public_page'] = base_url('form/' . $value['seo'] . '/' . base64_encode($this->userdetails()['id']));
+
+			$data['forms'][$key]['count_coupon'] = $this->Form_model->getFormCouponCount($value['form_id']);
+
+			if ($value['coupon']) {
+
+				$data['forms'][$key]['coupon_code'] = $this->Form_model->getFormCouponCode($value['coupon']);
+			}
+
+			$data['forms'][$key]['seo'] = str_replace('_', ' ', $value['seo']);
+		}
+
+		$data['product_count'] = $this->db->query("SELECT count(p.product_id) as total FROM product p 
 
 					LEFT JOIN product_affiliate pa ON pa.product_id = p.product_id
 
 					WHERE pa.user_id IS NULL ")->row()->total;
 
-	$data['form_coupons'] = $this->Form_model->getFormCoupons();
+		$data['form_coupons'] = $this->Form_model->getFormCoupons();
 
-	if ($only_review == 'reviews') {
-		$this->view($data, 'product_stock/reviews');
-	} else {
-		$this->view($data, 'product_stock/index');
+		if ($only_review == 'reviews') {
+			$this->view($data, 'product_stock/reviews');
+		} else {
+			$this->view($data, 'product_stock/index');
+		}
 	}
-}
 
-public function stock_updateproduct($id = null) {
+	public function stock_updateproduct($id = null) {
 
-	$userdetails = $this->userdetails();
+		$userdetails = $this->userdetails();
 
-	$data['product'] = $this->Product_model->getProductById($id);
+		$data['product'] = $this->Product_model->getProductById($id);
 
-	//$data['branch_list'] = $this->db->query("SELECT * FROM branch")->result();
+		//$data['branch_list'] = $this->db->query("SELECT * FROM branch")->result();
 
-	// Truy vấn để lấy danh sách chi nhánh cùng với số lượng và giá sản phẩm hiện tại
-	$data['branch_list'] = $this->db->query(
-		"
+		// Truy vấn để lấy danh sách chi nhánh cùng với số lượng và giá sản phẩm hiện tại
+		$data['branch_list'] = $this->db->query(
+			"
 	SELECT 
 		b.id, b.name, pb.stock_quantity, pb.product_price 
 	FROM 
@@ -15557,871 +15563,871 @@ public function stock_updateproduct($id = null) {
 		product_branch pb 
 	ON 
 		b.id = pb.branch_id AND pb.product_id = " . (int)$data['product']->product_id
-	)->result();
+		)->result();
 
-	$data['tags'] = $this->Product_model->getAllTags();
+		$data['tags'] = $this->Product_model->getAllTags();
 
-	if ($data['product']) {
+		if ($data['product']) {
 
-		$data['seller'] = $this->db->query("SELECT * FROM product_affiliate WHERE product_id=" . (int)$data['product']->product_id . " ")->row();
+			$data['seller'] = $this->db->query("SELECT * FROM product_affiliate WHERE product_id=" . (int)$data['product']->product_id . " ")->row();
 
-		$data['seller_setting'] = $this->db->query("SELECT * FROM vendor_setting WHERE user_id=" . (int)$data['seller']->user_id . " ")->row();
+			$data['seller_setting'] = $this->db->query("SELECT * FROM vendor_setting WHERE user_id=" . (int)$data['seller']->user_id . " ")->row();
 
-		$data['categories'] = $this->Product_model->getProductCategory($data['product']->product_id);
+			$data['categories'] = $this->Product_model->getProductCategory($data['product']->product_id);
 
-		$data['product_state'] = $this->db->query("SELECT * FROM states WHERE id=" . (int)$data['product']->state_id)->row();
+			$data['product_state'] = $this->db->query("SELECT * FROM states WHERE id=" . (int)$data['product']->state_id)->row();
 
-		$data['states'] = $this->db->query("SELECT * FROM states WHERE country_id=" . (int)$data['product_state']->country_id)->result();
+			$data['states'] = $this->db->query("SELECT * FROM states WHERE country_id=" . (int)$data['product_state']->country_id)->result();
+		}
+
+		$data['downloads'] = $this->Product_model->parseDownloads($data['product']->downloadable_files, $data['product']->product_type);
+
+		$data['setting'] = $this->Product_model->getSettings('productsetting');
+
+		$data['vendor_setting'] = $this->Product_model->getSettings('vendor');
+
+		$data['country_list'] = $this->db->query("SELECT name,id FROM countries")->result();
+
+		$this->view($data, 'product_stock/add_product');
 	}
 
-	$data['downloads'] = $this->Product_model->parseDownloads($data['product']->downloadable_files, $data['product']->product_type);
+	public function stock_duplicateProduct($product_id) {
 
-	$data['setting'] = $this->Product_model->getSettings('productsetting');
+		$userdetails = $this->userdetails();
 
-	$data['vendor_setting'] = $this->Product_model->getSettings('vendor');
+		$this->Product_model->duplicateProduct($product_id);
 
-	$data['country_list'] = $this->db->query("SELECT name,id FROM countries")->result();
+		$this->session->set_flashdata('success', __('admin.product_duplicate_successfully'));
 
-	$this->view($data, 'product_stock/add_product');
-}
+		redirect(base_url('admincontrol/stock_listproduct'));
+	}
 
-public function stock_duplicateProduct($product_id) {
+	public function stock_editProduct() {
 
-	$userdetails = $this->userdetails();
+		$userdetails = $this->userdetails();
 
-	$this->Product_model->duplicateProduct($product_id);
+		$post = $this->input->post(null, true);
 
-	$this->session->set_flashdata('success', __('admin.product_duplicate_successfully'));
+		if (!empty($post)) {
 
-	redirect(base_url('admincontrol/stock_listproduct'));
-}
+			$product_id = (int)$this->input->post('product_id', true);
 
-public function stock_editProduct() {
+			$this->load->helper(array('form', 'url'));
 
-	$userdetails = $this->userdetails();
+			$this->load->library('form_validation');
 
-	$post = $this->input->post(null, true);
+			$this->form_validation->set_rules('product_name', __('admin.product_name_'), 'required');
+			$this->form_validation->set_rules('product_description', __('admin.product_description'), 'required');
+			$this->form_validation->set_rules(
+				'product_short_description',
+				__('admin.short_description'),
+				'required|min_length[5]|max_length[300]',
+				array(
+					'required'      => 'Enter %s',
+					'is_unique'     => 'This %s already exists.',
+					'min_length' 	=> '%s: the minimum of characters is %s',
+					'max_length' 	=> '%s: the maximum of characters is %s',
+				)
+			);
+			$this->form_validation->set_rules('category[]', "Category", "required");
+			$this->form_validation->set_rules('product_price', 'Product Price', 'required');
+			$this->form_validation->set_rules('product_sku', 'Product SKU', 'required');
+			$this->form_validation->set_rules('product_video', 'Product Video', 'trim');
 
-	if (!empty($post)) {
-
-		$product_id = (int)$this->input->post('product_id', true);
-
-		$this->load->helper(array('form', 'url'));
-
-		$this->load->library('form_validation');
-
-		$this->form_validation->set_rules('product_name', __('admin.product_name_'), 'required');
-		$this->form_validation->set_rules('product_description', __('admin.product_description'), 'required');
-		$this->form_validation->set_rules(
-			'product_short_description',
-			__('admin.short_description'),
-			'required|min_length[5]|max_length[300]',
-			array(
-				'required'      => 'Enter %s',
-				'is_unique'     => 'This %s already exists.',
-				'min_length' 	=> '%s: the minimum of characters is %s',
-				'max_length' 	=> '%s: the maximum of characters is %s',
-			)
-		);
-		$this->form_validation->set_rules('category[]', "Category", "required");
-		$this->form_validation->set_rules('product_price', 'Product Price', 'required');
-		$this->form_validation->set_rules('product_sku', 'Product SKU', 'required');
-		$this->form_validation->set_rules('product_video', 'Product Video', 'trim');
-
-		if ($post['allow_country'] == "on") {
-			$this->form_validation->set_rules('state_id', 'State', 'required');
-		}
-
-		if ($post['product_recursion_type'] == 'custom') {
-			$this->form_validation->set_rules('product_recursion', 'Product Recursion', 'required');
-
-			if ($post['product_recursion'] == 'custom_time') {
-				$this->form_validation->set_rules('recursion_custom_time', 'Custom Time', 'required|greater_than[0]');
+			if ($post['allow_country'] == "on") {
+				$this->form_validation->set_rules('state_id', 'State', 'required');
 			}
-		}
 
-		$product_recursion = ($post['product_recursion_type'] && $post['product_recursion_type'] != 'default') ? $post['product_recursion'] : "";
+			if ($post['product_recursion_type'] == 'custom') {
+				$this->form_validation->set_rules('product_recursion', 'Product Recursion', 'required');
 
-		$recursion_custom_time = ($product_recursion == 'custom_time') ? $post['recursion_custom_time'] : 0;
-
-
-		if ($this->form_validation->run()) {
-
-			$post = $this->input->post(null, true);
-
-			$errors = array();
-
-			$downloadable_files = array();
-
-			if ($product_id) {
-
-				$product_details = $this->Product_model->getProductById($product_id);
-
-				$_downloads = $this->Product_model->parseDownloads($product_details->downloadable_files, $product_details->product_type);
-
-				foreach ($post['keep_files'] as $key => $_value) {
-
-					if (isset($_downloads[$_value])) {
-						if ($post['product_type'] == 'video' && $post['sub_product_type'] == "video") {
-							$_downloads[$_value]['videotext'] = $post['videotext'][$key] ?? null;
-							$downloadable_files[] = $_downloads[$_value];
-						} else if ($post['product_type'] == 'video' && $post['sub_product_type'] == "videolink") {
-							@unlink(APPPATH . '/downloads/' . $_value . ".zip");
-						} else {
-							$downloadable_files[] = $_downloads[$_value];
-						}
-					} else {
-
-						@unlink(APPPATH . '/downloads/' . $_value);
-					}
+				if ($post['product_recursion'] == 'custom_time') {
+					$this->form_validation->set_rules('recursion_custom_time', 'Custom Time', 'required|greater_than[0]');
 				}
+			}
 
-				$allKeys = array_keys($_downloads);
-				if (isset($post['keep_video_files']))
-					$keepKeys = array_keys($post['keep_video_files']);
-				else
-					$keepKeys = array();
-				$deletedSectionKeys  = array_diff($allKeys, $keepKeys);
-				$deletedSectionKeys = array_values($deletedSectionKeys);
-				$_download_new = [];
-				if (isset($post['keep_video_files'])) {
+			$product_recursion = ($post['product_recursion_type'] && $post['product_recursion_type'] != 'default') ? $post['product_recursion'] : "";
 
-					foreach ($post['keep_video_files'] as $innerKey => $innerValue) {
-						$keepVideo = [];
-						for ($i = 0; $i < count($innerValue); $i++) {
-							$key = array_search($innerValue[$i], array_column($_downloads[$innerKey]['data'], 'name'));
-							if ($key != FALSE || $key == 0) {
-								$keepVideo[] = $key;
+			$recursion_custom_time = ($product_recursion == 'custom_time') ? $post['recursion_custom_time'] : 0;
+
+
+			if ($this->form_validation->run()) {
+
+				$post = $this->input->post(null, true);
+
+				$errors = array();
+
+				$downloadable_files = array();
+
+				if ($product_id) {
+
+					$product_details = $this->Product_model->getProductById($product_id);
+
+					$_downloads = $this->Product_model->parseDownloads($product_details->downloadable_files, $product_details->product_type);
+
+					foreach ($post['keep_files'] as $key => $_value) {
+
+						if (isset($_downloads[$_value])) {
+							if ($post['product_type'] == 'video' && $post['sub_product_type'] == "video") {
+								$_downloads[$_value]['videotext'] = $post['videotext'][$key] ?? null;
+								$downloadable_files[] = $_downloads[$_value];
+							} else if ($post['product_type'] == 'video' && $post['sub_product_type'] == "videolink") {
+								@unlink(APPPATH . '/downloads/' . $_value . ".zip");
+							} else {
+								$downloadable_files[] = $_downloads[$_value];
 							}
-						}
-						$deleteVideoFromSectionKey = array_diff(array_keys($_downloads[$innerKey]['data']), $keepVideo);
+						} else {
 
-						// Remove video from Section
-						foreach ($deleteVideoFromSectionKey as $key =>  $value) {
-							if (file_exists(APPPATH . '/downloads/' . $_downloads[$innerKey]['data'][$value]['mask'])) {
-								@unlink(APPPATH . '/downloads/' . $_downloads[$innerKey]['data'][$value]['mask']);
-								@unlink(APPPATH . '/downloads/' . $_downloads[$innerKey]['data'][$value]['zip']['mask']);
-							}
-							unset($_downloads[$innerKey]['data'][$value]);
+							@unlink(APPPATH . '/downloads/' . $_value);
 						}
-						for ($i = 0; $i < count($deletedSectionKeys); $i++) {
-							foreach ($_downloads[$deletedSectionKeys[$i]]['data'] as $key => $value) {
-								if (file_exists(APPPATH . "/downloads/") . $value['mask']) {
-									@unlink(APPPATH . "/downloads/" . $value['mask']);
-									@unlink(APPPATH . "/downloads/" . $value['zip']['mask']);
+					}
+
+					$allKeys = array_keys($_downloads);
+					if (isset($post['keep_video_files']))
+						$keepKeys = array_keys($post['keep_video_files']);
+					else
+						$keepKeys = array();
+					$deletedSectionKeys  = array_diff($allKeys, $keepKeys);
+					$deletedSectionKeys = array_values($deletedSectionKeys);
+					$_download_new = [];
+					if (isset($post['keep_video_files'])) {
+
+						foreach ($post['keep_video_files'] as $innerKey => $innerValue) {
+							$keepVideo = [];
+							for ($i = 0; $i < count($innerValue); $i++) {
+								$key = array_search($innerValue[$i], array_column($_downloads[$innerKey]['data'], 'name'));
+								if ($key != FALSE || $key == 0) {
+									$keepVideo[] = $key;
 								}
 							}
-							unset($_downloads[$deletedSectionKeys[$i]]);
-						}
-						// update title  
-						$oldVideo = [];
-						foreach ($keepVideo as $key => $value) {
-							$zip = $_downloads[$innerKey]['data'][$value]['zip'] ?? [];
-							$zip['title'] = $post['VideoFileResourceText'][$innerKey][$value] ?? ($_downloads[$innerKey]['data'][$value]['zip']['title'] ?? '');
-							$oldVideo[] = [
-								'type' => $_downloads[$innerKey]['data'][$value]['type'],
-								'name' => $_downloads[$innerKey]['data'][$value]['name'],
-								'mask' => $_downloads[$innerKey]['data'][$value]['mask'],
-								'size' => $_downloads[$innerKey]['data'][$value]['size'],
-								'videotext' => $post['videotext'][$innerKey][$value] ?? $_downloads[$innerKey]['data'][$value]['videotext'],
-								'duration' => $post['duration'][$innerKey][$value] ?? $_downloads[$innerKey]['data'][$value]['duration'],
-								'description' => $post['description'][$innerKey][$value] ?? $_downloads[$innerKey]['data'][$value]['description'],
-								'zip' => $zip,
+							$deleteVideoFromSectionKey = array_diff(array_keys($_downloads[$innerKey]['data']), $keepVideo);
+
+							// Remove video from Section
+							foreach ($deleteVideoFromSectionKey as $key =>  $value) {
+								if (file_exists(APPPATH . '/downloads/' . $_downloads[$innerKey]['data'][$value]['mask'])) {
+									@unlink(APPPATH . '/downloads/' . $_downloads[$innerKey]['data'][$value]['mask']);
+									@unlink(APPPATH . '/downloads/' . $_downloads[$innerKey]['data'][$value]['zip']['mask']);
+								}
+								unset($_downloads[$innerKey]['data'][$value]);
+							}
+							for ($i = 0; $i < count($deletedSectionKeys); $i++) {
+								foreach ($_downloads[$deletedSectionKeys[$i]]['data'] as $key => $value) {
+									if (file_exists(APPPATH . "/downloads/") . $value['mask']) {
+										@unlink(APPPATH . "/downloads/" . $value['mask']);
+										@unlink(APPPATH . "/downloads/" . $value['zip']['mask']);
+									}
+								}
+								unset($_downloads[$deletedSectionKeys[$i]]);
+							}
+							// update title  
+							$oldVideo = [];
+							foreach ($keepVideo as $key => $value) {
+								$zip = $_downloads[$innerKey]['data'][$value]['zip'] ?? [];
+								$zip['title'] = $post['VideoFileResourceText'][$innerKey][$value] ?? ($_downloads[$innerKey]['data'][$value]['zip']['title'] ?? '');
+								$oldVideo[] = [
+									'type' => $_downloads[$innerKey]['data'][$value]['type'],
+									'name' => $_downloads[$innerKey]['data'][$value]['name'],
+									'mask' => $_downloads[$innerKey]['data'][$value]['mask'],
+									'size' => $_downloads[$innerKey]['data'][$value]['size'],
+									'videotext' => $post['videotext'][$innerKey][$value] ?? $_downloads[$innerKey]['data'][$value]['videotext'],
+									'duration' => $post['duration'][$innerKey][$value] ?? $_downloads[$innerKey]['data'][$value]['duration'],
+									'description' => $post['description'][$innerKey][$value] ?? $_downloads[$innerKey]['data'][$value]['description'],
+									'zip' => $zip,
+								];
+							}
+							$_download_new[] = [
+								'title' => $post['section'][$innerKey],
+								'data' => $oldVideo
 							];
 						}
-						$_download_new[] = [
-							'title' => $post['section'][$innerKey],
-							'data' => $oldVideo
-						];
+
+
+						$downloadable_files = $_download_new;
 					}
-
-
-					$downloadable_files = $_download_new;
 				}
-			}
 
-			$variations = [];
+				$variations = [];
 
-			if (isset($post['variations']) && !empty($post['variations'])) {
-				foreach ($post['variations'] as $key => $value) {
-					if (!empty($value)) {
-						$new_value = [];
-						if ($key == 'colors') {
-							for ($i = 0; $i < sizeof($post['variations'][$key]['code']); $i++) {
-								if (!empty($post['variations'][$key]['code'][$i]) && $post['variations'][$key]['name'][$i]) {
-									array_push($new_value, [
-										'code' => $post['variations'][$key]['code'][$i],
-										'name' => $post['variations'][$key]['name'][$i],
-										'price' => $post['variations'][$key]['price'][$i]
-									]);
+				if (isset($post['variations']) && !empty($post['variations'])) {
+					foreach ($post['variations'] as $key => $value) {
+						if (!empty($value)) {
+							$new_value = [];
+							if ($key == 'colors') {
+								for ($i = 0; $i < sizeof($post['variations'][$key]['code']); $i++) {
+									if (!empty($post['variations'][$key]['code'][$i]) && $post['variations'][$key]['name'][$i]) {
+										array_push($new_value, [
+											'code' => $post['variations'][$key]['code'][$i],
+											'name' => $post['variations'][$key]['name'][$i],
+											'price' => $post['variations'][$key]['price'][$i]
+										]);
+									}
+								}
+							} else {
+								for ($i = 0; $i < sizeof($post['variations'][$key]['name']); $i++) {
+									if (!empty($post['variations'][$key]['name'][$i])) {
+										array_push($new_value, [
+											'name' => $post['variations'][$key]['name'][$i],
+											'price' => $post['variations'][$key]['price'][$i]
+										]);
+									}
 								}
 							}
-						} else {
-							for ($i = 0; $i < sizeof($post['variations'][$key]['name']); $i++) {
-								if (!empty($post['variations'][$key]['name'][$i])) {
-									array_push($new_value, [
-										'name' => $post['variations'][$key]['name'][$i],
-										'price' => $post['variations'][$key]['price'][$i]
-									]);
-								}
-							}
+							$variations[$key] = $new_value;
 						}
-						$variations[$key] = $new_value;
 					}
 				}
-			}
 
-			$pro_description = $_POST['product_description'];
+				$pro_description = $_POST['product_description'];
 
-			$doBase64Images = true;
-			$imgCount = 0;
+				$doBase64Images = true;
+				$imgCount = 0;
 
-			while ($doBase64Images) {
-				preg_match('/src="data:(.*?)" /', $pro_description, $matchBase64);
-				if (!isset($matchBase64[1]) || empty($matchBase64[1])) {
-					$doBase64Images = false;
-				} else {
-					$image_parts = explode(";base64,", $matchBase64[1]);
-					$image_type_aux = explode("image/", $image_parts[0]);
-					$image_type = $image_type_aux[1];
-					$image_base64 = base64_decode($image_parts[1]);
-					$file = 'assets/user_upload/pro-desc-' . time() . '-' . $imgCount . '.' . $image_type;
-					file_put_contents($file, $image_base64);
-					$pro_description = str_replace("data:" . $matchBase64[1], base_url($file), $pro_description);
-					$imgCount++;
+				while ($doBase64Images) {
+					preg_match('/src="data:(.*?)" /', $pro_description, $matchBase64);
+					if (!isset($matchBase64[1]) || empty($matchBase64[1])) {
+						$doBase64Images = false;
+					} else {
+						$image_parts = explode(";base64,", $matchBase64[1]);
+						$image_type_aux = explode("image/", $image_parts[0]);
+						$image_type = $image_type_aux[1];
+						$image_base64 = base64_decode($image_parts[1]);
+						$file = 'assets/user_upload/pro-desc-' . time() . '-' . $imgCount . '.' . $image_type;
+						file_put_contents($file, $image_base64);
+						$pro_description = str_replace("data:" . $matchBase64[1], base_url($file), $pro_description);
+						$imgCount++;
+					}
 				}
-			}
 
 
-			// Product Detail
-			$details = array(
+				// Product Detail
+				$details = array(
 
-				'product_name'                 =>  $post['product_name'],
+					'product_name'                 =>  $post['product_name'],
 
-				'product_description'          =>  $pro_description,
+					'product_description'          =>  $pro_description,
 
-				'product_short_description'    =>  $post['product_short_description'],
+					'product_short_description'    =>  $post['product_short_description'],
 
-				'product_msrp'                =>  $post['product_msrp'],
+					'product_msrp'                =>  $post['product_msrp'],
 
-				'product_price'                =>  $post['product_price'],
+					'product_price'                =>  $post['product_price'],
 
-				'product_sku'                  =>  $post['product_sku'],
+					'product_sku'                  =>  $post['product_sku'],
 
-				'product_video'                =>  $post['product_video'],
+					'product_video'                =>  $post['product_video'],
 
-				'product_price'                =>  $post['product_price'],
+					'product_price'                =>  $post['product_price'],
 
-				'product_type'                 =>  $post['product_type'],
+					'product_type'                 =>  $post['product_type'],
 
-				'product_commision_type'       =>  $post['product_commision_type'],
+					'product_commision_type'       =>  $post['product_commision_type'],
 
-				'state_id'                     =>  $post['allow_country'] == "on" ? (int)$post['state_id'] : 0,
+					'state_id'                     =>  $post['allow_country'] == "on" ? (int)$post['state_id'] : 0,
 
-				'product_commision_value'      =>  (float)$post['product_commision_value'],
+					'product_commision_value'      =>  (float)$post['product_commision_value'],
 
-				'product_click_commision_type' =>  $post['product_click_commision_type'],
+					'product_click_commision_type' =>  $post['product_click_commision_type'],
 
-				'product_click_commision_ppc'  =>  $post['product_click_commision_ppc'],
+					'product_click_commision_ppc'  =>  $post['product_click_commision_ppc'],
 
-				'product_click_commision_per'  =>  (float)$post['product_click_commision_per'],
+					'product_click_commision_per'  =>  (float)$post['product_click_commision_per'],
 
-				'on_store'                     =>  (int)$post['on_store'],
+					'on_store'                     =>  (int)$post['on_store'],
 
-				'allow_shipping'               =>  (int)$post['allow_shipping'],
+					'allow_shipping'               =>  (int)$post['allow_shipping'],
 
-				'allow_upload_file'            =>  (int)$post['allow_upload_file'],
+					'allow_upload_file'            =>  (int)$post['allow_upload_file'],
 
-				'allow_comment'                =>  (int)$post['allow_comment'],
+					'allow_comment'                =>  (int)$post['allow_comment'],
 
-				'product_status'               =>  isset($post['product_status']) ? (int)$post['product_status'] : 1,
+					'product_status'               =>  isset($post['product_status']) ? (int)$post['product_status'] : 1,
 
-				'product_ipaddress'            =>  $_SERVER['REMOTE_ADDR'],
+					'product_ipaddress'            =>  $_SERVER['REMOTE_ADDR'],
 
-				'product_recursion_type'       =>  $post['product_recursion_type'],
+					'product_recursion_type'       =>  $post['product_recursion_type'],
 
-				'recursion_endtime'       => (isset($post['recursion_endtime_status']) && $post['recursion_endtime']) ? date("Y-m-d H:i:s", strtotime($post['recursion_endtime'])) : null,
+					'recursion_endtime'       => (isset($post['recursion_endtime_status']) && $post['recursion_endtime']) ? date("Y-m-d H:i:s", strtotime($post['recursion_endtime'])) : null,
 
-				'product_recursion'            =>  $product_recursion,
+					'product_recursion'            =>  $product_recursion,
 
-				'recursion_custom_time'        =>  (int)$recursion_custom_time,
+					'recursion_custom_time'        =>  (int)$recursion_custom_time,
 
-				'product_variations'        =>  json_encode($variations),
+					'product_variations'        =>  json_encode($variations),
 
-				'product_tags'        =>  json_encode($post['product_tags']),
+					'product_tags'        =>  json_encode($post['product_tags']),
 
-				'popular'                     =>  (int)$post['popular'],
-			);
+					'popular'                     =>  (int)$post['popular'],
+				);
 
 
-			if ($_FILES['product_featured_image']['error'] != 0 && $product_id == 0) {
+				if ($_FILES['product_featured_image']['error'] != 0 && $product_id == 0) {
 
-				$errors['product_featured_image'] = 'Select Featured Image File!';
-			} else if (!empty($_FILES['product_featured_image']['name'])) {
+					$errors['product_featured_image'] = 'Select Featured Image File!';
+				} else if (!empty($_FILES['product_featured_image']['name'])) {
 
-				$upload_response = $this->upload_photo('product_featured_image', 'assets/images/product/upload/thumb');
+					$upload_response = $this->upload_photo('product_featured_image', 'assets/images/product/upload/thumb');
 
-				if ($upload_response['success']) {
+					if ($upload_response['success']) {
 
-					$details['product_featured_image'] = $upload_response['upload_data']['file_name'];
-				} else {
+						$details['product_featured_image'] = $upload_response['upload_data']['file_name'];
+					} else {
 
-					$errors['product_featured_image'] = $upload_response['msg'];
+						$errors['product_featured_image'] = $upload_response['msg'];
+					}
 				}
-			}
 
 
-			if (!empty($_FILES['downloadable_file'])) {
+				if (!empty($_FILES['downloadable_file'])) {
 
-				$files = $_FILES['downloadable_file'];
+					$files = $_FILES['downloadable_file'];
 
-				if (isset($_FILES['downloadable_file']['name']) && is_countable($_FILES['downloadable_file']['name']))
-					$count_file = count($_FILES['downloadable_file']['name']);
-				else
-					$count_file = 0;
+					if (isset($_FILES['downloadable_file']['name']) && is_countable($_FILES['downloadable_file']['name']))
+						$count_file = count($_FILES['downloadable_file']['name']);
+					else
+						$count_file = 0;
 
-				$keep_files_count =  isset($post['keep_files']) ?  count($post['keep_files']) : 0;
+					$keep_files_count =  isset($post['keep_files']) ?  count($post['keep_files']) : 0;
 
-				$this->load->helper('string');
+					$this->load->helper('string');
 
-				for ($i = 0; $i < $count_file; $i++) {
+					for ($i = 0; $i < $count_file; $i++) {
 
-					$extension = pathinfo($files['name'][$i], PATHINFO_EXTENSION);
-					if (!empty(trim($files['name'][$i]))) {
-						if ($extension == 'zip') {
+						$extension = pathinfo($files['name'][$i], PATHINFO_EXTENSION);
+						if (!empty(trim($files['name'][$i]))) {
+							if ($extension == 'zip') {
 
-							$FILES['downloadable_files']['name'] = md5(random_string('alnum', 10));
+								$FILES['downloadable_files']['name'] = md5(random_string('alnum', 10));
 
-							$FILES['downloadable_files']['type'] = $files['type'][$i];
+								$FILES['downloadable_files']['type'] = $files['type'][$i];
 
-							$FILES['downloadable_files']['tmp_name'] = $files['tmp_name'][$i];
+								$FILES['downloadable_files']['tmp_name'] = $files['tmp_name'][$i];
 
-							$FILES['downloadable_files']['error'] = $files['error'][$i];
+								$FILES['downloadable_files']['error'] = $files['error'][$i];
 
-							$FILES['downloadable_files']['size'] = $files['size'][$i];
+								$FILES['downloadable_files']['size'] = $files['size'][$i];
 
 
-							if (empty($FILES['downloadable_files']['error'])) {
+								if (empty($FILES['downloadable_files']['error'])) {
 
-								move_uploaded_file($FILES['downloadable_files']['tmp_name'], APPPATH . '/downloads/' . $FILES['downloadable_files']['name']);
+									move_uploaded_file($FILES['downloadable_files']['tmp_name'], APPPATH . '/downloads/' . $FILES['downloadable_files']['name']);
+
+									if ($post['product_type'] == 'video' || $post['sub_product_type'] == 'videolink') {
+										$store_file_temp = [
+											'type' => $FILES['downloadable_files']['type'],
+
+											'name' => $FILES['downloadable_files']['name'],
+
+											'mask' => $files['name'][$i]
+										];
+
+										if ($post['product_type'] == 'video' && $post['sub_product_type'] != "videolink") {
+											$store_file_temp['videotext'] = $post['videotext'][$keep_files_count + $i];
+										} else {
+										}
+										$downloadable_files[] = $store_file_temp;
+									} else {
+
+										$downloadable_files[] = array(
+
+											'type' => $FILES['downloadable_files']['type'],
+
+											'name' => $FILES['downloadable_files']['name'],
+
+											'mask' => $files['name'][$i],
+
+										);
+									}
+								} else {
+
+									$errors['downloadable_files'] = $FILES['downloadable_files']['error'];
+								}
+							} else {
+
+								$zip_name = md5(random_string('alnum', 10));
 
 								if ($post['product_type'] == 'video' || $post['sub_product_type'] == 'videolink') {
+
+									$ext = pathinfo($files['name'][$i], PATHINFO_EXTENSION);
+									$fileName = md5(random_string('alnum', 10)) . ".$ext";
+
+									move_uploaded_file($files['tmp_name'][$i], APPPATH . '/downloads/' . $fileName);
+
 									$store_file_temp = [
-										'type' => $FILES['downloadable_files']['type'],
+										'type' => $files['type'][$i],
 
-										'name' => $FILES['downloadable_files']['name'],
+										'name' => $zip_name,
 
-										'mask' => $files['name'][$i]
+										'mask' => $fileName,
+
+										'thumb' => preg_replace('/\\.[^.\\s]{3,4}$/', '', $fileName) . '.png',
+
 									];
-
 									if ($post['product_type'] == 'video' && $post['sub_product_type'] != "videolink") {
 										$store_file_temp['videotext'] = $post['videotext'][$keep_files_count + $i];
-									} else {
 									}
 									$downloadable_files[] = $store_file_temp;
 								} else {
 
+									$fileName = $zip_name;
+
+									$zip = new ZipArchive();
+
+									if ($zip->open(APPPATH . '/downloads/' . $zip_name, ZipArchive::CREATE) !== TRUE) {
+										$errors['downloadable_files'] = "Sorry ZIP creation is not working currently.";
+									}
+
+									$zip->addFromString($files['name'][$i], file_get_contents($files['tmp_name'][$i]));
+
+									$zip->close();
+
+
 									$downloadable_files[] = array(
 
-										'type' => $FILES['downloadable_files']['type'],
+										'type' => 'application/x-zip-compressed',
 
-										'name' => $FILES['downloadable_files']['name'],
+										'name' => $zip_name,
 
-										'mask' => $files['name'][$i],
+										'mask' => preg_replace('/\\.[^.\\s]{3,4}$/', '', $files['name'][$i]) . '.zip',
 
 									);
 								}
-							} else {
-
-								$errors['downloadable_files'] = $FILES['downloadable_files']['error'];
 							}
-						} else {
+						}
+					}
+				}
 
-							$zip_name = md5(random_string('alnum', 10));
+				if (!empty($_FILES['lms_videos_files'])) {
 
-							if ($post['product_type'] == 'video' || $post['sub_product_type'] == 'videolink') {
-
-								$ext = pathinfo($files['name'][$i], PATHINFO_EXTENSION);
+					foreach ($_FILES['lms_videos_files']['name'] as $key => $value) {
+						if (isset($_FILES['lms_videos_files']['name'][$key]) && !empty($_FILES['lms_videos_files']['name'][$key][0])) {
+							$index = $key;
+							for ($i = 0; $i < count($_FILES['lms_videos_files']['name'][$key]); $i++) {
+								$ext = pathinfo($_FILES['lms_videos_files']['name'][$key][$i], PATHINFO_EXTENSION);
 								$fileName = md5(random_string('alnum', 10)) . ".$ext";
+								move_uploaded_file($_FILES['lms_videos_files']['tmp_name'][$key][$i], APPPATH . '/downloads/' . $fileName);
+								if (!isset($downloadable_files[$index]) && $index != 0) {
+									$index = (count($downloadable_files) - 1) < $key ? $key : 0;
+								}
 
-								move_uploaded_file($files['tmp_name'][$i], APPPATH . '/downloads/' . $fileName);
+
+								if (isset($post['keep_video_files']))
+									$keepvidoefilescount = count($post['keep_video_files'][$index]);
+								else
+									$keepvidoefilescount = 0;
 
 								$store_file_temp = [
-									'type' => $files['type'][$i],
+									'type' => $_FILES['lms_videos_files']['type'][$key][$i],
 
-									'name' => $zip_name,
+									'name' => md5(random_string('alnum', 10)),
 
 									'mask' => $fileName,
 
-									'thumb' => preg_replace('/\\.[^.\\s]{3,4}$/', '', $fileName) . '.png',
+									'size' => format_filesize($_FILES['lms_videos_files']['size'][$key][$i]),
+
+									'duration' => $_POST['lms_videos_files_duration'][$key][$i],
+
+									'videotext' => $post['videotext'][$index][$keepvidoefilescount + $i],
+
+									'description' => $post['description'][$index][$keepvidoefilescount + $i]
+								];
+
+
+								if (!empty($_FILES['lms_videos_files_zip']['name'][$key][$i])) {
+									$ext = pathinfo($_FILES['lms_videos_files_zip']['name'][$key][$i], PATHINFO_EXTENSION);
+									$fileName = md5(random_string('alnum', 10)) . ".$ext";
+									move_uploaded_file($_FILES['lms_videos_files_zip']['tmp_name'][$key][$i], APPPATH . '/downloads/' . $fileName);
+
+									$store_file_temp['zip'] = [
+										'name' => md5(random_string('alnum', 10)),
+										'mask' => $fileName,
+										'title' => $post['VideoFileResourceText'][$index][count($post['keep_video_files'][$index]) + $i],
+										'type' => $_FILES['lms_videos_files_zip']['type'][$key][$i],
+										'size' => format_filesize($_FILES['lms_videos_files_zip']['size'][$key][$i])
+									];
+								}
+								$downloadable_files[$index]['data'][] = $store_file_temp;
+							}
+						}
+						$downloadable_files[$key]['title'] = $post['section'][$key];
+					}
+				}
+
+				if (!empty($_FILES['lms_videos_files_update'])) {
+					foreach ($_FILES['lms_videos_files_update']['name'] as $key => $value) {
+						if (isset($_FILES['lms_videos_files_update']['name'][$key])) {
+							foreach ($_FILES['lms_videos_files_update']['name'][$key] as $oldname => $newFile) {
+								$ext = pathinfo($_FILES['lms_videos_files_update']['name'][$key][$oldname], PATHINFO_EXTENSION);
+								$fileName = md5(random_string('alnum', 10)) . ".$ext";
+								move_uploaded_file($_FILES['lms_videos_files_update']['tmp_name'][$key][$oldname], APPPATH . '/downloads/' . $fileName);
+								foreach ($downloadable_files[$key]['data'] as $dkey => $datavalue) {
+									if ($datavalue['name'] == $oldname) {
+
+										$downloadable_files[$key]['data'][$dkey]['name'] = md5(random_string('alnum', 10));
+										$oldFileName = $downloadable_files[$key]['data'][$dkey]['mask'];
+										$downloadable_files[$key]['data'][$dkey]['mask'] = $fileName;
+										$downloadable_files[$key]['data'][$dkey]['type'] = $_FILES['lms_videos_files_update']['type'][$key][$oldname];
+										$downloadable_files[$key]['data'][$dkey]['size'] = format_filesize($_FILES['lms_videos_files_update']['size'][$key][$oldname]);
+										$downloadable_files[$key]['data'][$dkey]['duration'] = $_POST['lms_videos_files_update_duration'][$key][$oldname];
+
+
+										if (file_exists(APPPATH . '/downloads/' . $oldFileName)) {
+											@unlink(APPPATH . '/downloads/' . $oldFileName);
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				if (!empty($_FILES['lms_videos_files_zip_update'])) {
+					if (isset($_POST['sub_product_type']) && $_POST['sub_product_type'] == 'videolink') {
+						$downloadable_files = $_downloads;
+					}
+					foreach ($_FILES['lms_videos_files_zip_update']['name'] as $key => $value) {
+						if (isset($_FILES['lms_videos_files_zip_update']['name'][$key])) {
+							foreach ($_FILES['lms_videos_files_zip_update']['name'][$key] as $oldname => $newFile) {
+								$ext = pathinfo($_FILES['lms_videos_files_zip_update']['name'][$key][$oldname], PATHINFO_EXTENSION);
+								$fileName = md5(random_string('alnum', 10)) . ".$ext";
+								move_uploaded_file($_FILES['lms_videos_files_zip_update']['tmp_name'][$key][$oldname], APPPATH . '/downloads/' . $fileName);
+								foreach ($downloadable_files[$key]['data'] as $dkey => $datavalue) {
+
+									if ($datavalue['name'] == $oldname) {
+										$downloadable_files[$key]['data'][$dkey]['zip']['name'] = md5(random_string('alnum', 10));
+										$oldFileName = $downloadable_files[$key]['data'][$dkey]['zip']['mask'];
+										$downloadable_files[$key]['data'][$dkey]['zip']['mask'] = $fileName;
+										$downloadable_files[$key]['data'][$dkey]['zip']['type'] = $_FILES['lms_videos_files_zip_update']['type'][$key][$oldname];
+										$downloadable_files[$key]['data'][$dkey]['zip']['size'] = format_filesize($_FILES['lms_videos_files_zip_update']['size'][$key][$oldname]);
+										$downloadable_files[$key]['data'][$dkey]['zip']['title'] = $post['VideoFileResourceText'][$key][$dkey];
+
+
+										if (file_exists(APPPATH . '/downloads/' . $oldFileName)) {
+											@unlink(APPPATH . '/downloads/' . $oldFileName);
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+
+				if (!empty($post['videolink'])) {
+					$TmpDownloadable_files = $downloadable_files;
+					$downloadable_files = [];
+					foreach ($post['sectionlink'] as $key => $value) {
+						$tmp['title'] = $value;
+						foreach ($post['videolink'][$key] as $keyInner => $InnerValue) {
+							if (!empty($post['videolink'][$key][$keyInner]) && !empty($post['videotext'][$key][$keyInner])) {
+								$zip = $TmpDownloadable_files[$key]['data'][$keyInner]['zip'] ?? [];
+								if (!empty($_FILES['lms_videos_files_zip_update']['name'][$key][$keyInner])) {
+
+									$ext = pathinfo($_FILES['lms_videos_files_zip_update']['name'][$key][$keyInner], PATHINFO_EXTENSION);
+									$fileName = md5(random_string('alnum', 10)) . ".$ext";
+									move_uploaded_file($_FILES['lms_videos_files_zip_update']['tmp_name'][$key][$keyInner], APPPATH . '/downloads/' . $fileName);
+									$zip = [
+										'name' => md5(random_string('alnum', 10)),
+										'mask' => $fileName,
+										'type' => $_FILES['lms_videos_files_zip_update']['type'][$key][$keyInner],
+										'size' => format_filesize($_FILES['lms_videos_files_zip']['size'][$key][$keyInner]),
+										'title' => $post['VideoFileResourceText'][$key][$keyInner]
+									];
+								}
+
+								$tmp['data'][] = [
+									'type' => 'link',
+
+									'name' => $TmpDownloadable_files[$key]['data'][$keyInner]['name'] ?? md5(random_string('alnum', 10)),
+
+									'mask' => $post['videolink'][$key][$keyInner],
+
+									'videotext' => $post['videotext'][$key][$keyInner],
+
+									'description' => $post['description'][$key][$keyInner],
+
+									'zip' => $zip
 
 								];
-								if ($post['product_type'] == 'video' && $post['sub_product_type'] != "videolink") {
-									$store_file_temp['videotext'] = $post['videotext'][$keep_files_count + $i];
+							}
+						}
+						$downloadable_files[] = $tmp;
+						$tmp = [];
+					}
+					$details['product_type'] = 'videolink';
+				}
+
+				if (empty($errors)) {
+
+					$details['downloadable_files'] = json_encode($downloadable_files);
+
+					$this->session->set_flashdata('success', __('admin.product_added_successfully'));
+
+					$old_product_data = [];
+
+					// Product Branch
+					$data['branch_list'] = $this->db->query("SELECT * FROM branch")->result();
+
+					if ($product_id) {
+
+						$old_product_data = $this->db->query("SELECT * FROM product WHERE product_id = " . (int)$product_id)->row_array();
+
+						$details['product_updated_date'] = date('Y-m-d H:i:s');
+
+						// Xử lý dữ liệu từ form
+						if ($this->input->post()) {
+							$quantities = $this->input->post('quantity');
+							$prices = $this->input->post('price');
+
+							foreach ($data['branch_list'] as $branch_item) {
+								$branch_id = $branch_item->id;
+								$quantity = isset($quantities[$branch_id]) ? $quantities[$branch_id] : 0;
+								$price = isset($prices[$branch_id]) ? $prices[$branch_id] : 0;
+								$stocks[$branch_id]['quantity'] = $quantity;
+								$stocks[$branch_id]['price'] = $price;
+								$stocks[$branch_id]['id'] = $product_id;
+
+								// Update Product Branch for current product
+								$this->Product_model->updateProductBranch($branch_id, $product_id, $quantity, $price);
+							}
+						}
+
+						// Update Product						
+						$this->Product_model->update_data('product', $details, array('product_id' => $product_id));
+					} else {
+
+						$details['product_created_by'] = $userdetails['id'];
+						$details['product_updated_date'] = date('Y-m-d H:i:s');
+						$details['product_created_date'] = date('Y-m-d H:i:s');
+
+						// New product
+						$product_id = $this->Product_model->create_data('product', $details);
+
+						// Update Product Branch for new product
+						// Xử lý dữ liệu từ form
+						if ($this->input->post()) {
+							$quantities = $this->input->post('quantity');
+							$prices = $this->input->post('price');
+
+							foreach ($data['branch_list'] as $branch_item) {
+								$branch_id = $branch_item->id;
+								$quantity = isset($quantities[$branch_id]) ? $quantities[$branch_id] : 0;
+								$price = isset($prices[$branch_id]) ? $prices[$branch_id] : 0;
+								$stocks[$branch_id]['quantity'] = $quantity;
+								$stocks[$branch_id]['price'] = $price;
+								$stocks[$branch_id]['id'] = $product_id;
+
+								// Update Product Branch for current product
+								$this->Product_model->updateProductBranch($branch_id, $product_id, $quantity, $price);
+							}
+						}
+
+						// Notification
+						$notificationData = array(
+
+							'notification_url'          => '/stock_listproduct/' . $product_id,
+
+							'notification_type'         =>  'product',
+
+							'notification_title'        =>  __('admin.new_product_added_in_affiliate_program'),
+
+							'notification_view_user_id' =>  'all',
+
+							'notification_viewfor'      =>  'user',
+
+							'notification_actionID'     =>  $product_id,
+
+							'notification_description'  =>  $post['product_name'] . ' product is addded by admin in affiliate Program on ' . date('Y-m-d H:i:s'),
+
+							'notification_is_read'      =>  '0',
+
+							'notification_created_date' =>  date('Y-m-d H:i:s'),
+
+							'notification_ipaddress'    =>  $_SERVER['REMOTE_ADDR']
+
+						);
+
+						$store_setting = $this->Product_model->getSettings('store');
+
+						if ($store_setting['status']) {
+
+							$this->insertnotification($notificationData);
+						}
+					}
+
+					$seofilename = $this->friendly_seo_string($post['product_name']);
+
+					$seofilename = strtolower($seofilename);
+
+					$product_slug = $seofilename . '-' . $product_id;
+
+					$this->db->query("UPDATE product SET product_slug = " . $this->db->escape($product_slug) . " WHERE product_id =" . $product_id);
+
+					$seller = '';
+
+					if ($product_id) {
+
+						$this->db->query("DELETE FROM product_categories WHERE product_id = {$product_id}");
+
+
+
+						if (isset($post['category'])) {
+							if (is_array($post['category'])) {
+								foreach ($post['category'] as $category_id) {
+									$category = array(
+										'product_id' => $product_id,
+										'category_id' => $category_id,
+									);
+									$this->Product_model->create_data('product_categories', $category);
 								}
-								$downloadable_files[] = $store_file_temp;
 							} else {
-
-								$fileName = $zip_name;
-
-								$zip = new ZipArchive();
-
-								if ($zip->open(APPPATH . '/downloads/' . $zip_name, ZipArchive::CREATE) !== TRUE) {
-									$errors['downloadable_files'] = "Sorry ZIP creation is not working currently.";
-								}
-
-								$zip->addFromString($files['name'][$i], file_get_contents($files['tmp_name'][$i]));
-
-								$zip->close();
-
-
-								$downloadable_files[] = array(
-
-									'type' => 'application/x-zip-compressed',
-
-									'name' => $zip_name,
-
-									'mask' => preg_replace('/\\.[^.\\s]{3,4}$/', '', $files['name'][$i]) . '.zip',
-
-								);
-							}
-						}
-					}
-				}
-			}
-
-			if (!empty($_FILES['lms_videos_files'])) {
-
-				foreach ($_FILES['lms_videos_files']['name'] as $key => $value) {
-					if (isset($_FILES['lms_videos_files']['name'][$key]) && !empty($_FILES['lms_videos_files']['name'][$key][0])) {
-						$index = $key;
-						for ($i = 0; $i < count($_FILES['lms_videos_files']['name'][$key]); $i++) {
-							$ext = pathinfo($_FILES['lms_videos_files']['name'][$key][$i], PATHINFO_EXTENSION);
-							$fileName = md5(random_string('alnum', 10)) . ".$ext";
-							move_uploaded_file($_FILES['lms_videos_files']['tmp_name'][$key][$i], APPPATH . '/downloads/' . $fileName);
-							if (!isset($downloadable_files[$index]) && $index != 0) {
-								$index = (count($downloadable_files) - 1) < $key ? $key : 0;
-							}
-
-
-							if (isset($post['keep_video_files']))
-								$keepvidoefilescount = count($post['keep_video_files'][$index]);
-							else
-								$keepvidoefilescount = 0;
-
-							$store_file_temp = [
-								'type' => $_FILES['lms_videos_files']['type'][$key][$i],
-
-								'name' => md5(random_string('alnum', 10)),
-
-								'mask' => $fileName,
-
-								'size' => format_filesize($_FILES['lms_videos_files']['size'][$key][$i]),
-
-								'duration' => $_POST['lms_videos_files_duration'][$key][$i],
-
-								'videotext' => $post['videotext'][$index][$keepvidoefilescount + $i],
-
-								'description' => $post['description'][$index][$keepvidoefilescount + $i]
-							];
-
-
-							if (!empty($_FILES['lms_videos_files_zip']['name'][$key][$i])) {
-								$ext = pathinfo($_FILES['lms_videos_files_zip']['name'][$key][$i], PATHINFO_EXTENSION);
-								$fileName = md5(random_string('alnum', 10)) . ".$ext";
-								move_uploaded_file($_FILES['lms_videos_files_zip']['tmp_name'][$key][$i], APPPATH . '/downloads/' . $fileName);
-
-								$store_file_temp['zip'] = [
-									'name' => md5(random_string('alnum', 10)),
-									'mask' => $fileName,
-									'title' => $post['VideoFileResourceText'][$index][count($post['keep_video_files'][$index]) + $i],
-									'type' => $_FILES['lms_videos_files_zip']['type'][$key][$i],
-									'size' => format_filesize($_FILES['lms_videos_files_zip']['size'][$key][$i])
-								];
-							}
-							$downloadable_files[$index]['data'][] = $store_file_temp;
-						}
-					}
-					$downloadable_files[$key]['title'] = $post['section'][$key];
-				}
-			}
-
-			if (!empty($_FILES['lms_videos_files_update'])) {
-				foreach ($_FILES['lms_videos_files_update']['name'] as $key => $value) {
-					if (isset($_FILES['lms_videos_files_update']['name'][$key])) {
-						foreach ($_FILES['lms_videos_files_update']['name'][$key] as $oldname => $newFile) {
-							$ext = pathinfo($_FILES['lms_videos_files_update']['name'][$key][$oldname], PATHINFO_EXTENSION);
-							$fileName = md5(random_string('alnum', 10)) . ".$ext";
-							move_uploaded_file($_FILES['lms_videos_files_update']['tmp_name'][$key][$oldname], APPPATH . '/downloads/' . $fileName);
-							foreach ($downloadable_files[$key]['data'] as $dkey => $datavalue) {
-								if ($datavalue['name'] == $oldname) {
-
-									$downloadable_files[$key]['data'][$dkey]['name'] = md5(random_string('alnum', 10));
-									$oldFileName = $downloadable_files[$key]['data'][$dkey]['mask'];
-									$downloadable_files[$key]['data'][$dkey]['mask'] = $fileName;
-									$downloadable_files[$key]['data'][$dkey]['type'] = $_FILES['lms_videos_files_update']['type'][$key][$oldname];
-									$downloadable_files[$key]['data'][$dkey]['size'] = format_filesize($_FILES['lms_videos_files_update']['size'][$key][$oldname]);
-									$downloadable_files[$key]['data'][$dkey]['duration'] = $_POST['lms_videos_files_update_duration'][$key][$oldname];
-
-
-									if (file_exists(APPPATH . '/downloads/' . $oldFileName)) {
-										@unlink(APPPATH . '/downloads/' . $oldFileName);
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-			if (!empty($_FILES['lms_videos_files_zip_update'])) {
-				if (isset($_POST['sub_product_type']) && $_POST['sub_product_type'] == 'videolink') {
-					$downloadable_files = $_downloads;
-				}
-				foreach ($_FILES['lms_videos_files_zip_update']['name'] as $key => $value) {
-					if (isset($_FILES['lms_videos_files_zip_update']['name'][$key])) {
-						foreach ($_FILES['lms_videos_files_zip_update']['name'][$key] as $oldname => $newFile) {
-							$ext = pathinfo($_FILES['lms_videos_files_zip_update']['name'][$key][$oldname], PATHINFO_EXTENSION);
-							$fileName = md5(random_string('alnum', 10)) . ".$ext";
-							move_uploaded_file($_FILES['lms_videos_files_zip_update']['tmp_name'][$key][$oldname], APPPATH . '/downloads/' . $fileName);
-							foreach ($downloadable_files[$key]['data'] as $dkey => $datavalue) {
-
-								if ($datavalue['name'] == $oldname) {
-									$downloadable_files[$key]['data'][$dkey]['zip']['name'] = md5(random_string('alnum', 10));
-									$oldFileName = $downloadable_files[$key]['data'][$dkey]['zip']['mask'];
-									$downloadable_files[$key]['data'][$dkey]['zip']['mask'] = $fileName;
-									$downloadable_files[$key]['data'][$dkey]['zip']['type'] = $_FILES['lms_videos_files_zip_update']['type'][$key][$oldname];
-									$downloadable_files[$key]['data'][$dkey]['zip']['size'] = format_filesize($_FILES['lms_videos_files_zip_update']['size'][$key][$oldname]);
-									$downloadable_files[$key]['data'][$dkey]['zip']['title'] = $post['VideoFileResourceText'][$key][$dkey];
-
-
-									if (file_exists(APPPATH . '/downloads/' . $oldFileName)) {
-										@unlink(APPPATH . '/downloads/' . $oldFileName);
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-
-			if (!empty($post['videolink'])) {
-				$TmpDownloadable_files = $downloadable_files;
-				$downloadable_files = [];
-				foreach ($post['sectionlink'] as $key => $value) {
-					$tmp['title'] = $value;
-					foreach ($post['videolink'][$key] as $keyInner => $InnerValue) {
-						if (!empty($post['videolink'][$key][$keyInner]) && !empty($post['videotext'][$key][$keyInner])) {
-							$zip = $TmpDownloadable_files[$key]['data'][$keyInner]['zip'] ?? [];
-							if (!empty($_FILES['lms_videos_files_zip_update']['name'][$key][$keyInner])) {
-
-								$ext = pathinfo($_FILES['lms_videos_files_zip_update']['name'][$key][$keyInner], PATHINFO_EXTENSION);
-								$fileName = md5(random_string('alnum', 10)) . ".$ext";
-								move_uploaded_file($_FILES['lms_videos_files_zip_update']['tmp_name'][$key][$keyInner], APPPATH . '/downloads/' . $fileName);
-								$zip = [
-									'name' => md5(random_string('alnum', 10)),
-									'mask' => $fileName,
-									'type' => $_FILES['lms_videos_files_zip_update']['type'][$key][$keyInner],
-									'size' => format_filesize($_FILES['lms_videos_files_zip']['size'][$key][$keyInner]),
-									'title' => $post['VideoFileResourceText'][$key][$keyInner]
-								];
-							}
-
-							$tmp['data'][] = [
-								'type' => 'link',
-
-								'name' => $TmpDownloadable_files[$key]['data'][$keyInner]['name'] ?? md5(random_string('alnum', 10)),
-
-								'mask' => $post['videolink'][$key][$keyInner],
-
-								'videotext' => $post['videotext'][$key][$keyInner],
-
-								'description' => $post['description'][$key][$keyInner],
-
-								'zip' => $zip
-
-							];
-						}
-					}
-					$downloadable_files[] = $tmp;
-					$tmp = [];
-				}
-				$details['product_type'] = 'videolink';
-			}
-
-			if (empty($errors)) {
-
-				$details['downloadable_files'] = json_encode($downloadable_files);
-
-				$this->session->set_flashdata('success', __('admin.product_added_successfully'));
-
-				$old_product_data = [];
-
-				// Product Branch
-				$data['branch_list'] = $this->db->query("SELECT * FROM branch")->result();
-
-				if ($product_id) {
-
-					$old_product_data = $this->db->query("SELECT * FROM product WHERE product_id = " . (int)$product_id)->row_array();
-
-					$details['product_updated_date'] = date('Y-m-d H:i:s');
-
-					// Xử lý dữ liệu từ form
-					if ($this->input->post()) {
-						$quantities = $this->input->post('quantity');
-						$prices = $this->input->post('price');
-
-						foreach ($data['branch_list'] as $branch_item) {
-							$branch_id = $branch_item->id;
-							$quantity = isset($quantities[$branch_id]) ? $quantities[$branch_id] : 0;
-							$price = isset($prices[$branch_id]) ? $prices[$branch_id] : 0;
-							$stocks[$branch_id]['quantity'] = $quantity;
-							$stocks[$branch_id]['price'] = $price;
-							$stocks[$branch_id]['id'] = $product_id;
-
-							// Update Product Branch for current product
-							$this->Product_model->updateProductBranch($branch_id, $product_id, $quantity, $price);
-						}
-					}
-
-					// Update Product						
-					$this->Product_model->update_data('product', $details, array('product_id' => $product_id));
-				} else {
-
-					$details['product_created_by'] = $userdetails['id'];
-					$details['product_updated_date'] = date('Y-m-d H:i:s');
-					$details['product_created_date'] = date('Y-m-d H:i:s');
-
-					// New product
-					$product_id = $this->Product_model->create_data('product', $details);
-
-					// Update Product Branch for new product
-					// Xử lý dữ liệu từ form
-					if ($this->input->post()) {
-						$quantities = $this->input->post('quantity');
-						$prices = $this->input->post('price');
-
-						foreach ($data['branch_list'] as $branch_item) {
-							$branch_id = $branch_item->id;
-							$quantity = isset($quantities[$branch_id]) ? $quantities[$branch_id] : 0;
-							$price = isset($prices[$branch_id]) ? $prices[$branch_id] : 0;
-							$stocks[$branch_id]['quantity'] = $quantity;
-							$stocks[$branch_id]['price'] = $price;
-							$stocks[$branch_id]['id'] = $product_id;
-
-							// Update Product Branch for current product
-							$this->Product_model->updateProductBranch($branch_id, $product_id, $quantity, $price);
-						}
-					}
-
-					// Notification
-					$notificationData = array(
-
-						'notification_url'          => '/stock_listproduct/' . $product_id,
-
-						'notification_type'         =>  'product',
-
-						'notification_title'        =>  __('admin.new_product_added_in_affiliate_program'),
-
-						'notification_view_user_id' =>  'all',
-
-						'notification_viewfor'      =>  'user',
-
-						'notification_actionID'     =>  $product_id,
-
-						'notification_description'  =>  $post['product_name'] . ' product is addded by admin in affiliate Program on ' . date('Y-m-d H:i:s'),
-
-						'notification_is_read'      =>  '0',
-
-						'notification_created_date' =>  date('Y-m-d H:i:s'),
-
-						'notification_ipaddress'    =>  $_SERVER['REMOTE_ADDR']
-
-					);
-
-					$store_setting = $this->Product_model->getSettings('store');
-
-					if ($store_setting['status']) {
-
-						$this->insertnotification($notificationData);
-					}
-				}
-
-				$seofilename = $this->friendly_seo_string($post['product_name']);
-
-				$seofilename = strtolower($seofilename);
-
-				$product_slug = $seofilename . '-' . $product_id;
-
-				$this->db->query("UPDATE product SET product_slug = " . $this->db->escape($product_slug) . " WHERE product_id =" . $product_id);
-
-				$seller = '';
-
-				if ($product_id) {
-
-					$this->db->query("DELETE FROM product_categories WHERE product_id = {$product_id}");
-
-
-
-					if (isset($post['category'])) {
-						if (is_array($post['category'])) {
-							foreach ($post['category'] as $category_id) {
 								$category = array(
 									'product_id' => $product_id,
-									'category_id' => $category_id,
+									'category_id' => $post['category'],
 								);
 								$this->Product_model->create_data('product_categories', $category);
 							}
-						} else {
-							$category = array(
-								'product_id' => $product_id,
-								'category_id' => $post['category'],
-							);
-							$this->Product_model->create_data('product_categories', $category);
+						}
+
+
+
+						$admin_comment = '';
+
+						if (isset($post['admin_comment']) && $post['admin_comment']) {
+
+							$admin_comment = $post['admin_comment'];
+						}
+
+
+						if (isset($post['admin_sale_commission_type'])) {
+
+							$seller_comm = [
+
+								'admin_sale_commission_type'      => $post['admin_sale_commission_type'],
+
+								'admin_commission_value'          => $post['admin_commission_value'],
+
+								'admin_click_commission_type'     => $post['admin_click_commission_type'],
+
+								'admin_click_amount'              => $post['admin_click_amount'],
+
+								'admin_click_count'               => $post['admin_click_count'],
+
+							];
+
+							$seller = $this->db->query("SELECT * FROM product_affiliate WHERE product_id=" . (int)$product_id . " ")->row();
+
+							$this->Product_model->assignToSeller($product_id, $details, $userdetails['id'], $admin_comment, 'admin', $seller_comm);
 						}
 					}
 
 
 
-					$admin_comment = '';
 
-					if (isset($post['admin_comment']) && $post['admin_comment']) {
 
-						$admin_comment = $post['admin_comment'];
+					if ($seller) {
+
+						$product_data = $this->db->query("SELECT * FROM product WHERE product_id = " . (int)$product_id)->row_array();
+
+						$this->load->model('Mail_model');
+
+						if ($old_product_data['product_status'] != $product_data['product_status']) {
+
+							$this->Mail_model->vendor_product_status_change($product_id, 'vendor', true);
+						}
 					}
 
 
-					if (isset($post['admin_sale_commission_type'])) {
-
-						$seller_comm = [
-
-							'admin_sale_commission_type'      => $post['admin_sale_commission_type'],
-
-							'admin_commission_value'          => $post['admin_commission_value'],
-
-							'admin_click_commission_type'     => $post['admin_click_commission_type'],
-
-							'admin_click_amount'              => $post['admin_click_amount'],
-
-							'admin_click_count'               => $post['admin_click_count'],
-
-						];
-
-						$seller = $this->db->query("SELECT * FROM product_affiliate WHERE product_id=" . (int)$product_id . " ")->row();
-
-						$this->Product_model->assignToSeller($product_id, $details, $userdetails['id'], $admin_comment, 'admin', $seller_comm);
+					if ($post['action'] == 'save_close') {
+						$json['location'] = base_url('admincontrol/stock_listproduct/');
+					} else {
+						$json['location'] = base_url('admincontrol/stock_updateproduct/' . $product_id);
 					}
-				}
-
-
-
-
-
-				if ($seller) {
-
-					$product_data = $this->db->query("SELECT * FROM product WHERE product_id = " . (int)$product_id)->row_array();
-
-					$this->load->model('Mail_model');
-
-					if ($old_product_data['product_status'] != $product_data['product_status']) {
-
-						$this->Mail_model->vendor_product_status_change($product_id, 'vendor', true);
-					}
-				}
-
-
-				if ($post['action'] == 'save_close') {
-					$json['location'] = base_url('admincontrol/stock_listproduct/');
 				} else {
-					$json['location'] = base_url('admincontrol/stock_updateproduct/' . $product_id);
+					$json['errors'] = $errors;
 				}
 			} else {
-				$json['errors'] = $errors;
+
+				$json['errors'] = $this->form_validation->error_array();
+
+				if (isset($json['errors']['category[]'])) {
+
+					$json['errors']['category_auto'] = $json['errors']['category[]'];
+				}
 			}
-		} else {
 
-			$json['errors'] = $this->form_validation->error_array();
+			echo json_encode($json);
 
-			if (isset($json['errors']['category[]'])) {
+			die;
+		}
+	}
 
-				$json['errors']['category_auto'] = $json['errors']['category[]'];
-			}
+	public function stock_listproduct_ajax($page = 1) {
+
+		$userdetails = $this->userdetails();
+
+		$get = $this->input->get(null, true);
+
+		$post = $this->input->post(null, true);
+
+		$filter = array(
+
+			'page' => isset($get['page']) ? $get['page'] : $page,
+
+			'limit' => 20,
+		);
+
+
+		if (isset($post['category_id']) && $post['category_id']) {
+
+			$filter['category_id'] = (int)$this->input->post('category_id');
 		}
 
+
+
+		if (isset($post['seller_id']) && $post['seller_id']) {
+
+			$filter['seller_id'] = (int)$this->input->post('seller_id');
+		}
+
+
+		$filter['product_status_in'] =	 '1';
+
+		if ($only_review == 'reviews') {
+
+			$filter['product_status_in'] =	 '0,2,3';
+		}
+
+
+		$data['default_commition'] = $this->Product_model->getSettings('productsetting');
+
+		$record = $this->Product_model->getAllProduct($userdetails['id'], $userdetails['type'], $filter);
+
+		$data['productlist'] = $record['data'];
+
+		$json['view'] = $this->load->view("admincontrol/product_stock/product_list", $data, true);
+
+		$this->load->library('pagination');
+
+		$this->pagination->cur_page = $filter['page'];
+
+		$config['base_url'] = base_url('admincontrol/stock_listproduct_ajax');
+
+		$config['per_page'] = $filter['limit'];
+
+		$config['total_rows'] = $record['total'];
+
+		$config['use_page_numbers'] = TRUE;
+
+		$config['page_query_string'] = TRUE;
+
+		$config['enable_query_strings'] = TRUE;
+
+		$_GET['page'] = $filter['page'];
+
+		$config['query_string_segment'] = 'page';
+
+		$this->pagination->initialize($config);
+
+		$json['pagination'] = $this->pagination->create_links();
+
 		echo json_encode($json);
-
-		die;
 	}
-}
-
-public function stock_listproduct_ajax($page = 1) {
-
-	$userdetails = $this->userdetails();
-
-	$get = $this->input->get(null, true);
-
-	$post = $this->input->post(null, true);
-
-	$filter = array(
-
-		'page' => isset($get['page']) ? $get['page'] : $page,
-
-		'limit' => 20,
-	);
-
-
-	if (isset($post['category_id']) && $post['category_id']) {
-
-		$filter['category_id'] = (int)$this->input->post('category_id');
-	}
-
-
-
-	if (isset($post['seller_id']) && $post['seller_id']) {
-
-		$filter['seller_id'] = (int)$this->input->post('seller_id');
-	}
-
-
-	$filter['product_status_in'] =	 '1';
-
-	if ($only_review == 'reviews') {
-
-		$filter['product_status_in'] =	 '0,2,3';
-	}
-
-
-	$data['default_commition'] = $this->Product_model->getSettings('productsetting');
-
-	$record = $this->Product_model->getAllProduct($userdetails['id'], $userdetails['type'], $filter);
-
-	$data['productlist'] = $record['data'];
-
-	$json['view'] = $this->load->view("admincontrol/product_stock/product_list", $data, true);
-
-	$this->load->library('pagination');
-
-	$this->pagination->cur_page = $filter['page'];
-
-	$config['base_url'] = base_url('admincontrol/stock_listproduct_ajax');
-
-	$config['per_page'] = $filter['limit'];
-
-	$config['total_rows'] = $record['total'];
-
-	$config['use_page_numbers'] = TRUE;
-
-	$config['page_query_string'] = TRUE;
-
-	$config['enable_query_strings'] = TRUE;
-
-	$_GET['page'] = $filter['page'];
-
-	$config['query_string_segment'] = 'page';
-
-	$this->pagination->initialize($config);
-
-	$json['pagination'] = $this->pagination->create_links();
-
-	echo json_encode($json);
-}
 }
