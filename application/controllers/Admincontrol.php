@@ -7607,23 +7607,6 @@ class Admincontrol extends MY_Controller {
 			}
 		}
 
-
-		// Update User Statistic			
-		$this->update_user_tree();
-		$this->update_user_recruitment();
-
-		$this->calculate_revenue();
-		$this->update_revenue();
-
-		$this->calculate_consum();
-		$this->update_consum();
-
-		$this->update_user_rank();
-
-		$this->user->calculate_commissions();
-
-		// End Update
-
 		$data['user_groups'] = $this->user->getgrouplist();
 		$data['approvals_count'] = $this->Product_model->getApprovalCounts();
 
@@ -14786,6 +14769,32 @@ class Admincontrol extends MY_Controller {
 		exit;
 	}
 
+	// Tính thưởng
+	public function commission_payout() {
+
+		if (!$this->userdetails()) {
+			die();
+		}
+
+
+		// Update User Statistic			
+		$this->update_user_tree();
+		$this->update_user_recruitment();
+
+		$this->calculate_revenue();
+		$this->update_revenue();
+
+		$this->calculate_consum();
+		$this->update_consum();
+
+		$this->update_user_rank();
+
+		$this->user->calculate_commissions();
+
+		// End Update
+	}
+
+	// Kiểm tra nhảy cấp
 	public function check_award_level() {
 		if (!$this->userdetails()) {
 			die();

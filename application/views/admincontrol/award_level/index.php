@@ -14,6 +14,7 @@
                     <div>
                         <button id="toggle-uploader" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#cron-job-info-modal"><?= __('admin.cron_job_setting') ?></button>
                         <button id="toggle-uploader" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#check-award-level-modal"><?= __('admin.check_award_level') ?></button>
+                        <button id="toggle-uploader" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#cron-job-commission-payout-modal"><?= __('Tính thưởng - Kết ví') ?></button>
                         <a id="toggle-uploader" href="<?= base_url('admincontrol/create_award_level') ?>" class="btn btn-light"><?= __("admin.add_new") ?></a>
                     </div>
             </div>
@@ -134,16 +135,53 @@
         </div>
     </div>
 </div>
+<div id="cron-job-commission-payout-modal" class="modal" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><?= __('Tính thưởng - Kết ví') ?></h5>
+            </div>
+            <div class="modal-body">
+                <div class="step-1">
+                    <h5><?= __('Bạn có chắc chắn muốn thống kê và tính thưởng không?') ?></h5>
+                    <h6><?= __('Quá trình này có thể mất nhiều thời gian hơn tùy thuộc vào số lượng người dùng và chính sách có sẵn trong hệ thống.') ?></h6>
+                </div>
+                <div class="step-2" style="display:none;">
+                    <h5><?= __('Vui lòng đợi trong quá trình tính toán') ?></h5>
+                    <div id="progressbar123">
+                        <div></div>
+                    </div>
+                    <h6 class="text-success jumped" data-count="0" style="display:none;">0 <?= __('admin.user_jumped_to_level') ?></h6>
+                    <h6 class="text-warning warning" style="display:none;font-size: 21px;"><?= __('admin.no_jumped_user_available') ?></h6>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary allow_to_commission_payout"><?= __('admin.yes_continue') ?></button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?= __('admin.close') ?></button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script type="text/javascript">
     var warning = true;
+    var warning_calculate = true;
     var jumped_user = false;  // Add this line to track if any user jumped a level
+    var commission_user = false;  // Add this line to track if any user jumped a level
     $(document).on('click','.allow_to_check_award_level', function(){
         $(this).hide();
         $('#check-award-level-modal .step-1').hide();
         $('#check-award-level-modal .step-2').show();
         $('#check-award-level-modal .modal-footer').hide();
         recursive_check_award_level();
+    });
+
+    $(document).on('click','.allow_to_commission_payout', function(){
+        $(this).hide();
+        $('#cron-job-commission-payout-modal .step-1').hide();
+        $('#cron-job-commission-payout-modal .step-2').show();
+        $('#cron-job-commission-payout-modal .modal-footer').hide();
+        recursive_commission_payout();
     });
 
     function recursive_check_award_level(index = 1){
@@ -180,6 +218,45 @@
                 
                 $('#check-award-level-modal .modal-footer').show();
                 $('#check-award-level-modal .modal-footer').html('<button type="button" class="btn btn-secondary" onclick="window.location.reload()">'+'<?= __('admin.close') ?>'+'</button>');
+            } 
+            }
+        });
+    }
+
+    function recursive_commission_payout(index = 1){
+        $.ajax({
+        type:"POST",
+        url: '<?= base_url('admincontrol/commission_payout')?>',
+        dataType:"json",
+        data:{index:index},
+        success: function(data){
+            if(data.progress_percentage){
+                $('#progressbar123').show();
+                $('#progressbar123 > div').css('width',data.progress_percentage);
+            }
+
+            if(data.jumped){
+                commission_user = true;  // Update this flag when a user jumps a level
+                warning_calculate = false;
+
+                let existing_count = $('#cron-job-commission-payout-modal .step-2 .jumped').data('count');
+                $('#cron-job-commission-payout-modal .step-2 .jumped').data('count',(existing_count+1));
+                $('#cron-job-commission-payout-modal .step-2 .jumped').text((existing_count+1)+' '+data.message);
+                $('#cron-job-commission-payout-modal .step-2 .jumped').show();
+            }
+            
+            if(data.index){
+                recursive_check_award_level(data.index);
+            } else {
+                // Display the warning message only if no user jumped a level
+                if(!commission_user){
+                    $('#cron-job-commission-payout-modal .step-2 h5').hide();
+                    $('#progressbar123').hide();
+                    $('#cron-job-commission-payout-modal .step-2 h6.text-warning').show();
+                }
+                
+                $('#cron-job-commission-payout-modal .modal-footer').show();
+                $('#cron-job-commission-payout-modal .modal-footer').html('<button type="button" class="btn btn-secondary" onclick="window.location.reload()">'+'<?= __('admin.close') ?>'+'</button>');
             } 
             }
         });

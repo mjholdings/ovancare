@@ -394,6 +394,8 @@ class User_model extends MY_Model {
 				}
 			}
 		}
+
+		return false;
 	}
 
 	// Hàm lấy cấp độ hiện tại của user
