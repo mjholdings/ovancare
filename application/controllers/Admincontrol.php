@@ -6765,7 +6765,7 @@ class Admincontrol extends MY_Controller {
 	}
 
 
-
+	// Tên trạng thái
 	public function getStateName($state_id) {
 
 		$query = $this->db->get_where('states', array('id' => $state_id))->row_array();
@@ -6780,7 +6780,7 @@ class Admincontrol extends MY_Controller {
 	}
 
 
-
+	// Tuyến dưới
 	public function downline($user_id) {
 
 		$userdetails = $this->userdetails();
@@ -6797,6 +6797,498 @@ class Admincontrol extends MY_Controller {
 		$this->view($data, 'users/downline');
 	}
 
+
+	/*
+	* User Controllers
+	*/
+
+	public function update_user_tree() {
+		// Xóa dữ liệu cũ trong bảng users_direct và users_indirect
+		$this->db->truncate('users_direct');
+		$this->db->truncate('users_indirect');
+
+		// Lấy danh sách tất cả các user từ bảng users
+		$this->db->select('id');
+		$query = $this->db->get('users');
+		$users = $query->result_array();
+
+		foreach ($users as $user) {
+			$id = $user['id'];
+
+			// Lấy danh sách các con của user hiện tại
+			$this->db->select('id');
+			$this->db->where('refid', $id);
+			$children_query = $this->db->get('users');
+			$children = $children_query->result_array();
+
+			// Chuyển danh sách các con thành chuỗi
+			$child_ids = array_map(function ($child) {
+				return $child['id'];
+			}, $children);
+
+			$childs_string = implode(',', $child_ids);
+
+			// Chèn vào bảng users_direct
+			$data = array(
+				'user_id' => $id,
+				'ids_direct' => $childs_string
+			);
+
+			$this->db->insert('users_direct', $data);
+		}
+
+
+		// Lấy danh sách tất cả các user từ bảng users
+		$this->db->select('id');
+		$query = $this->db->get('users');
+		$users = $query->result_array();
+
+		foreach ($users as $user) {
+			$id = $user['id'];
+
+			// Lấy danh sách các con trực tiếp từ bảng users_direct
+			$this->db->select('ids_direct');
+			$this->db->where('user_id', $id);
+			$direct_query = $this->db->get('users_direct');
+			$direct_children = $direct_query->row_array();
+			$direct_children = $direct_children ? explode(',', $direct_children['ids_direct']) : [];
+
+			// Lấy danh sách toàn bộ các con thuộc cấp dưới từ bảng users
+			$all_descendants = $this->user->getAllDescendants($id);
+
+			// Loại bỏ các con trực tiếp khỏi danh sách toàn bộ các con thuộc cấp dưới
+			$indirect_children = array_diff($all_descendants, $direct_children);
+
+			// Chuyển danh sách các con gián tiếp thành chuỗi
+			$children_indirect_string = implode(',', $indirect_children);
+
+			// Chèn vào bảng users_indirect
+			$data = array(
+				'user_id' => $id,
+				'ids_indirect' => $children_indirect_string
+			);
+
+			$this->db->insert('users_indirect', $data);
+		}
+
+		echo "Bảng users_direct và users_indirect đã được cập nhật.";
+	}
+
+	// User Recruitment
+	public function update_user_recruitment() {
+		// Xóa dữ liệu cũ trong bảng users_recruitment
+		$this->db->truncate('user_recruitment');
+
+		// Lấy danh sách tất cả các user từ bảng user_tree
+		$this->db->select('id');
+		$query = $this->db->get('users');
+		$users = $query->result_array();
+
+		foreach ($users as $user) {
+			$user_id = $user['id'];
+			$update_time = date('Y-m-d H:i:s');  // Cập nhật thời gian hiện tại;
+
+
+			// Lấy danh sách các con trực tiếp từ bảng user_tree
+			$direct_children = $this->user->getChildren($user_id);
+			$direct_child_ids = array_map(function ($child) {
+				return $child['id'];
+			}, $direct_children);
+			$ids_direct_string = implode(',', $direct_child_ids);
+			$total_direct = count($direct_child_ids);
+
+			// Lấy danh sách toàn bộ các con thuộc cấp dưới từ bảng user_tree
+			$all_descendants = $this->user->getAllDescendants($user_id);
+			$indirect_children = array_diff($all_descendants, $direct_child_ids);
+			$ids_indirect_string = implode(',', $indirect_children);
+			$total_indirect = count($indirect_children);
+
+			// Tính tổng số con
+			$total_downline = $total_direct + $total_indirect;
+
+			// Chèn vào bảng users_recruitment
+			$data = array(
+				'user_id' => $user_id,
+				'ids_direct' => $ids_direct_string,
+				'ids_indirect' => $ids_indirect_string,
+				'total_direct' => $total_direct,
+				'total_indirect' => $total_indirect,
+				'total_downline' => $total_downline,
+				'updated_time' => $update_time
+			);
+
+			$this->db->insert('user_recruitment', $data);
+		}
+
+		echo "Bảng users_recruitment đã được cập nhật.";
+	}
+
+	// User Revenue - Doanh thu
+	public function calculate_revenue() {
+		// Xóa dữ liệu cũ trong bảng user_revenue
+		$this->db->truncate('user_revenue');
+
+		// Lấy danh sách tất cả các user từ bảng users
+		$this->db->select('id');
+		$query = $this->db->get('users');
+		$users = $query->result_array();
+
+		foreach ($users as $user) {
+			$user_id = $user['id'];
+
+			// Lấy danh sách các đơn hàng mà user tạo ra
+			$this->db->select('*');
+			$this->db->where('user_id', $user_id);
+			$orders = $this->db->get('order')->result_array();
+
+			foreach ($orders as $order) {
+				$order_id = $order['id'];
+				$order_user_id = $order['user_id'];
+				$order_time = $order['created_at'];
+
+				// Lấy các sản phẩm trong đơn hàng
+				$this->db->select('*');
+				$this->db->where('order_id', $order_id);
+				$order_products = $this->db->get('order_products')->result_array();
+
+				foreach ($order_products as $order_product) {
+					$product_id = $order_product['product_id'];
+					$refer_id = $order_product['refer_id'];
+					$total = $order_product['total'];
+
+					// Tính revenue
+					$revenue = ($refer_id == $user_id) ? $total : 0;
+
+					// Chèn dữ liệu vào bảng user_revenue
+					$data = array(
+						'user_id' => $user_id,
+						'order_id' => $order_id,
+						'product_id' => $product_id,
+						'revenue' => $revenue,
+						'created_time' => $order_time
+					);
+
+					$this->db->insert('user_revenue', $data);
+				}
+			}
+		}
+
+		echo "Bảng user_revenue đã được cập nhật.";
+	}
+
+	// User Update Revenue - Doanh thu khác
+	public function update_revenue() {
+		// Lấy danh sách tất cả các user từ bảng users_revenue
+		$this->db->select('user_id, revenue');
+		$query = $this->db->get('user_revenue');
+		$users = $query->result_array();
+
+		foreach ($users as $user) {
+			$user_id = $user['user_id'];
+			$user_revenue = $user['revenue'];
+			$update_time = date('Y-m-d H:i:s');  // Cập nhật thời gian hiện tại;
+
+			// Tính toán revenue_direct và revenue_indirect
+			$revenue_direct = $this->calculate_revenue_direct($user_id);
+			$revenue_indirect = $this->calculate_revenue_indirect($user_id);
+
+			// Cập nhật bảng user_revenue với các giá trị mới
+			$data = array(
+				'revenue_direct' => $revenue_direct,
+				'revenue_indirect' => $revenue_indirect,
+				'revenue_downline' => $revenue_direct + $revenue_indirect,
+				'revenue_team' => $user_revenue + $revenue_direct + $revenue_indirect,
+				'updated_time' => $update_time
+			);
+			$this->db->where('user_id', $user_id);
+			$this->db->update('user_revenue', $data);
+		}
+
+		echo "Bảng user_revenue đã được cập nhật.";
+	}
+
+	// Tính toán doanh thu trực tiếp
+	private function calculate_revenue_direct($user_id) {
+		// Lấy danh sách ids_direct từ bảng users_direct
+		$this->db->select('ids_direct');
+		$this->db->where('user_id', $user_id);
+		$result = $this->db->get('users_direct')->row_array();
+		$ids_direct = isset($result['ids_direct']) ? explode(',', $result['ids_direct']) : array();
+
+		if (empty($ids_direct)) {
+			return 0;
+		}
+
+		// Tính tổng revenue của các user_id trong danh sách ids_direct
+		$this->db->select('SUM(revenue) as total_revenue_direct');
+		$this->db->where_in('user_id', $ids_direct);
+		$total_revenue_direct = $this->db->get('user_revenue')->row()->total_revenue_direct;
+
+		return $total_revenue_direct;
+	}
+
+	// Tính toán doanh thu gián tiếp
+	private function calculate_revenue_indirect($user_id) {
+		// Lấy danh sách ids_indirect từ bảng users_indirect
+		$this->db->select('ids_indirect');
+		$this->db->where('user_id', $user_id);
+		$result = $this->db->get('users_indirect')->row_array();
+		$ids_indirect = isset($result['ids_indirect']) ? explode(',', $result['ids_indirect']) : array();
+
+		if (empty($ids_indirect)) {
+			return 0;
+		}
+
+		// Tính tổng revenue của các user_id trong danh sách ids_indirect
+		$this->db->select('SUM(revenue) as total_revenue_indirect');
+		$this->db->where_in('user_id', $ids_indirect);
+		$total_revenue_indirect = $this->db->get('user_revenue')->row()->total_revenue_indirect;
+
+		return $total_revenue_indirect;
+	}
+
+	// User Consum - Tiêu dùng
+	public function calculate_consum() {
+		// Xóa dữ liệu cũ trong bảng user_consum
+		$this->db->truncate('user_consum');
+
+		// Lấy danh sách tất cả các user từ bảng users
+		$this->db->select('id');
+		$query = $this->db->get('users');
+		$users = $query->result_array();
+
+		foreach ($users as $user) {
+			$user_id = $user['id'];
+
+			// Lấy danh sách các đơn hàng mà user tạo ra
+			$this->db->select('*');
+			$this->db->where('user_id', $user_id);
+			$orders = $this->db->get('order')->result_array();
+
+			foreach ($orders as $order) {
+				$order_id = $order['id'];
+				$order_user_id = $order['user_id'];
+				$order_time = $order['created_at'];
+
+
+				// Lấy các sản phẩm trong đơn hàng
+				$this->db->select('*');
+				$this->db->where('order_id', $order_id);
+				$order_products = $this->db->get('order_products')->result_array();
+
+				foreach ($order_products as $order_product) {
+					$product_id = $order_product['product_id'];
+					$refer_id = $order_product['refer_id'];
+					$total = $order_product['total'];
+
+					// Tính consum (tiêu cá nhân)
+					$consum = ($order_user_id == $user_id) ? $total : 0;
+
+					// Chèn dữ liệu vào bảng user_consum
+					$data = array(
+						'user_id' => $user_id,
+						'order_id' => $order_id,
+						'product_id' => $product_id,
+						'consum' => $consum,
+						'created_time' => $order_time
+
+					);
+
+					$this->db->insert('user_consum', $data);
+				}
+			}
+		}
+
+		echo "Bảng user_consum đã được cập nhật.";
+	}
+
+	// Cập nhật consum cho direct và indirect
+	public function update_consum() {
+		// Lấy danh sách tất cả các user từ bảng user_consum
+		$this->db->select('user_id, consum');
+		$query = $this->db->get('user_consum');
+		$users = $query->result_array();
+
+		foreach ($users as $user) {
+			$user_id = $user['user_id'];
+			$user_consum = $user['consum'];
+			$update_time = date('Y-m-d H:i:s');  // Cập nhật thời gian hiện tại;
+
+
+			// Tính toán consum_direct và consum_indirect
+			$consum_direct = $this->calculate_consum_direct($user_id);
+			$consum_indirect = $this->calculate_consum_indirect($user_id);
+
+			// Cập nhật bảng user_consum với các giá trị mới
+			$data = array(
+				'consum_direct' => $consum_direct,
+				'consum_indirect' => $consum_indirect,
+				'consum_downline' => $consum_direct + $consum_indirect,
+				'consum_team' => $user_consum + $consum_direct + $consum_indirect,
+				'updated_time' => $update_time
+			);
+			$this->db->where('user_id', $user_id);
+			$this->db->update('user_consum', $data);
+		}
+
+		echo "Bảng user_consum đã được cập nhật.";
+	}
+
+	// Tính doanh thu trực tiếp
+	private function calculate_consum_direct($user_id) {
+		// Lấy danh sách ids_direct từ bảng users_direct
+		$this->db->select('ids_direct');
+		$this->db->where('user_id', $user_id);
+		$result = $this->db->get('users_direct')->row_array();
+		$ids_direct = isset($result['ids_direct']) ? explode(',', $result['ids_direct']) : array();
+
+		if (empty($ids_direct)) {
+			return 0;
+		}
+
+		// Tính tổng consum của các user_id trong danh sách ids_direct
+		$this->db->select('SUM(consum) as total_consum_direct');
+		$this->db->where_in('user_id', $ids_direct);
+		$total_consum_direct = $this->db->get('user_consum')->row()->total_consum_direct;
+
+		return $total_consum_direct;
+	}
+
+	// Tính doanh thu gián tiếp
+	private function calculate_consum_indirect($user_id) {
+		// Lấy danh sách ids_indirect từ bảng users_indirect
+		$this->db->select('ids_indirect');
+		$this->db->where('user_id', $user_id);
+		$result = $this->db->get('users_indirect')->row_array();
+		$ids_indirect = isset($result['ids_indirect']) ? explode(',', $result['ids_indirect']) : array();
+
+		if (empty($ids_indirect)) {
+			return 0;
+		}
+
+		// Tính tổng consum của các user_id trong danh sách ids_indirect
+		$this->db->select('SUM(consum) as total_consum_indirect');
+		$this->db->where_in('user_id', $ids_indirect);
+		$total_consum_indirect = $this->db->get('user_consum')->row()->total_consum_indirect;
+
+		return $total_consum_indirect;
+	}
+
+	// Tính toán cập nhật User Rank
+	public function update_user_rank() {
+		// Xóa dữ liệu cũ trong bảng user_rank
+		$this->db->truncate('user_rank');
+
+		// Lấy danh sách tất cả các user từ bảng users
+		$this->db->select('id as user_id, plan_id');
+		$query = $this->db->get('users');
+		$users = $query->result_array();
+
+		foreach ($users as $user) {
+			$user_id = $user['user_id'];
+			$plan_id = $user['plan_id'];	// đơn hàng thành viên từ membership_user
+
+			// Lấy thông tin từ bảng membership_user
+			$this->db->select('plan_id');
+			$this->db->where('user_id', $user_id);
+			$this->db->where('is_active', 1);
+			$membership_user = $this->db->get('membership_user')->row_array();
+
+			if (!$membership_user) {
+				// Nếu không có bản ghi trong membership_user, gán award_id = 0 và user_level = 0
+				$data = array(
+					'user_id' => $user_id,
+					'award_id' => 0,
+					'reward_id' => 0, // Cần logic bổ sung để tính toán reward_id
+					'star_id' => 0, // Cần logic bổ sung để tính toán star_id
+					'user_level' => 0,
+					'user_star' => 0,
+					'user_reward' => 'Không',
+					'created_time' => date('Y-m-d H:i:s')
+				);
+				$this->db->insert('user_rank', $data);
+				continue;
+			}
+
+			$membership_plan_id = $membership_user['plan_id'];	// lấy gói thành viên từ membership_plan
+
+			// Lấy thông tin từ bảng membership_plan
+			$this->db->select('level_id');						// lấy cấp độ từ award_level
+			$this->db->where('id', $membership_plan_id);
+			$membership_plan = $this->db->get('membership_plans')->row_array();
+
+			if (!$membership_plan) {
+				continue;
+			}
+
+			$level_id = $membership_plan['level_id'];
+
+			// Lấy thông tin từ bảng award_level
+			$this->db->select('id as award_id, level_number');
+			$this->db->where('id', $level_id);
+			$award_level = $this->db->get('award_level')->row_array();
+
+			if (!$award_level) {
+				continue;
+			}
+
+			$award_id = $award_level['award_id'];
+			$level_number = $award_level['level_number'];
+
+			// Tính toán star và reward
+			$star_id = $this->calculate_user_star($award_id);
+			$reward_id = $this->calculate_user_reward($award_id);
+			$user_star = $this->calculate_user_star($award_id, true);
+			$user_reward = $this->calculate_user_reward($award_id, true);
+
+
+			// Lưu vào bảng user_rank
+			$data = array(
+				'user_id' => $user_id,
+				'award_id' => $award_id,
+				'reward_id' => $reward_id, // Cần logic bổ sung để tính toán reward_id
+				'star_id' => $star_id, // Cần logic bổ sung để tính toán star_id
+				'user_level' => $level_number,
+				'user_star' => $user_star,
+				'user_reward' => $user_reward,
+				'created_time' => date('Y-m-d H:i:s')
+			);
+			$this->db->insert('user_rank', $data);
+		}
+
+		echo "Bảng user_rank đã được cập nhật.";
+	}
+
+	// Tính toán star - value return value not id
+	public function calculate_user_star($level_id, $value = false) {
+		// Tìm trong bảng star_level với con_award_level_id = $level_id
+		$this->db->select('id, star');
+		$this->db->where('con_award_level_id', $level_id);
+		$star = $this->db->get('star_level')->row_array();
+
+		if (!$star) {
+			return $value ? 'No Star' : 0;
+		}
+
+		return $value ? $star['star'] : $star['id'];
+	}
+
+	// Tính toán reward của user
+	public function calculate_user_reward($level_id, $value = false) {
+
+		// Tìm trong bảng reward với con_award_level_id = $level_id
+		$this->db->select('id, name');
+		$this->db->where('con_award_level_id', $level_id);
+		$reward = $this->db->get('reward')->row_array();
+
+		if (!$reward) {
+			return $value ? 'No Reward' : 0;
+		}
+
+		return $value ? $reward['name'] : $reward['id'];
+	}
+
+	// Danh sách thành viên
 	public function userslist() {
 
 		$userdetails = $this->userdetails();
@@ -7114,6 +7606,21 @@ class Admincontrol extends MY_Controller {
 				die;
 			}
 		}
+
+
+		// Update User Statistic			
+		$this->update_user_tree();
+		$this->update_user_recruitment();
+
+		$this->calculate_revenue();
+		$this->update_revenue();
+
+		$this->calculate_consum();
+		$this->update_consum();
+
+		$this->update_user_rank();
+
+		// End Update
 
 		$data['user_groups'] = $this->user->getgrouplist();
 		$data['approvals_count'] = $this->Product_model->getApprovalCounts();
