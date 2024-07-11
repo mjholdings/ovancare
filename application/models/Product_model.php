@@ -2158,7 +2158,11 @@ class Product_model extends MY_Model
     `child`.`jump_level`, 
     `parent`.`level_number` as 'jump_level_name',  
     `child`.`minimum_earning`,
+    `child`.`recruitment_number`,
+    `child`.`recruitment_level`,
     `child`.`sale_comission_rate`,
+    `child`.`sale_comission_direct`,
+    `child`.`sale_comission_indirect`,
     `child`.`bonus`,
     `child`.`default_registration_level`
     FROM `award_level` as `child` 

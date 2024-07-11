@@ -43,6 +43,10 @@
 					<label class="form-label"><?= __('admin.minimum_withdraw') ?> ( <?= __('admin.set_to_zero_or_empty_to_Disable') ?> )</label>
 					<input name="site[wallet_min_amount]" value="<?= $site['wallet_min_amount']; ?>" class="form-control" type="number" onblur="return onWallentMinamountChange()" id="txt_wallet_min_amount">
 				</div>
+				<div class="mb-3">
+					<label class="form-label"><?= __('Số tiền giữ ví') ?> ( <?= __('admin.set_to_zero_or_empty_to_Disable') ?> )</label>
+					<input name="site[wallet_min_balance]" value="<?= $site['wallet_min_balance']; ?>" class="form-control" type="number" onblur="return onWallentMinamountChange()" id="txt_wallet_min_balance">
+				</div>
 				<div class="mb-3" id="wallet_min_message_panel">
 					<label class="form-label"><?= __('admin.minimum_withdraw_message') ?></label>
 					<input name="site[wallet_min_message_new]" class="form-control" value="<?= $site['wallet_min_message_new'] != '' ? $site['wallet_min_message_new'] : __('admin.the_minimum_limit_is'); ?>" />
