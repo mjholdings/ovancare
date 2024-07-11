@@ -14776,7 +14776,6 @@ class Admincontrol extends MY_Controller {
 			die();
 		}
 
-
 		// Update User Statistic			
 		$this->update_user_tree();
 		$this->update_user_recruitment();

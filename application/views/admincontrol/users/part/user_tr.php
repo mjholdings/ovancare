@@ -164,7 +164,7 @@ foreach ($userslist as $users) {  ?>
 				}
 
 				if ($users['reg_approved'] != 0 && $users['reg_approved'] != 2) { ?>
-					<div><a href="javascript:void(0)" edit-plan-user='<?= $users['id'] ?>' edit-plan-user-type='<?= $users['is_vendor'] ?>'><?= __('admin.edit_plan') ?></a></div>
+					<div><a href="javascript:void(0)" edit-plan-user='<?= $users['id'] ?>' edit-plan-user-type='<?= $users['is_vendor'] ?>'><?= __('Đổi tư cách') ?></a></div>
 				<?php } else { ?>
 					<div>
 						<a href="javascript:void(0)" class="text-success" data-approval-change="1" data-user-id='<?= $users['id'] ?>'><?= __('admin.approved') ?></a>
@@ -207,23 +207,23 @@ foreach ($userslist as $users) {  ?>
 			?>
 		</td>
 
-		<td class="text-center">
+		<!-- <td class="text-center">
 
 			<?php
 
-			if ($users['Country'] != '') {
+			// if ($users['Country'] != '') {
 
-				$flag = 'flags/' . strtolower($users['sortname']) . '.png';
-			} else {
+			// 	$flag = 'flags/' . strtolower($users['sortname']) . '.png';
+			// } else {
 
-				$flag = 'users/avatar-1.png';
-			}
+			// 	$flag = 'users/avatar-1.png';
+			// }
 
 			?>
 
 			<img class="rounded-circle" src="<?php echo base_url(); ?>assets/vertical/assets/images/<?php echo $flag; ?>" style="width:30px;height: 30px">
 
-		</td>
+		</td> -->
 
 		<td>
 			<?php
@@ -235,13 +235,13 @@ foreach ($userslist as $users) {  ?>
 			?>
 		</td>
 
-		<td class="text-center">
+		<!-- <td class="text-center">
 			<?php if ($users['is_vendor']) { ?>
 				<i class="fa fa-check-square-o" style="font-size: 20px;color: green;"></i>
 			<?php } else { ?>
 				<i class="fa fa-remove" style="font-size: 20px;color: red;"></i>
 			<?php } ?>
-		</td>
+		</td> -->
 
 		<td>
 			<?php echo (!empty($users['under_affiliate'])) ? $users['under_affiliate'] : __('admin.admin'); ?>

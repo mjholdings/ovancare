@@ -333,6 +333,7 @@ class User_model extends MY_Model {
 
 	// TÍNH THƯỞNG ***************
 	public function calculate_commissions() {
+
 		// Kết nối đến cơ sở dữ liệu
 		$db = $this->db;
 
@@ -395,7 +396,8 @@ class User_model extends MY_Model {
 			}
 		}
 
-		return false;
+		redirect(base_url('admincontrol/award_level'));
+
 	}
 
 	// Hàm lấy cấp độ hiện tại của user

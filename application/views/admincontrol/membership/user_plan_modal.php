@@ -1,17 +1,17 @@
 <div class="modal-dialog">
   <div class="modal-content">
     <div class="modal-header">
-      <h5 class="modal-title m-0"><?= __('admin.edit_user_membership') ?></h5>
+      <h5 class="modal-title m-0"><?= __('Sửa tư cách thành viên') ?></h5>
       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
     </div>
     <?php if ($MembershipSetting['status']) { ?>
       <nav>
         <div class="nav nav-pills nav-justified" id="TabsNav" role="tablist">
           <li role="presentation" class="active nav-item">
-            <a class="nav-link active bg-primary text-white show" id="mmu-currentplan" href="#nav-home" aria-controls="nav-home" role="tab" data-bs-toggle="tab"><?= __('admin.current_plan') ?></a>
+            <a class="nav-link active bg-primary text-white show" id="mmu-currentplan" href="#nav-home" aria-controls="nav-home" role="tab" data-bs-toggle="tab"><?= __('Tư cách hiện tại') ?></a>
           </li>
           <li role="presentation" class="nav-item">
-            <a class="nav-link bg-secondary text-white show" id="mmi-newplan" href="#nav-profile" aria-controls="nav-profile" role="tab" data-bs-toggle="tab"><?= __('admin.change_plan') ?></a>
+            <a class="nav-link bg-secondary text-white show" id="mmi-newplan" href="#nav-profile" aria-controls="nav-profile" role="tab" data-bs-toggle="tab"><?= __('Đổi tư cách') ?></a>
           </li>
         </div>
       </nav>
@@ -25,7 +25,7 @@
             </div>
           <?php } else if (isset($plan) && $plan) { ?>
             <div class="card-body">
-              <h4 class="text-success"><?= __('admin.plan') ?>: <?= $plan->plan ? $plan->plan->name : '' ?></h4>
+              <h4 class="text-success p-2"><?= __('Tư cách') ?>: <?= $plan->plan ? $plan->plan->name : '' ?></h4>
             </div>
             <ul class="list-group list-group-flush">
               <li class="list-group-item">
@@ -135,7 +135,7 @@
             </div>
           </form>
           <div class="modal-footer">
-            <button class="btn btn-primary btn-change-plan"><?= __('admin.change_plan') ?></button>
+            <button class="btn btn-primary btn-change-plan"><?= __('Đổi tư cách') ?></button>
           </div>
         </div>
       </div>

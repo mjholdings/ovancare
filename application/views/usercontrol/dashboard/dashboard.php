@@ -1311,7 +1311,7 @@ $productForAffiliate = $db->Product_model->getProductForAffiliate();
       </div>
 
       <div class="col-lg-12 mt-3">
-        <div class="col-sm-12">
+        <div class="col-sm-12 mb-3">
           <div class="card">
             <?php
             if ($store['status'] || $refer_status) {
@@ -1555,44 +1555,7 @@ $productForAffiliate = $db->Product_model->getProductForAffiliate();
                         </a>
                       </div>
                     </div>
-                    <div class=" border-custom show-mega-link">
-                      <div class="form-group">
-
-                        <label class="form-label">
-                          <?= __('user.your_unique_reseller_link') ?>
-                        </label>
-                        <input type="text" name="text" readonly="readonly"
-                          value="<?= $share_url . '/?id=' . $userdetails['id'] ?>" class="input-register-url-0 form-control"
-                          data-addition-url="/?id=<?= $userdetails['id'] ?>">
-                      </div>
-                      <div class="flex align-items-center justify-content-end list-user-action">
-                        <a href="javascript:void(0)" class="bt-all btn-success qrcode"
-                          data-id="<?= $share_url . '/?id=' . $userdetails['id'] ?>">
-                          <i class="fas fa-walkie-talkie"></i>
-                        </a>
-
-                        <a class="bt-all btn-warning" href="javascript:void(0)"
-                          copyToClipboard="<?= $share_url . '/?id=' . $userdetails['id'] ?>"
-                          title="<?= __('user.copied'); ?>">
-                          <span class="btn-inner">
-                            <i class="far fa-copy" alt="<?= __('user.copy') ?>"></i>
-                          </span>
-                        </a>
-                        <a href="javascript:void(0)" class="dashboard-model-slug bt-all btn-danger" data-type="register"
-                          data-related-id="0" data-input-class="input-register-url-0">
-                          <span class="btn-inner">
-                            <i class="fas fa-cog" alt="<?= __('user.setting') ?>"></i>
-                          </span>
-                        </a>
-                        <a class="bt-all btn-success" href="javascript:void(0)" data-social-share
-                          data-share-url="<?= $share_url; ?>?id=<?= $userdetails['id'] ?>" data-share-title=""
-                          data-share-desc="">
-                          <span class="ms-1">
-                            <i class="fa-solid fa-share-from-square" alt="<?= __('user.share') ?>"></i>
-                          </span>
-                        </a>
-                      </div>
-                    </div>
+                    
                   <?php } ?>
                 <?php } ?>
 

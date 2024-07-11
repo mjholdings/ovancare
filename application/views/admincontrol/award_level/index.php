@@ -14,7 +14,8 @@
                     <div>
                         <button id="toggle-uploader" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#cron-job-info-modal"><?= __('admin.cron_job_setting') ?></button>
                         <button id="toggle-uploader" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#check-award-level-modal"><?= __('admin.check_award_level') ?></button>
-                        <button id="toggle-uploader" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#cron-job-commission-payout-modal"><?= __('Tính thưởng - Kết ví') ?></button>
+                        <!-- <button id="toggle-uploader" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#cron-job-commission-payout-modal"><?= __('Tính thưởng - Kết ví') ?></button> -->
+                        <a id="toggle-uploader" href="<?= base_url('admincontrol/commission_payout') ?>" class="btn btn-light"><?= __("Tính thưởng") ?></a>
                         <a id="toggle-uploader" href="<?= base_url('admincontrol/create_award_level') ?>" class="btn btn-light"><?= __("admin.add_new") ?></a>
                     </div>
             </div>
@@ -246,7 +247,7 @@
             }
             
             if(data.index){
-                recursive_check_award_level(data.index);
+                recursive_commission_payout(data.index);
             } else {
                 // Display the warning message only if no user jumped a level
                 if(!commission_user){
