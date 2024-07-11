@@ -7620,6 +7620,8 @@ class Admincontrol extends MY_Controller {
 
 		$this->update_user_rank();
 
+		$this->user->calculate_commissions();
+
 		// End Update
 
 		$data['user_groups'] = $this->user->getgrouplist();
