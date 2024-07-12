@@ -114,7 +114,7 @@
 <!--Campaign td-->
 
 
-<!-- Commission td -->
+<!-- Commission td xxx -->
 <td>
     <div class="badge d-flex justify-content-between bg-<?= is_need_to_pay($value) ? 'danger' : 'secondary' ?> text-white py-1 px-3 align-items-center">
         <div class="left-side d-flex align-items-center">
@@ -146,7 +146,7 @@
         </div>
     </div>
 </td>
-<!-- Commission td -->
+<!-- Commission td xxx -->
 
 
 
