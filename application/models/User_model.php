@@ -398,7 +398,7 @@ class User_model extends MY_Model {
 			}
 		}
 
-		redirect(base_url('admincontrol/award_level'));
+		// redirect(base_url('admincontrol/award_level'));
 
 	}
 
@@ -439,14 +439,14 @@ class User_model extends MY_Model {
 		$data = array(
 			'user_id' => $user_id,
 			'order_id' => $order_id,
-			'product_id' => 5,
+			'product_id' => $product_id,
 			'comission_method' => $method,
 			'comission_type' => $type,
 			'comission_value' => $value,
 			'created_at' => $created_time,
 			'comission_date' => date('Y-m-d H:i:s')
 		);
-		//$this->db->insert('user_comission', $data);
+		$this->db->insert('user_comission', $data);
 	}
 
 

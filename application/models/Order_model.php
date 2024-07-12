@@ -1,6 +1,5 @@
 <?php
-class Order_model extends MY_Model
-{
+class Order_model extends MY_Model {
 
     public $status = array(
         //'0'  =>  'Waiting For Payment',
@@ -18,8 +17,7 @@ class Order_model extends MY_Model
         '12' => 'Waiting For Payment',
     );
 
-    public function status($find = null)
-    {
+    public function status($find = null) {
         $status = [
             '0' => __('admin.waiting_for_payment'),
             '1' => __('admin.complete'),
@@ -42,8 +40,7 @@ class Order_model extends MY_Model
         }
     }
 
-    public function PaymentMethods()
-    {
+    public function PaymentMethods() {
         return [
             'free_by_admin' => 'Free by admin',
             'bank_transfer' => 'Bank Transfer',
@@ -64,8 +61,7 @@ class Order_model extends MY_Model
         ];
     }
 
-    public function changeStatus($order_id, $status, $comment = '')
-    {
+    public function changeStatus($order_id, $status, $comment = '') {
         $this->load->model('Mail_model');
         $this->load->model('Product_model');
         $this->load->model('User_model');
@@ -96,8 +92,6 @@ class Order_model extends MY_Model
             $this->db->query("UPDATE `wallet` SET status = 3 WHERE status = 0 AND user_id = 1 AND type IN('sale_commission','refer_sale_commission','vendor_sale_commission','admin_sale_commission') AND reference_id_2 = {$order_id} ");
 
             $this->Mail_model->send_commition_mail($order_id, true);
-
-
 
             $order_info = $this->getOrder($order_id, 'store');
             $wallet_group_id = time() . rand(10, 100);
@@ -252,16 +246,144 @@ class Order_model extends MY_Model
                             }
                         }
                     }
-
                 }
             }
         }
 
+        // Cập nhật bảng thưởng đã tính theo chính sách sang ví với $order_id
+        $this->updateCommissionToWallet($order_id);
+        // End cập nhật
+
         $this->Mail_model->send_order_mail($order_id);
     }
 
-    public function getAllClickLogs($filter = array())
-    {
+    // Cập nhật thưởng vào Ví cho đơn hàng
+    public function updateCommissionToWallet($order_id) {
+        // Lấy danh sách các bản ghi trong user_comission với order_id
+        $this->db->select('*');
+        $this->db->from('user_comission');
+        $this->db->where('order_id', $order_id);
+        $commissions = $this->db->get()->result();
+
+        if (empty($commissions)) {
+            return false; // Không có bản ghi nào với order_id này
+        }
+
+        // Xóa các bản ghi trong wallet với order_id này
+        $this->db->where('reference_id_2', $order_id);
+        $this->db->delete('wallet');
+
+        foreach ($commissions as $commission) {
+            $user_id = $commission->user_id;
+
+            // Lấy User_Level từ bảng user_rank
+            $this->db->select('user_level');
+            $this->db->from('user_rank');
+            $this->db->where('user_id', $user_id);
+            $user_rank = $this->db->get()->row();
+            $user_level = $user_rank ? $user_rank->user_level : '';
+
+            // Lấy Buyer_Name từ bảng order và users
+            $this->db->select('user_id');
+            $this->db->from('order');
+            $this->db->where('id', $order_id);
+            $order = $this->db->get()->row();
+            $buyer_id = $order ? $order->user_id : '';
+
+            $this->db->select('firstname, lastname');
+            $this->db->from('users');
+            $this->db->where('id', $buyer_id);
+            $user = $this->db->get()->row();
+            $buyer_name = $user ? $user->firstname . ' ' . $user->lastname : '';
+
+            // Tạo Comment
+            $comment = "Level" . $user_level . " : Hoa hồng cho đơn hàng Order Id order_id=" . $order_id . "| User : " . $buyer_name;
+
+            // Chuẩn bị dữ liệu để chèn vào bảng wallet
+            $data = array(
+                'user_id' => $user_id,
+                'reference_id_2' => $order_id,
+                'reference_id' => $commission->product_id,
+                'amount' => $commission->comission_value,
+                'type' => $commission->comission_method,
+                'created_at' => $commission->created_at,
+                'comment' => $comment,
+                'status' => 1,
+                'commission_status' => 0,
+                'comm_from' => 'store',
+                'is_action' => 0,
+                'parent_id' => 0,
+                'is_vendor' => 0,
+                'withdraw_request' => 0
+            );
+
+            // Chèn dữ liệu vào bảng wallet
+            $this->db->insert('wallet', $data);
+        }
+        return true;
+    }
+
+    // Cập nhật toàn bộ
+    public function updateAllCommWallet() {
+        // Lấy danh sách các bản ghi trong user_comission với 
+        $this->db->select('*');
+        $this->db->from('user_comission');
+        $commissions = $this->db->get()->result();
+
+        // Với mỗi bản ghi thưởng bổ sung
+        foreach ($commissions as $commission) {
+            $user_id = $commission->user_id;
+            $order_id = $commission->order_id;
+
+            // Lấy User_Level từ bảng user_rank
+            $this->db->select('user_level');
+            $this->db->from('user_rank');
+            $this->db->where('user_id', $user_id);
+            $user_rank = $this->db->get()->row();
+            $user_level = $user_rank ? $user_rank->user_level : '';
+
+            // Lấy Buyer_Name từ bảng order và users
+            $this->db->select('user_id');
+            $this->db->from('order');
+            $this->db->where('id', $order_id);
+            $order = $this->db->get()->row();
+            $buyer_id = $order ? $order->user_id : '';
+
+            $this->db->select('firstname, lastname');
+            $this->db->from('users');
+            $this->db->where('id', $buyer_id);
+            $user = $this->db->get()->row();
+            $buyer_name = $user ? $user->firstname . ' ' . $user->lastname : '';
+
+            // Tạo Comment
+            $comment = "Level" . $user_level . " : Hoa hồng cho đơn hàng Order Id order_id=" . $order_id . "| User : " . $buyer_name;
+
+            // Chuẩn bị dữ liệu để chèn vào bảng wallet
+            $data = array(
+                'user_id' => $user_id,
+                'reference_id_2' => $order_id,
+                'reference_id' => $commission->product_id,
+                'amount' => $commission->comission_value,
+                'type' => $commission->comission_method,
+                'created_at' => $commission->created_at,
+                'comment' => $comment,
+                'status' => 1,
+                'commission_status' => 0,
+                'comm_from' => 'store',
+                'is_action' => 0,
+                'parent_id' => 0,
+                'is_vendor' => 0,
+                'withdraw_request' => 0
+            );
+
+            // Chèn dữ liệu vào bảng wallet
+            $this->db->insert('wallet', $data);
+        }
+        return true;
+    }
+
+    // Log
+    public function getAllClickLogs($filter = array()) {
         $where1 = $where2 = $where3 = '';
 
         if (isset($filter['user_id'])) {
@@ -586,8 +708,7 @@ class Order_model extends MY_Model
         return array($data, $total);
     }
 
-    public function getAllOrders($filter = array(), $addShipping = true)
-    {
+    public function getAllOrders($filter = array(), $addShipping = true) {
         $store_setting = $this->Product_model->getSettings('store');
 
         $where1 = $where2 = '';
@@ -608,19 +729,16 @@ class Order_model extends MY_Model
 
             if (isset($filter['myorder'])) {
                 $where1 .= " AND (op.vendor_id = " . (int) $filter['user_id'] . ")";
-
             } else if (isset($filter['external_orders'])) {
                 $where2 .= " AND (io.vendor_id = " . (int) $filter['user_id'] . " ) ";
             } else if (isset($filter['user_id'])) {
                 if (isset($filter['is_vendor']) && $filter['is_vendor'] == 1) {
                     $where1 .= " AND (  op.refer_id = " . (int) $filter['user_id'] . ")";
                     $where2 .= " AND (io.user_id = " . (int) $filter['user_id'] . " ) ";
-
                 } else {
                     $where1 .= " AND (op.vendor_id = " . (int) $filter['user_id'] . " OR op.refer_id = " . (int) $filter['user_id'] . ")";
                     $where2 .= " AND (io.user_id = " . (int) $filter['user_id'] . " OR io.vendor_id = " . (int) $filter['user_id'] . ") ";
                 }
-
             }
 
             if (isset($filter['o_status'])) {
@@ -892,8 +1010,7 @@ class Order_model extends MY_Model
     }
 
 
-    public function getAllOrdersForDashboard($filter = array(), $addShipping = true)
-    {
+    public function getAllOrdersForDashboard($filter = array(), $addShipping = true) {
         $store_setting = $this->Product_model->getSettings('store');
 
         $where1 = $where2 = '';
@@ -914,19 +1031,16 @@ class Order_model extends MY_Model
 
             if (isset($filter['myorder'])) {
                 $where1 .= " AND (op.vendor_id = " . (int) $filter['user_id'] . ")";
-
             } else if (isset($filter['external_orders'])) {
                 $where2 .= " AND (io.vendor_id = " . (int) $filter['user_id'] . " ) ";
             } else if (isset($filter['user_id'])) {
                 if (isset($filter['is_vendor']) && $filter['is_vendor'] == 1) {
                     $where1 .= " AND (  op.refer_id = " . (int) $filter['user_id'] . ")";
                     $where2 .= " AND (io.user_id = " . (int) $filter['user_id'] . " ) ";
-
                 } else {
                     $where1 .= " AND (op.vendor_id = " . (int) $filter['user_id'] . " OR op.refer_id = " . (int) $filter['user_id'] . ")";
                     $where2 .= " AND (io.user_id = " . (int) $filter['user_id'] . " OR io.vendor_id = " . (int) $filter['user_id'] . ") ";
                 }
-
             }
 
             if (isset($filter['o_status'])) {
@@ -1195,8 +1309,7 @@ class Order_model extends MY_Model
         return array($data, $total);
     }
 
-    public function getCount($filter = array())
-    {
+    public function getCount($filter = array()) {
         $this->db->where('o.status > 0');
         if (isset($filter['affiliate_id'])) {
             $this->db->join("order_products op", 'o.id = op.order_id', 'left');
@@ -1207,8 +1320,7 @@ class Order_model extends MY_Model
         }
         return $this->db->count_all_results('order o');
     }
-    public function getSale($filter = array())
-    {
+    public function getSale($filter = array()) {
         $this->db->where('o.status > 0');
         $this->db->join("order_products op", 'o.id = op.order_id', 'left');
         if (isset($filter['affiliate_id'])) {
@@ -1217,8 +1329,7 @@ class Order_model extends MY_Model
         $this->db->select_sum('op.total');
         return (float) $this->db->get('order o')->row_array()['total'];
     }
-    public function getSaleChart($filter = array(), $group = 'day')
-    {
+    public function getSaleChart($filter = array(), $group = 'day') {
         $zero = '';
         $orderBy = ' ORDER BY created_at DESC ';
 
@@ -1362,14 +1473,12 @@ class Order_model extends MY_Model
                 $keys[] = (string) $value['y'];
             }
         }
-        function setup_tooltip($arr, $meta)
-        {
+        function setup_tooltip($arr, $meta) {
             return array("meta" => $meta, "value" => $arr);
         }
 
         if ($group == 'day' || $group == 'week') {
-            function date_sort($a, $b)
-            {
+            function date_sort($a, $b) {
                 return strtotime($a) - strtotime($b);
             }
 
@@ -1391,8 +1500,7 @@ class Order_model extends MY_Model
         return $data;
     }
 
-    public function ___getSaleChart($filter = array(), $group = 'day')
-    {
+    public function ___getSaleChart($filter = array(), $group = 'day') {
         $zero = '';
         $orderBy = ' ORDER BY created_at DESC ';
 
@@ -1530,8 +1638,7 @@ class Order_model extends MY_Model
         return $chart;
     }
 
-    public function getOrder($order_id, $control = 'admincontrol', $filternew = null)
-    {
+    public function getOrder($order_id, $control = 'admincontrol', $filternew = null) {
         $where = '';
         if (isset($filter['affiliate_id'])) {
             $where .= " AND op.refer_id = " . (int) $filter['affiliate_id'];
@@ -1576,8 +1683,7 @@ class Order_model extends MY_Model
         return $order;
     }
 
-    public function getTotals($products, $order)
-    {
+    public function getTotals($products, $order) {
         $totals = array();
         $total = 0;
         $discount = 0;
@@ -1608,8 +1714,7 @@ class Order_model extends MY_Model
 
         return $totals;
     }
-    public function getProducts($order_id, $filter = array(), $select = "", $user_id = null)
-    {
+    public function getProducts($order_id, $filter = array(), $select = "", $user_id = null) {
         $order_id = (int) $order_id;
         $where = '';
         if (isset($filter['refer_id'])) {
@@ -1673,8 +1778,7 @@ class Order_model extends MY_Model
         }
         return $products;
     }
-    public function getSelectedVariationPrice($product)
-    {
+    public function getSelectedVariationPrice($product) {
         $selected_var = json_decode($product['variation']);
         $product_var = json_decode($product['product_variations']);
         $price = 0;
@@ -1689,16 +1793,14 @@ class Order_model extends MY_Model
         }
         return $price;
     }
-    public function getAffiliateUser($order_id)
-    {
+    public function getAffiliateUser($order_id) {
         $this->db->select('users.*,order_products.commission,order_products.commission_type,product.product_name,product.product_short_description');
         $this->db->where('order_products.order_id', $order_id);
         $this->db->join('users', 'users.id = order_products.refer_id');
         $this->db->join('product', 'product.product_id = order_products.product_id');
         return $this->db->get_where('order_products')->result_array();
     }
-    public function getVender($order_info = array(), $product_info = array())
-    {
+    public function getVender($order_info = array(), $product_info = array()) {
         $p_ids = array_column($product_info, 'product_id');
         $this->db->select('order_products.product_id, order_products.vendor_commission, users.*');
         $this->db->join('users', 'users.id = order_products.vendor_id');
@@ -1720,16 +1822,14 @@ class Order_model extends MY_Model
         }
         return $return_vendors;
     }
-    public function getHistory($order_id, $type = 'payment')
-    {
+    public function getHistory($order_id, $type = 'payment') {
         $this->db->where('order_id', $order_id);
         $this->db->where('history_type', $type);
         $this->db->order_by('created_at', 'DESC');
         return $this->db->get('orders_history')->result_array();
     }
 
-    public function getPaymentProof($order_id)
-    {
+    public function getPaymentProof($order_id) {
         $this->db->where('order_id', $order_id);
         $orderProof = $this->db->get('order_proof')->row();
         if ($orderProof) {
@@ -1739,8 +1839,7 @@ class Order_model extends MY_Model
         return $orderProof;
     }
 
-    public function getOrders($filter = array(), $addShipping = true)
-    {
+    public function getOrders($filter = array(), $addShipping = true) {
         $where = '';
         if (isset($filter['user_id'])) {
             $where .= " AND o.user_id = " . (int) $filter['user_id'];
@@ -1851,14 +1950,12 @@ class Order_model extends MY_Model
             return $json;
         }
     }
-    public function getUserdetail($product_created_by)
-    {
+    public function getUserdetail($product_created_by) {
         $this->db->where('id', $product_created_by);
         return $this->db->get('users')->row_array();
     }
 
-    public function getDashboardOrders($filter = array(), $addShipping = true)
-    {
+    public function getDashboardOrders($filter = array(), $addShipping = true) {
         $where = '';
         if (isset($filter['user_id'])) {
             $where .= " AND o.user_id = " . (int) $filter['user_id'];
@@ -1971,8 +2068,7 @@ class Order_model extends MY_Model
 
 
 
-    public function orderdelete($order_id, $transaction)
-    {
+    public function orderdelete($order_id, $transaction) {
         if ((int) $transaction > 0) {
             $this->db->query("DELETE FROM wallet WHERE reference_id = {$order_id} AND type IN ('sale_commission','vendor_sale_commission','refer_sale_commission') ");
         }
@@ -1984,9 +2080,9 @@ class Order_model extends MY_Model
         $this->db->query("DELETE FROM order_products WHERE order_id = {$order_id} ");
     }
 
-    public function getShippingDetails($user_id)
-    {
-        return $this->db->query("SELECT shipping_address.*, states.name as state, countries.name as country FROM shipping_address 
+    public function getShippingDetails($user_id) {
+        return $this->db->query(
+            "SELECT shipping_address.*, states.name as state, countries.name as country FROM shipping_address 
             LEFT JOIN states ON states.id = shipping_address.state_id  
             LEFT JOIN countries ON countries.id = shipping_address.country_id
             WHERE shipping_address.user_id =  " . $user_id
@@ -1994,8 +2090,7 @@ class Order_model extends MY_Model
     }
 
 
-    public function getOrderDetails($order_id)
-    {
+    public function getOrderDetails($order_id) {
         $sql = 'SELECT "ex" as type,io.custom_data as custom_data,(SELECT status FROM wallet WHERE wallet.reference_id_2 = io.id AND type LIKE "%sale%" ORDER BY wallet.id ASC LIMIT 1 ) as wallet_status,(SELECT commission_status FROM wallet WHERE wallet.reference_id_2 = io.id AND type LIKE "%sale%" ORDER BY wallet.id ASC LIMIT 1) as wallet_commission_status,(SELECT type FROM wallet WHERE wallet.reference_id_2 = io.id AND type LIKE "%sale%" ORDER BY wallet.id ASC LIMIT 1 ) as wallet_type,(SELECT comm_from FROM wallet WHERE wallet.reference_id_2 = io.id AND type LIKE "%sale%" ORDER BY wallet.id ASC LIMIT 1 ) as wallet_comm_from,(SELECT reference_id_2 FROM wallet WHERE wallet.reference_id_2 = io.id AND type LIKE "%sale%" ORDER BY wallet.id ASC LIMIT 1 ) as wallet_reference_id_2,(SELECT comment FROM wallet WHERE wallet.reference_id_2 = io.id AND type LIKE "%sale%" ORDER BY wallet.id ASC LIMIT 1 ) as wallet_comment,(SELECT is_action FROM wallet WHERE wallet.reference_id_2 = io.id AND type LIKE "%sale%" ORDER BY wallet.id ASC LIMIT 1 ) as wallet_is_action,io.id,io.status,io.user_id,io.total,io.ip,io.country_code,u.firstname,u.lastname ,io.created_at,io.order_id,io.product_ids,io.currency,io.commission_type,io.commission,io.base_url,io.ads_id,io.script_name,"txn_id" as txn_id,"address" as address,"country_id" as country_id,"state_id" as state_id,"city" as city,"zip_code" as zip_code,"phone" as phone,"payment_method" as payment_method,"shipping_cost" as shipping_cost,"tax_cost" as tax_cost,"coupon_discount" as coupon_discount,"total_commition" as total_commition,"shipping_charge" as shipping_charge,"currency_code" as currency_code,"allow_shipping" as allow_shipping,"files" as files,"comment" as comment,"total_sum" as total_sum,"last_status" as last_status 
         FROM integration_orders io
         LEFT JOIN users u ON u.id = io.user_id  
@@ -2003,11 +2098,9 @@ class Order_model extends MY_Model
 
 
         return $this->db->query($sql)->row_array();
-
     }
 
-    public function getClickActionDetails($click_id)
-    {
+    public function getClickActionDetails($click_id) {
         $sql = 'SELECT "ex" as type,u.firstname,u.lastname ,ic.user_id,ic.created_at,ic.country_code,ic.ip,ic.id,ic.base_url,ic.link,ic.agent,ic.browserName,ic.browserVersion,ic.systemString,ic.osPlatform,ic.osVersion,ic.osShortVersion,ic.isMobile,ic.mobileName,ic.osArch,ic.isIntel,ic.isAMD,ic.isPPC,ic.click_id,ic.click_type,ic.custom_data,"action_id" as action_id,"action_type" as action_type,"product_id" as product_id,"viewer_id" as viewer_id,"counter" as counter,"pay_commition" as pay_commition,"status" as status,"txn_id" as txn_id,"address" as address,"country_id" as country_id,"state_id" as state_id,"city" as city,"zip_code" as zip_code,"phone" as phone,"payment_method" as payment_method,"shipping_cost" as shipping_cost,"total" as total,"coupon_discount" as coupon_discount,"total_commition" as total_commition,"shipping_charge" as shipping_charge,"currency_code" as currency_code,"allow_shipping" as allow_shipping,"files" as files,"comment" as comment FROM `integration_clicks_logs` ic 
         LEFT JOIN users u ON u.id = ic.user_id
         WHERE ic.click_id=' . $click_id;
@@ -2019,11 +2112,10 @@ class Order_model extends MY_Model
     // new section of all commissions for levels that related to vendor side
 
     //fucntion 1 - get total levels commission from vendor store product
-    public function getVendorStoreLevels($products)
-    {
+    public function getVendorStoreLevels($products) {
 
         $product_created_by = $products[0]['product_created_by'];
-        $user_id = $products[0]['refer_id'];/// Afiliate ID
+        $user_id = $products[0]['refer_id']; /// Afiliate ID
         $userDetail = $this->Order_model->getUserdetail($product_created_by);
 
         $totalVendorStoreLevels = 0;
