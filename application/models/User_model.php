@@ -360,8 +360,8 @@ class User_model extends MY_Model {
 			$award_levels = $this->get_award_levels();
 
 			foreach ($award_levels as $level) {
-				// Kiểm tra điều kiện doanh thu cá nhân
-				if ($level->minimum_earning > 0 && $personal_revenue < $level->minimum_earning) {
+				// Kiểm tra điều kiện doanh thu cá nhân cho cấp độ hiện tại
+				if ($level->minimum_earning > 0 && $personal_revenue < $level->minimum_earning && $current_rank == $level) {
 					continue;
 				}
 
