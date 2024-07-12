@@ -1877,6 +1877,20 @@ $pageSetting['admincontrol_mlm_levels_dao_tao'] = array(
         ),
     ),
 );
+
+$pageSetting['admincontrol_mlm_levels_nha_phan_phoi_cap_chien_luoc'] = array(
+    'title' => __('admin.page_title_mlm_levels_nha_phan_phoi_cap_chien_luoc'),
+    'breadcrumb' => array(
+        array(
+            'title' =>  __('admin.page_title_dashboard'),
+            'link' =>  base_url('admincontrol/dashboard'),
+        ),
+        array(
+            'title' =>  __('Cấp độ MLM Nhà Phân Phối'),
+            'link' =>  base_url('admincontrol/mlm_levels'),
+        ),
+    ),
+);
 //end custom
 
 
