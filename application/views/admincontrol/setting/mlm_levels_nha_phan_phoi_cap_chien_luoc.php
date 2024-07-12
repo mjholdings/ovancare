@@ -8,10 +8,10 @@
 				<div class="row">
 					<div class="col-sm-12">
 						<div class="tab-content">
-							<?php $levels = isset($referlevel_hang_hoa['levels']) ? (int)$referlevel_hang_hoa['levels'] : 3; ?>
+							<?php $levels = isset($referlevel_nha_phan_phoi['levels']) ? (int)$referlevel_nha_phan_phoi['levels'] : 3; ?>
 							<div class="form-group">
 								<label class="control-label"><?= __('admin.refer_level') ?></label>
-								<select class="form-control" id="referlevel_select" name="referlevel_hang_hoa[levels]">
+								<select class="form-control" id="referlevel_select" name="referlevel_nha_phan_phoi[levels]">
 									<option <?= $levels == "1" ? 'selected': '' ?> value="1">1</option>
 									<option <?= $levels == "2" ? 'selected': '' ?> value="2">2</option>
 									<option <?= $levels == "3" ? 'selected': '' ?> value="3">3</option>
@@ -71,9 +71,9 @@
                                 <?= __('admin.cps_cost') ?>
                             </div>
                             <div class="col-12">
-                                <select class="form-control refer-symball-select w-100 mt-2" name="referlevel_hang_hoa[sale_type]">
-                                    <option symbal='%' <?php if($referlevel_hang_hoa['sale_type'] == 'percentage') { ?> selected <?php } ?> value="percentage"><?= __('admin.percentage') ?></option>
-                                    <option symbal='<?= $CurrencySymbol ?>' <?php if($referlevel_hang_hoa['sale_type'] == 'fixed') { ?> selected <?php } ?>  value="fixed"><?= __('admin.fixed') ?></option>
+                                <select class="form-control refer-symball-select w-100 mt-2" name="referlevel_nha_phan_phoi[sale_type]">
+                                    <option symbal='%' <?php if($referlevel_nha_phan_phoi['sale_type'] == 'percentage') { ?> selected <?php } ?> value="percentage"><?= __('admin.percentage') ?></option>
+                                    <option symbal='<?= $CurrencySymbol ?>' <?php if($referlevel_nha_phan_phoi['sale_type'] == 'fixed') { ?> selected <?php } ?>  value="fixed"><?= __('admin.fixed') ?></option>
                                 </select>
                             </div>
                         </div>
@@ -101,20 +101,20 @@
                         <td class="border"><?= $level ?></td>
                         <td class="border-end">
                             <div class="input-group">
-                                <input type="number" step="any" name="referlevel_<?= $level ?>_hang_hoa[sale_commition]" value="<?php echo ${"referlevel_". $level ."_hang_hoa"}['sale_commition'] ?>" class="form-control" />
+                                <input type="number" step="any" name="referlevel_<?= $level ?>_nha_phan_phoi[sale_commition]" value="<?php echo ${"referlevel_". $level ."_nha_phan_phoi"}['sale_commition'] ?>" class="form-control" />
                                 <div class="input-group-append"><span class="input-group-text refer-symball"></span></div>
                             </div>
                         </td>
-                        <td class="border-end"><input type="number" step="any" name="referlevel_<?= $level ?>_hang_hoa[commition]" value="<?php echo ${"referlevel_". $level ."_hang_hoa"}['commition'] ?>" class="form-control" /></td>
+                        <td class="border-end"><input type="number" step="any" name="referlevel_<?= $level ?>_nha_phan_phoi[commition]" value="<?php echo ${"referlevel_". $level ."_nha_phan_phoi"}['commition'] ?>" class="form-control" /></td>
                         <td class="border-end">
                             <div class="input-group">
-                                <input type="number" step="any" name="referlevel_<?= $level ?>_hang_hoa[ex_commition]" value="<?php echo ${"referlevel_". $level ."_hang_hoa"}['ex_commition'] ?>" class="form-control" />
+                                <input type="number" step="any" name="referlevel_<?= $level ?>_nha_phan_phoi[ex_commition]" value="<?php echo ${"referlevel_". $level ."_nha_phan_phoi"}['ex_commition'] ?>" class="form-control" />
                                 <div class="input-group-append"><span class="input-group-text"><?= $CurrencySymbol ?></span></div>
                             </div>
                         </td>
                         <td class="border">
                             <div class="input-group">
-                                <input type="number" step="any" name="referlevel_<?= $level ?>_hang_hoa[ex_action_commition]" value="<?php echo ${"referlevel_". $level ."_hang_hoa"}['ex_action_commition'] ?>" class="form-control" />
+                                <input type="number" step="any" name="referlevel_<?= $level ?>_nha_phan_phoi[ex_action_commition]" value="<?php echo ${"referlevel_". $level ."_nha_phan_phoi"}['ex_action_commition'] ?>" class="form-control" />
                                 <div class="input-group-append"><span class="input-group-text"><?= $CurrencySymbol ?></span></div>
                             </div>
                         </td>
@@ -134,7 +134,7 @@
 				<div class="comm-cube-box">
 					<div class="form-group">
 						<label  class="control-label"><?= __('admin.no_of_click_per_commission') ?></label>
-						<input name="referlevel_hang_hoa[click]" value="<?php echo $referlevel_hang_hoa['click']; ?>" class="form-control" step="any" type="number" placeholder='<?= __('admin.no_of_click_per_commission') ?>'>
+						<input name="referlevel_nha_phan_phoi[click]" value="<?php echo $referlevel_nha_phan_phoi['click']; ?>" class="form-control" step="any" type="number" placeholder='<?= __('admin.no_of_click_per_commission') ?>'>
 					</div>
 					<?php foreach (array('1','2','3') as $key => $v) { ?>
 						<fieldset>
@@ -142,7 +142,7 @@
 							
 								<div class="form-group">
 									<label  class="control-label"><?= __('admin.refer_setting_click_commission') ?> (<?= $CurrencySymbol ?></span>)</label>
-									<input name="referlevel_<?php echo $v ?>_hang_hoa[commition]" value="<?php echo ${"referlevel_$v"}.'_hang_hoa'.['commition']; ?>" class="form-control" step="any" type="number">
+									<input name="referlevel_<?php echo $v ?>_nha_phan_phoi[commition]" value="<?php echo ${"referlevel_$v"}.'_nha_phan_phoi'.['commition']; ?>" class="form-control" step="any" type="number">
 								</div>
 						</fieldset>
 					<?php } ?>
@@ -152,9 +152,9 @@
 				<div class="comm-cube-box">
 					<div class="form-group">
 						<label  class="control-label"><?= __('admin.fix_amount_or_per') ?></label>
-						<select class="form-control refer-symball-select" name="referlevel_hang_hoa[sale_type]">
-							<option symbal='%' <?php if($referlevel_hang_hoa['sale_type'] == 'percentage') { ?> selected <?php } ?> value="percentage"><?= __('admin.percentage') ?></option>
-							<option symbal='<?= $CurrencySymbol ?>' <?php if($referlevel_hang_hoa['sale_type'] == 'fixed') { ?> selected <?php } ?>  value="fixed"><?= __('admin.fixed') ?></option>
+						<select class="form-control refer-symball-select" name="referlevel_nha_phan_phoi[sale_type]">
+							<option symbal='%' <?php if($referlevel_nha_phan_phoi['sale_type'] == 'percentage') { ?> selected <?php } ?> value="percentage"><?= __('admin.percentage') ?></option>
+							<option symbal='<?= $CurrencySymbol ?>' <?php if($referlevel_nha_phan_phoi['sale_type'] == 'fixed') { ?> selected <?php } ?>  value="fixed"><?= __('admin.fixed') ?></option>
 						</select>
 					</div>
 					<?php foreach (array('1','2','3') as $key => $v) { ?>
@@ -162,7 +162,7 @@
 							<legend><?= __('admin.level') ?> <?= $v ?>:</legend>
 								<div class="form-group">
 									<label  class="control-label"><?= __('admin.refer_setting_sale_commission') ?> (<span class="refer-symball"></span>)</label>
-									<input name="referlevel_<?php echo $v ?>_hang_hoa[sale_commition]" value="<?php echo ${"referlevel_$v"}.'_hang_hoa'.['sale_commition']; ?>" class="form-control" step="any" type="number">
+									<input name="referlevel_<?php echo $v ?>_nha_phan_phoi[sale_commition]" value="<?php echo ${"referlevel_$v"}.'_nha_phan_phoi'.['sale_commition']; ?>" class="form-control" step="any" type="number">
 								</div>
 						</fieldset>
 					<?php } ?>
@@ -172,14 +172,14 @@
 				<div class="comm-cube-box">
 					<div class="form-group">
 						<label  class="control-label"><?= __('admin.external_click') ?></label>
-						<input name="referlevel_hang_hoa[ex_click]" value="<?php echo $referlevel_hang_hoa['ex_click']; ?>" class="form-control" step="any" type="number" placeholder='<?= __('admin.external_click') ?>'>
+						<input name="referlevel_nha_phan_phoi[ex_click]" value="<?php echo $referlevel_nha_phan_phoi['ex_click']; ?>" class="form-control" step="any" type="number" placeholder='<?= __('admin.external_click') ?>'>
 					</div>
 					<?php foreach (array('1','2','3') as $key => $v) { ?>
 						<fieldset>
 							<legend><?= __('admin.level') ?> <?= $v ?>:</legend>
 								<div class="form-group">
 									<label  class="control-label"><?= __('admin.external_click_commission') ?> (<?= $CurrencySymbol ?></span>)</label>
-									<input name="referlevel_<?php echo $v ?>_hang_hoa[ex_commition]" value="<?php echo ${"referlevel_$v"}.'_hang_hoa'.['ex_commition']; ?>" class="form-control" step="any" type="number">
+									<input name="referlevel_<?php echo $v ?>_nha_phan_phoi[ex_commition]" value="<?php echo ${"referlevel_$v"}.'_nha_phan_phoi'.['ex_commition']; ?>" class="form-control" step="any" type="number">
 								</div>
 						</fieldset>
 					<?php } ?>
@@ -189,14 +189,14 @@
 				<div class="comm-cube-box">
 					<div class="form-group">
 						<label  class="control-label"><?= __('admin.external_action_click') ?></label>
-						<input name="referlevel_hang_hoa[ex_action_click]" value="<?php echo $referlevel_hang_hoa['ex_action_click']; ?>" class="form-control" step="any" type="number" placeholder='External Action Click'>
+						<input name="referlevel_nha_phan_phoi[ex_action_click]" value="<?php echo $referlevel_nha_phan_phoi['ex_action_click']; ?>" class="form-control" step="any" type="number" placeholder='External Action Click'>
 					</div>
 					<?php foreach (array('1','2','3') as $key => $v) { ?>
 						<fieldset>
 							<legend><?= __('admin.level') ?> <?= $v ?>:</legend>
 								<div class="form-group">
 									<label  class="control-label"><?= __('admin.external_action_click_Commission') ?> (<?= $CurrencySymbol ?></span>)</label>
-									<input name="referlevel_<?php echo $v ?>_hang_hoa[ex_action_commition]" value="<?php echo ${"referlevel_$v"}.'_hang_hoa'.['ex_action_commition']; ?>" class="form-control" step="any" type="number">
+									<input name="referlevel_<?php echo $v ?>_nha_phan_phoi[ex_action_commition]" value="<?php echo ${"referlevel_$v"}.'_nha_phan_phoi'.['ex_action_commition']; ?>" class="form-control" step="any" type="number">
 								</div>
 						</fieldset>
 					<?php } ?>
@@ -224,9 +224,9 @@
         }
 
         if($(".refer-reg-symball-select").val() != "custom_percentage") {
-            $('input[name="referlevel_hang_hoa[reg_comission_custom_amt]"]').hide();
+            $('input[name="referlevel_nha_phan_phoi[reg_comission_custom_amt]"]').hide();
         } else {
-            $('input[name="referlevel_hang_hoa[reg_comission_custom_amt]"]').show();
+            $('input[name="referlevel_nha_phan_phoi[reg_comission_custom_amt]"]').show();
         }
 
         var selectedValue = $(".refer-reg-symball-select").val();
@@ -268,7 +268,7 @@
 
 		$(".btn-submit").on('click',function(evt){
 			if($(".refer-reg-symball-select").val() == "custom_percentage") {
-				let reg_comission_custom_amt = $('input[name="referlevel_hang_hoa[reg_comission_custom_amt]"]').val();
+				let reg_comission_custom_amt = $('input[name="referlevel_nha_phan_phoi[reg_comission_custom_amt]"]').val();
 				if(reg_comission_custom_amt == '' || reg_comission_custom_amt == 0) {
 					$(".refer-reg-symball-select").parent().append('<span class="text-danger d-block">'+'<?= __('admin.custom_comission_amount_should_be_greater_than_0') ?>'+'<span>');
 					return false;
@@ -324,7 +324,7 @@
 
 		<?php 
 		for ($i=1; $i <= 20; $i++) { 
-			$v = 'referlevel_'.$i. '_hang_hoa';
+			$v = 'referlevel_'.$i. '_nha_phan_phoi';
 			if (isset(${$v})) { ?>
 					levels['<?= $i ?>'] = <?= json_encode(${$v}) ?>;
 			<?php }
@@ -337,10 +337,10 @@
 		for(var i = 1; i <= level; i++){
 			html += '<tr>';
 				html += '<td style="border-right: 1px solid lightgrey;">'+i+'</td>';
-				// html += '<td style="border-right: 1px solid lightgrey;"><div class="input-group"><input type="number" step="any" name="referlevel_'+i+'_hang_hoa[reg_commission]" value="'+(levels[i] ? levels[i]['reg_commission'] : '' )+'" class="form-control" /><div class="input-group-append"><span class="input-group-text refer-reg-symball"></span></div>															</div></td>';
-				html += '<td style="border-right: 1px solid lightgrey;"><div class="input-group"><input type="number" step="any" name="referlevel_'+i+'_hang_hoa[sale_commition]" value="'+(levels[i] ? levels[i]['sale_commition'] : '' )+'" class="form-control" /><div class="input-group-append"><span class="input-group-text refer-symball"></span></div>															</div></td>';
-				html += '<td><input type="number" step="any" name="referlevel_'+i+'_hang_hoa[commition]" value="'+(levels[i] ? levels[i]['commition'] : '' )+'" class="form-control" /></td>';
-				html += '<td style="border-right: 1px solid lightgrey;"><div class="input-group"><input type="number" step="any" name="referlevel_'+i+'_hang_hoa[ex_commition]" value="'+(levels[i] ? levels[i]['ex_commition'] : '' )+'" class="form-control" /><div class="input-group-append"><span class="input-group-text"><?= $CurrencySymbol ?></span></div></div></td>';
+				// html += '<td style="border-right: 1px solid lightgrey;"><div class="input-group"><input type="number" step="any" name="referlevel_'+i+'_nha_phan_phoi[reg_commission]" value="'+(levels[i] ? levels[i]['reg_commission'] : '' )+'" class="form-control" /><div class="input-group-append"><span class="input-group-text refer-reg-symball"></span></div>															</div></td>';
+				html += '<td style="border-right: 1px solid lightgrey;"><div class="input-group"><input type="number" step="any" name="referlevel_'+i+'_nha_phan_phoi[sale_commition]" value="'+(levels[i] ? levels[i]['sale_commition'] : '' )+'" class="form-control" /><div class="input-group-append"><span class="input-group-text refer-symball"></span></div>															</div></td>';
+				html += '<td><input type="number" step="any" name="referlevel_'+i+'_nha_phan_phoi[commition]" value="'+(levels[i] ? levels[i]['commition'] : '' )+'" class="form-control" /></td>';
+				html += '<td style="border-right: 1px solid lightgrey;"><div class="input-group"><input type="number" step="any" name="referlevel_'+i+'_nha_phan_phoi[ex_commition]" value="'+(levels[i] ? levels[i]['ex_commition'] : '' )+'" class="form-control" /><div class="input-group-append"><span class="input-group-text"><?= $CurrencySymbol ?></span></div></div></td>';
 				html += '<td><div class="input-group"><input type="number" step="any" name="referlevel_'+i+'[ex_action_commition]" value="'+(levels[i] ? levels[i]['ex_action_commition'] : '' )+'" class="form-control" /><div class="input-group-append"><span class="input-group-text"><?= $CurrencySymbol ?></span></div></div></td>';
 			html += '</tr>';
 		}
