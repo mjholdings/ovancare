@@ -388,7 +388,7 @@ class Wallet_model extends MY_Model {
 					break;
 
 				case 'sale':
-					$where .= ' AND wallet.type IN("sale_commission","admin_sale_commission", "refer_sale_commission", ) ';
+					$where .= ' AND wallet.type IN("sale_commission","admin_sale_commission", "refer_sale_commission", "sales_personal",, "sales_direct", "sales_indirect" ) ';
 					break;
 				case 'external_integration':
 

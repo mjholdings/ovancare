@@ -360,45 +360,46 @@ class User_model extends MY_Model {
 			$award_levels = $this->get_award_levels();
 
 			foreach ($award_levels as $level) {
-				// Kiểm tra điều kiện doanh thu cá nhân cho cấp độ hiện tại
-				if ($level->minimum_earning > 0 && $personal_revenue < $level->minimum_earning && $current_rank == $level) {
-					continue;
-				}
 
-				// Kiểm tra số lượng thành viên tuyển dụng trực tiếp
-				$user_recruitment = $this->get_user_recruitment($user_id);
-				if ($level->recruitment_number > 0 && $user_recruitment->total_direct < $level->recruitment_number) {
-					continue;
-				}
+				if ($current_rank == $level) {
+					// Kiểm tra điều kiện doanh thu cá nhân cho cấp độ hiện tại
+					if ($level->minimum_earning > 0 && $personal_revenue < $level->minimum_earning) {
+						continue;
+					}
 
-				// Kiểm tra cấp độ thành viên trực tiếp
-				if ($level->recruitment_level > 0 && !$this->check_direct_member_level($user_recruitment->ids_direct, $level->recruitment_level)) {
-					continue;
-				}
+					// Kiểm tra số lượng thành viên tuyển dụng trực tiếp
+					$user_recruitment = $this->get_user_recruitment($user_id);
+					if ($level->recruitment_number > 0 && $user_recruitment->total_direct < $level->recruitment_number) {
+						continue;
+					}
 
-				// Tính thưởng doanh thu cá nhân
-				if ($level->sale_comission_rate > 0) {
-					$commission_value = $personal_revenue * ($level->sale_comission_rate / 100);
-					$this->update_commission($user_id, $order_id, $product_id, $created_time,'sales_personal', 'percentage', $commission_value);
-				} elseif ($level->bonus > 0) {
-					$this->update_commission($user_id, $order_id, $product_id, $created_time,'sales_personal', 'fixed', $level->bonus);
-				}
+					// Kiểm tra cấp độ thành viên trực tiếp
+					if ($level->recruitment_level > 0 && !$this->check_direct_member_level($user_recruitment->ids_direct, $level->recruitment_level)) {
+						continue;
+					}
 
-				// Tính thưởng doanh thu trực tiếp
-				if ($level->sale_comission_direct > 0) {
-					$commission_value = $direct_revenue * ($level->sale_comission_direct / 100);
-					$this->update_commission($user_id, $order_id, $product_id, $created_time,'sales_direct', 'percentage', $commission_value);
-				}
+					// Tính thưởng doanh thu cá nhân
+					if ($level->sale_comission_rate > 0) {
+						$commission_value = $personal_revenue * ($level->sale_comission_rate / 100);
+						$this->update_commission($user_id, $order_id, $product_id, $created_time, 'sales_personal', 'percentage', $commission_value);
+					} elseif ($level->bonus > 0) {
+						$this->update_commission($user_id, $order_id, $product_id, $created_time, 'sales_personal', 'fixed', $level->bonus);
+					}
 
-				// Tính thưởng doanh thu gián tiếp
-				if ($level->sale_comission_indirect > 0) {
-					$commission_value = $indirect_revenue * ($level->sale_comission_indirect / 100);
-					$this->update_commission($user_id, $order_id, $product_id, $created_time, 'sales_indirect', 'percentage', $commission_value);
+					// Tính thưởng doanh thu trực tiếp
+					if ($level->sale_comission_direct > 0) {
+						$commission_value = $direct_revenue * ($level->sale_comission_direct / 100);
+						$this->update_commission($user_id, $order_id, $product_id, $created_time, 'sales_direct', 'percentage', $commission_value);
+					}
+
+					// Tính thưởng doanh thu gián tiếp
+					if ($level->sale_comission_indirect > 0) {
+						$commission_value = $indirect_revenue * ($level->sale_comission_indirect / 100);
+						$this->update_commission($user_id, $order_id, $product_id, $created_time, 'sales_indirect', 'percentage', $commission_value);
+					}
 				}
 			}
 		}
-
-
 	}
 
 	// Hàm lấy cấp độ hiện tại của user
