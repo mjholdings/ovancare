@@ -259,6 +259,7 @@ class Order_model extends MY_Model {
 
     // Cập nhật thưởng vào Ví cho đơn hàng
     public function updateCommissionToWallet($order_id) {
+
         // Lấy danh sách các bản ghi trong user_comission với order_id
         $this->db->select('*');
         $this->db->from('user_comission');
@@ -296,10 +297,7 @@ class Order_model extends MY_Model {
             $user = $this->db->get()->row();
             $buyer_name = $user ? $user->firstname . ' ' . $user->lastname : '';
 
-            // Tạo Comment
-            $comment = "Level" . $user_level . " : Hoa hồng cho đơn hàng Order Id order_id=" . $order_id . "| User : " . $buyer_name;
-
-            // Chuẩn bị dữ liệu để chèn vào bảng wallet
+            // Chuẩn bị dữ liệu để chèn vào bảng wallet            
             $data = array(
                 'user_id' => $user_id,
                 'reference_id_2' => $order_id,
@@ -307,7 +305,8 @@ class Order_model extends MY_Model {
                 'amount' => $commission->comission_value,
                 'type' => $commission->comission_method,
                 'created_at' => $commission->created_at,
-                'comment' => $comment,
+                'comment' => "Level {$user_level} : " . 'Hoa hồng cho Order Id order_id=' . $order_id . ' | User : ' . $buyer_name,
+                'group_id' => $order_id,
                 'status' => 1,
                 'commission_status' => 0,
                 'comm_from' => 'store',
@@ -318,17 +317,26 @@ class Order_model extends MY_Model {
             );
 
             // Chèn dữ liệu vào bảng wallet
-            $this->db->insert('wallet', $data);
+            if ($commission->comission_value > 0) {
+                $this->db->insert('wallet', $data);
+            }
         }
         return true;
     }
 
     // Cập nhật toàn bộ
     public function updateAllCommWallet() {
+
         // Lấy danh sách các bản ghi trong user_comission với 
         $this->db->select('*');
         $this->db->from('user_comission');
         $commissions = $this->db->get()->result();
+
+
+        // Dọn dữ liệu cũ wallet
+        $this->db->where_in('type', array('sales_personal', 'sales_direct', 'sales_indirect'));
+        $this->db->delete('wallet');
+
 
         // Với mỗi bản ghi thưởng bổ sung
         foreach ($commissions as $commission) {
@@ -356,7 +364,7 @@ class Order_model extends MY_Model {
             $buyer_name = $user ? $user->firstname . ' ' . $user->lastname : '';
 
             // Tạo Comment
-            $comment = "Level" . $user_level . " : Hoa hồng cho đơn hàng Order Id order_id=" . $order_id . "| User : " . $buyer_name;
+            $comment = "Level " . $user_level . " : Hoa hồng cho đơn hàng OrderID = " . $order_id . " | User : " . $buyer_name;
 
             // Chuẩn bị dữ liệu để chèn vào bảng wallet
             $data = array(
@@ -367,6 +375,7 @@ class Order_model extends MY_Model {
                 'type' => $commission->comission_method,
                 'created_at' => $commission->created_at,
                 'comment' => $comment,
+                'group_id' => $order_id,
                 'status' => 1,
                 'commission_status' => 0,
                 'comm_from' => 'store',
@@ -377,7 +386,9 @@ class Order_model extends MY_Model {
             );
 
             // Chèn dữ liệu vào bảng wallet
-            $this->db->insert('wallet', $data);
+            if ($commission->comission_value > 0) {
+                $this->db->insert('wallet', $data);
+            }
         }
         return true;
     }

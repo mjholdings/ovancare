@@ -7608,7 +7608,7 @@ class Admincontrol extends MY_Controller {
 			}
 		}
 
-		// $this->commission_payout();
+		$this->commission_payout();
 
 		$data['user_groups'] = $this->user->getgrouplist();
 		$data['approvals_count'] = $this->Product_model->getApprovalCounts();
@@ -14795,7 +14795,7 @@ class Admincontrol extends MY_Controller {
 
 		$this->order->updateAllCommWallet(); // wallet
 
-		redirect(base_url('admincontrol/award_level'));
+		// redirect(base_url('admincontrol/award_level'));
 
 		// End Update
 	}

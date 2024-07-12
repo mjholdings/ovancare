@@ -787,12 +787,18 @@ function form_status($status) {
                     return __('user.cpc_level')." ".$transCmtArray[1];
             } else if($trans['type'] == "refer_sale_commission"){
                 return __('user.cps_level')." ".$transCmtArray[1]; 
+            } else if($trans['type'] == "sales_personal"){
+                return __('HHDT Cá nhân')." ".$transCmtArray[1]; 
+            } else if($trans['type'] == "sales_direct"){
+                return __('HHDT Trực tiếp')." ".$transCmtArray[1]; 
+            } else if($trans['type'] == "sales_indirect"){
+                return __('HHDT Gián tiếp')." ".$transCmtArray[1]; 
             } else {
 
                 if($child != 'child' && $child != 'child-recurring')
                     return __('user.cpc');
                 else 
-                    return __('user.cps');
+                    return __('Bán hàng');
             }
         }
 
