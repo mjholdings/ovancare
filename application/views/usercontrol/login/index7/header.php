@@ -35,7 +35,7 @@
     <?php if($SiteSetting['front_custom_logo_size']): ?>
         <style type="text/css">
             .customLogoClass{
-                width: <?= (int) $SiteSetting['front_log_custom_width'] ?>px !important;
+                width: auto;
                 height: <?= (int) $SiteSetting['front_log_custom_height'] ?>px !important;
             }
         </style>

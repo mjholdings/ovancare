@@ -347,9 +347,11 @@ class User_model extends MY_Model {
 		foreach ($user_revenues as $revenue) {
 			$user_id = $revenue->user_id;
 			$order_id = $revenue->order_id;
+			$product_id = $revenue->product_id;
 			$personal_revenue = $revenue->revenue;
 			$direct_revenue = $revenue->revenue_direct;
 			$indirect_revenue = $revenue->revenue_indirect;
+			$created_time = $revenue->created_time;
 
 			// Lấy cấp độ hiện tại của user
 			$current_rank = $this->get_user_current_rank($user_id);
@@ -377,21 +379,21 @@ class User_model extends MY_Model {
 				// Tính thưởng doanh thu cá nhân
 				if ($level->sale_comission_rate > 0) {
 					$commission_value = $personal_revenue * ($level->sale_comission_rate / 100);
-					$this->update_commission($user_id, $order_id, 'sales_personal', 'percentage', $commission_value);
+					$this->update_commission($user_id, $order_id, $product_id, $created_time,'sales_personal', 'percentage', $commission_value);
 				} elseif ($level->bonus > 0) {
-					$this->update_commission($user_id, $order_id, 'sales_personal', 'fixed', $level->bonus);
+					$this->update_commission($user_id, $order_id, $product_id, $created_time,'sales_personal', 'fixed', $level->bonus);
 				}
 
 				// Tính thưởng doanh thu trực tiếp
 				if ($level->sale_comission_direct > 0) {
 					$commission_value = $direct_revenue * ($level->sale_comission_direct / 100);
-					$this->update_commission($user_id, $order_id, 'sales_direct', 'percentage', $commission_value);
+					$this->update_commission($user_id, $order_id, $product_id, $created_time,'sales_direct', 'percentage', $commission_value);
 				}
 
 				// Tính thưởng doanh thu gián tiếp
 				if ($level->sale_comission_indirect > 0) {
 					$commission_value = $indirect_revenue * ($level->sale_comission_indirect / 100);
-					$this->update_commission($user_id, $order_id, 'sales_indirect', 'percentage', $commission_value);
+					$this->update_commission($user_id, $order_id, $product_id, $created_time, 'sales_indirect', 'percentage', $commission_value);
 				}
 			}
 		}
@@ -433,16 +435,18 @@ class User_model extends MY_Model {
 	}
 
 	// Hàm cập nhật thông tin hoa hồng vào bảng user_commission
-	private function update_commission($user_id, $order_id, $method, $type, $value) {
+	private function update_commission($user_id, $order_id, $product_id, $created_time, $method, $type, $value) {
 		$data = array(
 			'user_id' => $user_id,
 			'order_id' => $order_id,
+			'product_id' => 5,
 			'comission_method' => $method,
 			'comission_type' => $type,
 			'comission_value' => $value,
+			'created_at' => $created_time,
 			'comission_date' => date('Y-m-d H:i:s')
 		);
-		$this->db->insert('user_comission', $data);
+		//$this->db->insert('user_comission', $data);
 	}
 
 
