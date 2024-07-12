@@ -37,7 +37,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-3 mb-3">
                                 <label class="form-label">
                                     <?= __('admin.minimum_earning') ?>
                                     <span class="field-description" data-bs-toggle="tooltip" title="<?= __('admin.award_level_minimum_earning_desc') ?>"></span>
@@ -48,7 +48,7 @@
                                 </div>
                                 <p class="error-message"></p>
                             </div>
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-3 mb-3">
                                 <label class="form-label">
                                     <?= __('Yêu cầu tuyển dụng') ?>
                                     <span class="field-description" data-bs-toggle="tooltip" title="<?= __('Tuyển dụng yêu cầu') ?>"></span>
@@ -58,13 +58,23 @@
                                 </div>
                                 <p class="error-message"></p>
                             </div>
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-3 mb-3">
                                 <label class="form-label">
                                     <?= __('Yêu cầu tuyển cấp độ') ?>
                                     <span class="field-description" data-bs-toggle="tooltip" title="<?= __('Cấp tuyển yêu cầu') ?>"></span>
                                 </label>
                                 <div class="input-group">
                                     <input type="number" class="form-control" name="recruitment_level" min="0" step="1" placeholder="<?= __('Cấp tuyển yêu cầu') ?>">
+                                </div>
+                                <p class="error-message"></p>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">
+                                    <?= __('Hưởng đồng chia') ?>
+                                    <span class="field-description" data-bs-toggle="tooltip" title="<?= __('Hưởng đồng chia') ?>"></span>
+                                </label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" name="recruitment_level" min="0" step="0.01" placeholder="<?= __('Hưởng đồng chia') ?>">
                                 </div>
                                 <p class="error-message"></p>
                             </div>

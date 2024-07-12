@@ -298,9 +298,9 @@ class Wallet_model extends MY_Model {
 				'wallet_recursion.custom_time as wallet_recursion_custom_time',
 				'wallet_recursion.next_transaction as wallet_recursion_next_transaction',
 				'wallet_recursion.endtime as wallet_recursion_endtime',
-				"(SELECT payment_method FROM `order` WHERE wallet.reference_id_2 = `order`.id AND wallet.type IN('sale_commission','vendor_sale_commission', 'admin_sale_commission','sales_direct', 'sales_indirect', 'sales_personal') AND wallet.dis_type is NULL ) AND wallet.comm_from != 'ex' as payment_method ",
-				"(SELECT total FROM `integration_orders` WHERE comm_from='ex' AND wallet.reference_id_2 = `integration_orders`.id AND wallet.type IN ('sale_commission','admin_sale_commission','sales_direct', 'sales_indirect', 'sales_personal')) as integration_orders_total ",
-				"(SELECT total FROM `order` WHERE comm_from != 'ex' AND id = wallet.reference_id_2 AND wallet.type IN('sale_commission','vendor_sale_commission', 'admin_sale_commission','sales_direct', 'sales_indirect', 'sales_personal') ) as local_orders_total "
+				"(SELECT payment_method FROM `order` WHERE wallet.reference_id_2 = `order`.id AND wallet.type IN('sale_commission','vendor_sale_commission', 'admin_sale_commission','sales_direct', 'sales_indirect', 'sales_personal', 'shared_commission') AND wallet.dis_type is NULL ) AND wallet.comm_from != 'ex' as payment_method ",
+				"(SELECT total FROM `integration_orders` WHERE comm_from='ex' AND wallet.reference_id_2 = `integration_orders`.id AND wallet.type IN ('sale_commission','admin_sale_commission','sales_direct', 'sales_indirect', 'sales_personal', 'shared_commission')) as integration_orders_total ",
+				"(SELECT total FROM `order` WHERE comm_from != 'ex' AND id = wallet.reference_id_2 AND wallet.type IN('sale_commission','vendor_sale_commission', 'admin_sale_commission','sales_direct', 'sales_indirect', 'sales_personal', 'shared_commission') ) as local_orders_total "
 			);
 		}
 
@@ -388,7 +388,7 @@ class Wallet_model extends MY_Model {
 					break;
 
 				case 'sale':
-					$where .= ' AND wallet.type IN("sale_commission","admin_sale_commission", "refer_sale_commission", "sales_personal",, "sales_direct", "sales_indirect" ) ';
+					$where .= ' AND wallet.type IN("sale_commission","admin_sale_commission", "refer_sale_commission", "sales_personal",, "sales_direct", "sales_indirect", "shared_commission") ';
 					break;
 				case 'external_integration':
 
@@ -465,7 +465,7 @@ class Wallet_model extends MY_Model {
 			'wallet_recursion.next_transaction as wallet_recursion_next_transaction',
 			'wallet_recursion.endtime as wallet_recursion_endtime',
 			"(SELECT count(id) as total FROM `wallet` w WHERE wallet.id = w.parent_id) as total_recurring ",
-			"(SELECT total FROM `integration_orders` WHERE comm_from='ex' AND wallet.reference_id_2 = `integration_orders`.id AND wallet.type IN ('sale_commission','admin_sale_commission','sales_direct', 'sales_indirect', 'sales_personal') ) as integration_orders_total ",
+			"(SELECT total FROM `integration_orders` WHERE comm_from='ex' AND wallet.reference_id_2 = `integration_orders`.id AND wallet.type IN ('sale_commission','admin_sale_commission','sales_direct', 'sales_indirect', 'sales_personal','shared_commission') ) as integration_orders_total ",
 			"(SELECT SUM(amount) FROM `wallet` ww WHERE ww.parent_id=wallet.id) as total_recurring_amount"
 		);
 
@@ -745,7 +745,7 @@ class Wallet_model extends MY_Model {
 
 		$data['withdraw_request'] = (float)$this->db->query('SELECT sum(amount) as total FROM wallet WHERE  withdraw_request = 1 AND ' . $where)->row_array()['total'];
 
-		$data['total_sale_commi'] = (float)$this->db->query('SELECT sum(amount) as total FROM wallet WHERE status > 0 AND  type IN("sale_commission","vendor_sale_commission") AND withdraw_request = 0 AND ' . $where)->row_array()['total'];
+		$data['total_sale_commi'] = (float)$this->db->query('SELECT sum(amount) as total FROM wallet WHERE status > 0 AND  type IN("sale_commission","vendor_sale_commission", "sales_personal", "sales_direct", "sales_indirect", "shared_commission") AND withdraw_request = 0 AND ' . $where)->row_array()['total'];
 
 		$data['total_in_request'] = (float)$this->db->query('SELECT sum(amount) as total FROM wallet WHERE status=2 AND withdraw_request = 0 AND ' . $where)->row_array()['total'];
 

@@ -2969,7 +2969,7 @@ class Admincontrol extends MY_Controller {
 				$moveFirst = false;
 
 				if (strpos($a['type'], 'refer') === false) {
-					if (in_array($ch['type'], ['vendor_sale_commission', 'sale_commission', 'external_sale_commission', 'click_comission'])) {
+					if (in_array($ch['type'], ['vendor_sale_commission', 'sale_commission', 'external_sale_commission', 'click_comission', 'shared_commission', 'sales_personal', 'sales_direct', 'sales_indirect'])) {
 						$moveFirst = true;
 					} else if (strpos($a['type'], 'click')) {
 						$moveFirst = true;
@@ -3755,8 +3755,9 @@ class Admincontrol extends MY_Controller {
 						$insert['jump_level'] = ($jump_level != '') ? $jump_level : NULL;
 						$insert['minimum_earning'] = $this->input->post('minimum_earning', true);
 						$insert['sale_comission_rate'] = $this->input->post('sale_comission_rate', true);
+						$insert['shared_comission_rate'] = $this->input->post('shared_comission_rate', true);
 						$insert['recruitment_number'] = $this->input->post('recruitment_number', true);
-						$insert['recruitment_level'] = $this->input->post('recruitment_level', true);
+						$insert['recruitment_level'] = $this->input->post('recruitment_level', true);						
 						$insert['sale_comission_direct'] = $this->input->post('sale_comission_direct', true);
 						$insert['sale_comission_indirect'] = $this->input->post('sale_comission_indirect', true);
 						$insert['bonus'] = $this->input->post('bonus', true);
@@ -3822,8 +3823,9 @@ class Admincontrol extends MY_Controller {
 									$update['recruitment_number'] = $this->input->post('recruitment_number', true);
 									$update['recruitment_level'] = $this->input->post('recruitment_level', true);
 									$update['sale_comission_direct'] = $this->input->post('sale_comission_direct', true);
-									$update['sale_comission_indirect'] = $this->input->post('sale_comission_indirect', true);
+									$update['sale_comission_indirect'] = $this->input->post('sale_comission_indirect', true);									
 									$update['sale_comission_rate'] = $this->input->post('sale_comission_rate', true);
+									$update['shared_comission_rate'] = $this->input->post('shared_comission_rate', true);
 									$update['bonus'] = $this->input->post('bonus', true);
 									$update['default_registration_level'] = ($this->input->post('default_registration_level')) ? $this->input->post('default_registration_level', true) : 0;
 

@@ -359,23 +359,29 @@ class User_model extends MY_Model {
 			// Lấy setting của riêng level hiện tại
 			$current_settings = $this->get_user_current_setting($current_level);
 
-			// Điều kiện
-			$condition = false;
+			// Điều kiện			
 
 			// Kiểm tra điều kiện doanh thu cá nhân cho cấp độ hiện tại
-			if ($current_settings->minimum_earning > 0 && $personal_revenue >= $current_settings->minimum_earning) {
+			if ($personal_revenue >= $current_settings->minimum_earning || $current_settings->minimum_earning == 0) {
 				$condition = true;
+			} else {
+				$condition = false;
 			}
 
 			// Kiểm tra số lượng thành viên tuyển dụng trực tiếp
 			$user_recruitment = $this->get_user_recruitment($user_id);
-			if ($current_settings->recruitment_number > 0 && $user_recruitment->total_direct >= $current_settings->recruitment_number) {
+			if ($user_recruitment->total_direct >= $current_settings->recruitment_number || $current_settings->recruitment_number == 0) {
 				$condition = true;
+			} else {
+				$condition = false;
 			}
 
+
 			// Kiểm tra số thành viên cấp độ trực tiếp yêu cầu
-			if ($current_settings->recruitment_level > 0 && $this->check_direct_member_level($user_id, $current_settings->recruitment_number, $current_settings->recruitment_level)) {
+			if ($this->check_direct_member_level($user_id, $current_settings->recruitment_number, $current_settings->recruitment_level) || $current_settings->recruitment_level == 0) {
 				$condition = true;
+			} else {
+				$condition = false;
 			}
 
 			// Đủ điều kiện thì cho thưởng
@@ -400,6 +406,41 @@ class User_model extends MY_Model {
 					$this->update_commission($user_id, $order_id, $product_id, $created_time, 'sales_indirect', 'percentage', $commission_value);
 				}
 			}
+		}
+
+		// Tính thưởng đồng chia ============
+
+		// Lấy tất cả các mục trong bảng users
+		$query = "SELECT * FROM users";
+		$user_all = $db->query($query)->result();
+
+		foreach ($user_all as $user_item) {
+
+			$current_time = date('Y-m-d H:i:s');
+
+			// Lấy cấp độ hiện tại của user
+			$current_level = $this->get_user_current_rank($user_id);
+
+			// Lấy setting của riêng level hiện tại
+			$current_settings = $this->get_user_current_setting($current_level);
+
+			if ($current_settings->shared_comission_rate > 0) {
+				$commission_value = $this->get_total_revenue() * ($current_settings->shared_comission_rate / 100);
+				$this->update_commission($user_item->user_id, 0, 0, $current_time, 'shared_commission', 'percentage', $commission_value);
+			}
+		}
+
+	}
+
+	// Hàm lấy tổng doanh thu
+	public function get_total_revenue() {
+		$this->db->select_sum('revenue');
+		$result = $this->db->get('user_revenue')->row();
+
+		if ($result) {
+			return $result->revenue; // Trả về tổng doanh thu
+		} else {
+			return 0; // Trả về 0 nếu không có bản ghi nào
 		}
 	}
 
