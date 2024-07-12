@@ -398,7 +398,6 @@ class User_model extends MY_Model {
 			}
 		}
 
-		// redirect(base_url('admincontrol/award_level'));
 
 	}
 

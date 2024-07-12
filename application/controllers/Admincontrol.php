@@ -6,7 +6,8 @@ class Admincontrol extends MY_Controller {
 	function __construct() {
 		parent::__construct();
 		$this->load->model('user_model', 'user');
-		$this->load->model('Product_model');
+		$this->load->model('Order_model', 'order');
+		$this->load->model('Product_model');		
 		$this->load->model('Setting_model');
 		$this->load->model('Common_model');
 		$this->load->model('Review_model');
@@ -7607,7 +7608,7 @@ class Admincontrol extends MY_Controller {
 			}
 		}
 
-		$this->commission_payout();
+		// $this->commission_payout();
 
 		$data['user_groups'] = $this->user->getgrouplist();
 		$data['approvals_count'] = $this->Product_model->getApprovalCounts();
@@ -14792,7 +14793,9 @@ class Admincontrol extends MY_Controller {
 
 		$this->user->calculate_commissions(); // user_commission
 
-		$this->user->updateAllCommWallet(); // wallet
+		$this->order->updateAllCommWallet(); // wallet
+
+		redirect(base_url('admincontrol/award_level'));
 
 		// End Update
 	}
