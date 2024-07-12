@@ -3859,7 +3859,7 @@ button#btnsaveclass:hover {
     border-radius: 10px;
 }
 .img-fluid.img-logo {
-    width: autopx;
+    width: auto;
     height: 75px;
     margin-bottom: 30px;
 }
