@@ -34,7 +34,7 @@
                                 <label class="control-label"><?= __('Danh mục MLM') ?></label>
                                 <select name="mlm_categories" class="form-control">
                                     <option value="">-- <?= __('admin.none') ?> --</option>
-                                    <option value="hang-hoa" <?php echo ($category['mlm_categories'] == 'hang-hoa') ? 'selected' : ''; ?>>Hàng hoá</option>
+                                    <option value="hang-hoa" <?php echo ($category['mlm_categories'] == 'hang-hoa') ? 'selected' : ''; ?>>Hàng</option>
                                     <option value="te-bao-goc" <?php echo ($category['mlm_categories'] == 'te-bao-goc') ? 'selected' : ''; ?>>Tế bào gốc</option>
                                     <option value="dich-vu" <?php echo ($category['mlm_categories'] == 'dich-vu') ? 'selected' : ''; ?>>Dịch vụ</option>
                                     <option value="dao-tao" <?php echo ($category['mlm_categories'] == 'dao-tao') ? 'selected' : ''; ?>>Đào tạo</option>
