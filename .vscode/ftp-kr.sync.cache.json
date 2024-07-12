@@ -824,7 +824,26 @@
                   "admin_user": {},
                   "affiliate_theme": {},
                   "affiliateads": {},
-                  "award_level": {},
+                  "award_level": {
+                    "create.php": {
+                      "type": "-",
+                      "size": 12362,
+                      "lmtime": 1720671542776,
+                      "modified": false
+                    },
+                    "index.php": {
+                      "type": "-",
+                      "size": 15271,
+                      "lmtime": 1720690787665,
+                      "modified": false
+                    },
+                    "update.php": {
+                      "type": "-",
+                      "size": 13563,
+                      "lmtime": 1720671417329,
+                      "modified": false
+                    }
+                  },
                   "backup": {},
                   "branch": {
                     "branch_bonus.php": {
@@ -915,7 +934,26 @@
                   "product": {},
                   "product_campaign": {},
                   "registration_builder": {},
-                  "reward": {},
+                  "reward": {
+                    "create.php": {
+                      "type": "-",
+                      "size": 4842,
+                      "lmtime": 1720669439079,
+                      "modified": false
+                    },
+                    "index.php": {
+                      "type": "-",
+                      "size": 3282,
+                      "lmtime": 1720669297529,
+                      "modified": false
+                    },
+                    "update.php": {
+                      "type": "-",
+                      "size": 5459,
+                      "lmtime": 1720669513848,
+                      "modified": false
+                    }
+                  },
                   "script_details": {},
                   "setting": {
                     "install_new_version.php": {
@@ -1011,8 +1049,8 @@
                     },
                     "wallet_setting.php": {
                       "type": "-",
-                      "size": 6144,
-                      "lmtime": 0,
+                      "size": 6506,
+                      "lmtime": 1720674483648,
                       "modified": false
                     }
                   },
@@ -1048,7 +1086,202 @@
                   "ticket": {},
                   "todo": {},
                   "usergroup": {},
-                  "users": {},
+                  "users": {
+                    "add_users.php": {
+                      "type": "-",
+                      "size": 7665,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "all_transaction.php": {
+                      "type": "-",
+                      "size": 5549,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "deposit.php": {
+                      "type": "-",
+                      "size": 5827,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "downline.php": {
+                      "type": "-",
+                      "size": 9081,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "downline_modal.php": {
+                      "type": "-",
+                      "size": 7712,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "edit_profile.php": {
+                      "type": "-",
+                      "size": 4294,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "index.php": {
+                      "type": "-",
+                      "size": 30669,
+                      "lmtime": 1720679538621,
+                      "modified": false
+                    },
+                    "mail.php": {
+                      "type": "-",
+                      "size": 10160,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "managerefusers.php": {
+                      "type": "-",
+                      "size": 4526,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "mywallet.php": {
+                      "type": "-",
+                      "size": 19640,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "part": {
+                      "ads_tr.php": {
+                        "type": "-",
+                        "size": 840,
+                        "lmtime": 0,
+                        "modified": false
+                      },
+                      "all_transaction.php": {
+                        "type": "-",
+                        "size": 2473,
+                        "lmtime": 0,
+                        "modified": false
+                      },
+                      "confirmstatus.php": {
+                        "type": "-",
+                        "size": 1321,
+                        "lmtime": 0,
+                        "modified": false
+                      },
+                      "dashboard_wallet_tr.php": {
+                        "type": "-",
+                        "size": 5691,
+                        "lmtime": 0,
+                        "modified": false
+                      },
+                      "mail_list.php": {
+                        "type": "-",
+                        "size": 1297,
+                        "lmtime": 0,
+                        "modified": false
+                      },
+                      "new_wallet_tr.php": {
+                        "type": "-",
+                        "size": 10034,
+                        "lmtime": 0,
+                        "modified": false
+                      },
+                      "recurring.php": {
+                        "type": "-",
+                        "size": 5402,
+                        "lmtime": 0,
+                        "modified": false
+                      },
+                      "tr_vendor_deposit.php": {
+                        "type": "-",
+                        "size": 1804,
+                        "lmtime": 0,
+                        "modified": false
+                      },
+                      "tr_w_request_new.php": {
+                        "type": "-",
+                        "size": 930,
+                        "lmtime": 0,
+                        "modified": false
+                      },
+                      "tr_w_request_old.php": {
+                        "type": "-",
+                        "size": 872,
+                        "lmtime": 0,
+                        "modified": false
+                      },
+                      "uncompleted_payments.php": {
+                        "type": "-",
+                        "size": 6130,
+                        "lmtime": 0,
+                        "modified": false
+                      },
+                      "user_tr.php": {
+                        "type": "-",
+                        "size": 14294,
+                        "lmtime": 1720679665366,
+                        "modified": false
+                      },
+                      "wallet_tr.php": {
+                        "type": "-",
+                        "size": 3183,
+                        "lmtime": 0,
+                        "modified": false
+                      }
+                    },
+                    "payment_gateway.php": {
+                      "type": "-",
+                      "size": 16381,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "payment_gateway_documentation.php": {
+                      "type": "-",
+                      "size": 13735,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "payment_gateway_edit.php": {
+                      "type": "-",
+                      "size": 2635,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "tree.php": {
+                      "type": "-",
+                      "size": 8358,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "uncompleted_payments.php": {
+                      "type": "-",
+                      "size": 2607,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "vendor_deposit_details.php": {
+                      "type": "-",
+                      "size": 8158,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "wallet.php": {
+                      "type": "-",
+                      "size": 25573,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "wallet_requests_details.php": {
+                      "type": "-",
+                      "size": 7307,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "wallet_requests_list.php": {
+                      "type": "-",
+                      "size": 8002,
+                      "lmtime": 0,
+                      "modified": false
+                    }
+                  },
                   "withdrawal_payment": {},
                   "product_stock": {
                     "add_product.php": {
@@ -1067,6 +1300,16 @@
                       "type": "-",
                       "size": 2423,
                       "lmtime": 1720066667571,
+                      "modified": false
+                    }
+                  }
+                },
+                "usercontrol": {
+                  "dashboard": {
+                    "dashboard.php": {
+                      "type": "-",
+                      "size": 104300,
+                      "lmtime": 1720667722761,
                       "modified": false
                     }
                   }
@@ -1091,8 +1334,8 @@
                 },
                 "Admincontrol.php": {
                   "type": "-",
-                  "size": 557024,
-                  "lmtime": 1720608039254,
+                  "size": 575344,
+                  "lmtime": 1720691140728,
                   "modified": false
                 },
                 "Api.php": {
@@ -1498,8 +1741,8 @@
                 },
                 "Product_model.php": {
                   "type": "-",
-                  "size": 226111,
-                  "lmtime": 1720605001265,
+                  "size": 226258,
+                  "lmtime": 1720673754795,
                   "modified": false
                 },
                 "Report_model.php": {
@@ -1564,8 +1807,8 @@
                 },
                 "User_model.php": {
                   "type": "-",
-                  "size": 9987,
-                  "lmtime": 0,
+                  "size": 22220,
+                  "lmtime": 1720691038306,
                   "modified": false
                 },
                 "Version_changes_model.php": {
@@ -2051,9 +2294,9 @@
             },
             "index.php": {
               "type": "-",
-              "size": 13850,
+              "size": 12539,
               "lmtime": 1720603157485,
-              "modified": false
+              "modified": true
             },
             "info.php": {
               "type": "-",
