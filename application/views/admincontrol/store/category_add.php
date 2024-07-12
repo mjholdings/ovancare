@@ -38,6 +38,7 @@
                                     <option value="te-bao-goc" <?php echo ($category['mlm_categories'] == 'te-bao-goc') ? 'selected' : ''; ?>>Tế bào gốc</option>
                                     <option value="dich-vu" <?php echo ($category['mlm_categories'] == 'dich-vu') ? 'selected' : ''; ?>>Dịch vụ</option>
                                     <option value="dao-tao" <?php echo ($category['mlm_categories'] == 'dao-tao') ? 'selected' : ''; ?>>Đào tạo</option>
+                                    <option value="nha-phan-phoi"<?php echo ($coupon['categories'] == 'nha-phan-phoi') ? 'selected' : ''; ?>>Nhà Phân Phối</option>
                                 </select>
                             </div>
                             <div class="form-group">
