@@ -14788,7 +14788,9 @@ class Admincontrol extends MY_Controller {
 
 		$this->update_user_rank();
 
-		$this->user->calculate_commissions();
+		$this->user->calculate_commissions(); // user_commission
+
+		// 
 
 		// End Update
 	}

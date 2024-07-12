@@ -3859,8 +3859,8 @@ button#btnsaveclass:hover {
     border-radius: 10px;
 }
 .img-fluid.img-logo {
-    width: 167px;
-    height: 34px;
+    width: autopx;
+    height: 75px;
     margin-bottom: 30px;
 }
 .login-form form input {
