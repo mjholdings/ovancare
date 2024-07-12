@@ -439,6 +439,8 @@ class Product_model extends MY_Model
                 $value['mlm_name'] = "Dịch Vụ";
             } else if ($value['mlm_categories'] == 'dao-tao') {
                 $value['mlm_name'] = "Đào Tạo";
+            } else if ($value['mlm_categories'] == 'nha-phan-phoi') {
+                $value['mlm_name'] = "Nhà Phân Phối";
             }
 
             $data[] = array(
