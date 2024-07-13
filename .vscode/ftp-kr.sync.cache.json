@@ -1,6 +1,5 @@
 {
   "ftp://45.119.213.190@cybertech@ovanglobal.com": {
-    "incoming": {},
     "domains": {
       "ovanglobal.com": {
         "public_html": {
@@ -716,8 +715,8 @@
                     },
                     "layout.php": {
                       "type": "-",
-                      "size": 38747,
-                      "lmtime": 1720167066805,
+                      "size": 44764,
+                      "lmtime": 1720867745404,
                       "modified": false
                     },
                     "lms": {},
@@ -732,6 +731,14 @@
                       "size": 2709,
                       "lmtime": 0,
                       "modified": false
+                    },
+                    "modals": {
+                      "store_location_modal.php": {
+                        "type": "-",
+                        "size": 1571,
+                        "lmtime": 1720867722047,
+                        "modified": false
+                      }
                     },
                     "order_list.php": {
                       "type": "-",
@@ -759,8 +766,8 @@
                     },
                     "product.php": {
                       "type": "-",
-                      "size": 48011,
-                      "lmtime": 0,
+                      "size": 48041,
+                      "lmtime": 1720867738198,
                       "modified": false
                     },
                     "product_list.php": {
@@ -2512,6 +2519,69 @@
                       "lmtime": 1720593713193,
                       "modified": false
                     }
+                  },
+                  "slick": {
+                    "ajax-loader.gif": {
+                      "type": "-",
+                      "size": 4178,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "config.rb": {
+                      "type": "-",
+                      "size": 170,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "fonts": {},
+                    "slick-theme.css": {
+                      "type": "-",
+                      "size": 3349,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "slick-theme.less": {
+                      "type": "-",
+                      "size": 4349,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "slick-theme.scss": {
+                      "type": "-",
+                      "size": 4952,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "slick.css": {
+                      "type": "-",
+                      "size": 1895,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "slick.js": {
+                      "type": "-",
+                      "size": 91966,
+                      "lmtime": 1720867442524,
+                      "modified": false
+                    },
+                    "slick.less": {
+                      "type": "-",
+                      "size": 1856,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "slick.min.js": {
+                      "type": "-",
+                      "size": 42864,
+                      "lmtime": 0,
+                      "modified": false
+                    },
+                    "slick.scss": {
+                      "type": "-",
+                      "size": 1856,
+                      "lmtime": 0,
+                      "modified": false
+                    }
                   }
                 }
               }
@@ -3299,7 +3369,8 @@
           }
         }
       }
-    }
+    },
+    "incoming": {}
   },
   "$version": 1
 }

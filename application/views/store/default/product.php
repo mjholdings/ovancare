@@ -208,6 +208,7 @@ $allvideo = $this->Product_model->getAllVideos($product['product_id']);
 
                                 <!--                            (!empty($product['product_msrp'])) ? '<div class="sale-price" data-price="' . $product['product_msrp'] . '">' . c_format($product['product_msrp']) . '</div>' : '' ?>-->
                             </div>
+                            
                             <!-- quantity-area -->
                             <div class="quantity">
                                 <div class="quantity-area" id="field1">
