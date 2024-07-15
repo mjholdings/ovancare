@@ -42,8 +42,8 @@
                             <div class="row">
                                 <div class="col-md-3 mb-3">
                                     <label class="form-label">
-                                        <?= __('admin.minimum_earning') ?>
-                                        <span class="field-description" data-bs-toggle="tooltip" title="<?= __('admin.award_level_minimum_earning_desc') ?>"></span>
+                                        <?= __('Thu nhập (thưởng và nhảy cấp)') ?>
+                                        <span class="field-description" data-bs-toggle="tooltip" title="<?= __('Thu nhập tối thiểu yêu cầu để thưởng và nhảy cấp') ?>"></span>
                                     </label>
                                     <div class="input-group">
                                         <span class="input-group-text refer-reg-symball"><?= $CurrencySymbol ?></span>
@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="col-md-3 mb-3">
                                     <label class="form-label">
-                                        <?= __('Tuyển tối thiểu') ?>
+                                        <?= __('Tuyển tối thiểu (yêu cầu nhảy cấp)') ?>
                                         <span class="field-description" data-bs-toggle="tooltip" title="<?= __('Tuyển dụng tối thiểu') ?>"></span>
                                     </label>
                                     <div class="input-group">
@@ -63,8 +63,8 @@
                                 </div>
                                 <div class="col-md-3 mb-3">
                                     <label class="form-label">
-                                        <?= __('Cấp tuyển yêu cầu') ?>
-                                        <span class="field-description" data-bs-toggle="tooltip" title="<?= __('Cấp tuyển yêu cầu') ?>"></span>
+                                        <?= __('Cấp tuyển (yêu cầu nhảy cấp)') ?>
+                                        <span class="field-description" data-bs-toggle="tooltip" title="<?= __('Cấp tuyển yêu cầu để nhảy cấp') ?>"></span>
                                     </label>
                                     <div class="input-group">
                                         <input type="number" class="form-control" name="recruitment_level" min="0" step="1" value="<?= $award_level['recruitment_level'] ?>" placeholder="<?= __('Cấp tuyển yêu cầu') ?>">
