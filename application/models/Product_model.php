@@ -109,7 +109,6 @@ class Product_model extends MY_Model
         );
 
         $this->db->insert('notification', $notificationData);
-
     }
 
     public function calcVendorCommission($data)
@@ -154,7 +153,6 @@ class Product_model extends MY_Model
         } else if ($data['affiliate_sale_commission_type'] == 'percentage') {
 
             $affiliate_sale_com = ($product_price * (float) $data['affiliate_commission_value']) / 100;
-
         } else if ($data['affiliate_sale_commission_type'] == 'fixed') {
             $affiliate_sale_com = (float) $data['affiliate_commission_value'];
         }
@@ -350,7 +348,6 @@ class Product_model extends MY_Model
     public function getProductDichVu()
     {
         return $this->db->query('SELECT p.product_name, p.product_msrp, p.product_price, p.product_short_description, p.product_avg_rating, p.product_featured_image, p.product_slug FROM product_categories pc LEFT JOIN categories c ON c.id = pc.category_id LEFT JOIN product p ON p.product_id = pc.product_id WHERE c.mlm_categories LIKE "%dich-vu%" ORDER BY RAND() LIMIT 2')->result_array();
-
     }
     public function getProductDaoTao()
     {
@@ -455,7 +452,6 @@ class Product_model extends MY_Model
                 'parent_id' => $value['parent_id'],
                 'created_at' => date("d-m-Y h:i A", strtotime($value['created_at'])),
             );
-
         }
 
         return array($data, $total);
@@ -681,7 +677,7 @@ class Product_model extends MY_Model
 
 
         //Email settings
-//This if need to run only if is smtp
+        //This if need to run only if is smtp
         if ($email['mail_type'] == 'smtp') {
 
             $json['email']['mail_type'] = __('admin.smtp');
@@ -1041,8 +1037,7 @@ class Product_model extends MY_Model
         } else {
             $selected = $this->db->query("SELECT * FROM language WHERE status=1 AND id=" . $lang)->row_array();
             $_SESSION['userLangName'] = $selected['name'];
-        }
-        ;
+        };
 
 
         $all = $this->db->query("SELECT * FROM language WHERE status=1")->result_array();
@@ -1124,8 +1119,7 @@ class Product_model extends MY_Model
         } else {
             $selected = $this->db->query("SELECT * FROM language WHERE status=1 AND id=" . $lang)->row_array();
             $_SESSION['userLangName'] = $selected['name'];
-        }
-        ;
+        };
 
 
         $all = $this->db->query("SELECT * FROM language WHERE status=1")->result_array();
@@ -1846,7 +1840,6 @@ class Product_model extends MY_Model
 
         $json['total'] = $this->db->query($query)->row()->total;
         return $json;
-
     }
 
     function getPopulerUsers($filter = array(), $popular_aff_filter = '')
@@ -1926,7 +1919,6 @@ class Product_model extends MY_Model
         }
 
         return $filterData;
-
     }
 
     function getAllUsers($filter = array())
@@ -2027,7 +2019,6 @@ class Product_model extends MY_Model
             } else {
                 $user['groups_name'] = null;
             }
-
         }
 
         if (!isset($filter['page'])) {
@@ -2650,7 +2641,6 @@ class Product_model extends MY_Model
             $this->db->where('product.product_created_by', $filter['product_created_by']);
         $query = $this->db->get();
         return $query->result_array();
-
     }
 
     function getAllReviewFilter($product_id = null, $limit = 20, $offset = 0, $filter = null)
@@ -3189,7 +3179,6 @@ class Product_model extends MY_Model
 
                     $data['type'] = 'Percentage (' . $affiliate_commission_value . '%) ';
                     $data['commission'] = max(($product_price * $affiliate_commission_value), 0) / 100;
-
                 } else if ($seller->affiliate_sale_commission_type == 'fixed') {
                     $data['type'] = 'Fixed';
                     $data['commission'] = (float) $seller->affiliate_commission_value;
@@ -3204,11 +3193,9 @@ class Product_model extends MY_Model
                     $data['admin_commission_type'] = 'Fixed';
                     $data['admin_commission'] = $vendor_setting['admin_commission_value'];
                 }
-
             } else if ($seller->admin_sale_commission_type == 'percentage') {
                 $data['admin_commission_type'] = 'Percentage (' . (float) $seller->admin_commission_value . '%) ';
                 $data['admin_commission'] = max(($product_price * (float) $seller->admin_commission_value), 0) / 100;
-
             } else if ($seller->admin_sale_commission_type == 'fixed') {
                 $data['admin_commission_type'] = 'Fixed';
                 $data['admin_commission'] = (float) $seller->admin_commission_value;
@@ -3434,7 +3421,6 @@ class Product_model extends MY_Model
             'type' => strtolower($commissionType),
             'commission' => (float) $commission,
         );
-
     }
 
     function getProductActionIncrese($product_id, $user_id, $viewer_id = 0)
@@ -3581,10 +3567,7 @@ class Product_model extends MY_Model
                             )
                         );
                     }
-
-
                 }
-
             }
         }
         $this->db->query("UPDATE product_action_admin SET pay_commition = 1 WHERE user_id = 1");
@@ -3765,7 +3748,6 @@ class Product_model extends MY_Model
                 );
                 $this->Product_model->formReferClick($form, $user_id, 0, $wallet_group_id);
                 $this->db->query("UPDATE  form_action SET pay_commition = 1 WHERE user_id = '{$user_id}' AND  form_id = '{$form_id}' ");
-
             }
         }
     }
@@ -3818,7 +3800,6 @@ class Product_model extends MY_Model
                 $this->Wallet_model->addTransactionBatch($referComissionData);
             }
         }
-
     }
 
     function setFormClicks($form_id, $user_id, $viewer_id = 0)
@@ -4140,7 +4121,6 @@ class Product_model extends MY_Model
         }
 
         return $children;
-
     }
 
     public function getReferalTotals($user_id = 0)
@@ -4512,7 +4492,6 @@ class Product_model extends MY_Model
                 );
                 $this->db->query("UPDATE  affiliate_action SET commission = 1 WHERE user_id = '{$user_id}' AND  affiliate_id = '{$affiliate_id}' ");
             }
-
         }
     }
 
@@ -5161,7 +5140,6 @@ class Product_model extends MY_Model
         }
 
         return $result;
-
     }
 
     public function getPaymentMethodsList($filter = array())
@@ -5204,8 +5182,9 @@ class Product_model extends MY_Model
         return $result;
     }
 
-     // Branch Model
-     public function getAllBranch($limit = false, $offset = 0) {
+    // Branch Model
+    public function getAllBranch($limit = false, $offset = 0)
+    {
         $ci = &get_instance();
 
         $sql = "SELECT * FROM `branch`";
@@ -5222,30 +5201,36 @@ class Product_model extends MY_Model
         return $result;
     }
 
-    public function getAllBranchItem() {
+    public function getAllBranchItem()
+    {
         return $this->db->get('branch')->result_array();
     }
 
-    public function get_branch($id) {
+    public function get_branch($id)
+    {
         return $this->db->where('id', $id)->get('branch')->row_array();
     }
 
-    public function insert_branch($data) {
+    public function insert_branch($data)
+    {
         $data['is_default'] = isset($data['is_default']) ? 1 : 0;
         return $this->db->insert('branch', $data);
     }
 
-    public function update_branch($id, $data) {
+    public function update_branch($id, $data)
+    {
         $data['is_default'] = isset($data['is_default']) ? 1 : 0;
         return $this->db->where('id', $id)->update('branch', $data);
     }
 
-    public function delete_branch($id) {
+    public function delete_branch($id)
+    {
         return $this->db->where('id', $id)->delete('branch');
     }
 
     // Update Product Branch
-    public function updateProductBranch($branch_id, $product_id, $quantity, $price) {
+    public function updateProductBranch($branch_id, $product_id, $quantity, $price)
+    {
         // Kiểm tra xem bản ghi đã tồn tại chưa
         $this->db->where('branch_id', $branch_id);
         $this->db->where('product_id', $product_id);
@@ -5275,7 +5260,8 @@ class Product_model extends MY_Model
     }
 
     // Get total stock quantity
-    public function getTotalStockQuantity($product_id) {
+    public function getTotalStockQuantity($product_id)
+    {
         $this->db->select_sum('stock_quantity');
         $this->db->where('product_id', $product_id);
         $query = $this->db->get('product_branch');
@@ -5286,5 +5272,36 @@ class Product_model extends MY_Model
             return 0;
         }
     }
-    
+
+    // Function to get product price based on location
+    public function getProductPriceByLocation($product_id, $current_location)
+    {
+        // Check if product exists in branch_product
+        $normal = $this->db->where('product_id', $product_id);
+        $query = $this->db->get('product_branch');
+
+
+        if ($query->num_rows() > 0) {
+            // Product exists in branch_product, check for price in current location
+            $row = $query->row();
+            $branch_id = $current_location; // Assuming $current_location is the branch_id
+
+            $this->db->where('branch_id', $branch_id);
+            $this->db->where('product_id', $product_id);
+            $query = $this->db->get('product_branch');
+
+            if ($query->num_rows() > 0) {
+                // Found price in current location
+                return $query->row()->product_price;
+            } else {
+                // No specific price found, return product price from product table
+                return $row->product_price;
+            }
+        } else {
+            // Product not found in branch_product, return product price from product table
+            $this->db->where('product_id', $product_id);
+            $query = $this->db->get('product');
+            return $query->row()->product_price;
+        }
+    }
 }

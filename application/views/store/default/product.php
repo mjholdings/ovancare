@@ -201,189 +201,184 @@ $allvideo = $this->Product_model->getAllVideos($product['product_id']);
                     }
                     ?>
                     <div class="variation-row mt-1">
-                        <div class="variations-pricing-row">
-                            <div class="price">
-                                <div class="regular-price"
-                                     data-price="<?= $product['product_price']; ?>"><?= (!empty($product['product_price'])) ? c_format($product['product_price']) : '' ?></div>
+                            <div class="variations-pricing-row">
+                                <div class="price">
 
-                                <!--                            (!empty($product['product_msrp'])) ? '<div class="sale-price" data-price="' . $product['product_msrp'] . '">' . c_format($product['product_msrp']) . '</div>' : '' ?>-->
-                            </div>
-                            
-                            <!-- quantity-area -->
-                            <div class="quantity">
-                                <div class="quantity-area" id="field1">
-                                    <button type="button" id="sub"
-                                            class="sub" <?= ($product['product_type'] == 'video' || $product['product_type'] == 'videolink') ? 'disabled' : ''; ?>>
-                                        <i class="fa fa-minus"></i></button>
-                                    <input id="product-quantity" type="text" id="1" min="1" name="quantity"
-                                           value="1" <?= ($product['product_type'] == 'video' || $product['product_type'] == 'videolink') ? 'disabled' : ''; ?>>
-                                    <button type="button" id="add"
-                                            class="add" <?= ($product['product_type'] == 'video' || $product['product_type'] == 'videolink') ? 'disabled' : ''; ?>>
-                                        <i class="fa fa-plus"></i></button>
+                                    <?php
+                                    // Lấy chuỗi query từ URL
+                                    $queryString = $_SERVER['QUERY_STRING'];
+
+                                    // Phân tích các tham số từ chuỗi query
+                                    parse_str($queryString, $queryParameters);
+
+                                    // Kiểm tra và lấy giá trị của tham số location
+                                    if (isset($queryParameters['location'])) {
+                                        $location = htmlspecialchars($queryParameters['location']); // Sử dụng htmlspecialchars để tránh XSS attack
+
+                                        $product_id = $product['product_id']; // Assuming $product['product_id'] is the current product id
+                                        $current_location = $location; // Example: Replace with logic to get current location (branch_id)
+
+                                        $show_product_price = $this->Product_model->getProductPriceByLocation($product_id, $current_location);
+
+                                        echo c_format($show_product_price);
+                                    }
+
+
+                                    ?>
+                                    <div class="regular-price" data-price="<?= $product['product_price']; ?>"><?= (!empty($product['product_price'])) ? c_format($product['product_price']) : '' ?></div>
+
+                                    <?php echo (!empty($product['product_msrp'])) ? '<div class="sale-price" data-price="' . $product['product_msrp'] . '">' . c_format($product['product_msrp']) . '</div>' : '' ?>
                                 </div>
-                                <div class="compair-icons">
-                                    <!-- w-listed -->
-                                    <span id="btn-add-to-wishlist" class="<?= $is_wishlisted_class ?>"><i
-                                                class="fa fa-heart" aria-hidden="true"></i></span>
-                                    <?php $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?>
-                                    <span class="share" data-social-share data-share-url="<?= $actual_link; ?>"><i
-                                                class='bx bx-share-alt'></i></span>
-                                </div>
-                            </div>
-                            <?php if ($order_id && ($product['product_type'] == 'video' || $product['product_type'] == 'videolink')) : ?>
-                                <?php $urls = base_url('store/vieworderdetails/' . $order_id . "?referance=" . $product['product_id']); ?>
-                                <button class="btn btn-cart-detail bg-main2 "
-                                        onclick="location.href ='<?= $urls ?>'"><?= __('store.start_course') ?></button>
-                            <?php else : ?>
-                                <button data-product_id="<?= $product['product_id'] ?>"
-                                        data-product_name="<?= (!empty($product['product_name'])) ? $product['product_name'] : 'OvanCare' ?>"
-                                        class="button-cart btn btn-cart-detail btn-cart">
-                                    <span><?php echo __('store.add_to_cart') ?></span></button>
-                            <?php endif ?>
-                            <div class="apply-coupon input-coupon-mj">
-                                <input class="coupon-code" type="text" name="coupon"
-                                       placeholder="<?= __('store.enter_coupon_code') ?>">
-                                <button class="btn btn-apply-coupon bg-main text-white btn-apply-coupon"
-                                        title="<?= __('store.apply_coupon_code') ?>"><?= __('store.apply') ?></button>
-                                <img alt="<?= __('store.image') ?>"
-                                     src="<?= base_url('assets/store/default/'); ?>img/coupen.png" class="couponicon">
-                            </div>
-
-                            <!-- COUPON -->
-                            <!-- Mã giảm giá mới -->
-                            <?php $this->load->helper('date');
-                            $date = mdate('%Y-%m-%d', now()); ?>
-                            <?php if ($coupon != null) : ?>
-                                <div class="coupon-mj mt-4 coupon-slider">
-                                    <?php foreach ($coupon as $c) { ?>
-                                        <?php if ($c->date_end >= $date) : ?>
-                                            <?php if ($c->allow_for == 'S' && in_array($product['product_id'], $c->products)): ?>
-                                                <div class="coupon-items">
-                                                    <div class="content-coupon">
-                                                        <h4><?= $c->code ?></h4>
-                                                        <span class="price-coupon">Giảm giá: <?= (float)$c->discount ?>%</span>
-                                                        <span class="price-coupon">Đơn giá tối thiểu: <?= c_format($c->total_amount) ?> </span>
-                                                        <div class="date-time-mj">
-                                                            <span><i class='bx bx-alarm'></i></span>
-                                                            <span><?= $c->date_end ?></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="btn-coupon-mj">
-                                                        <button class="btn-apply-code"
-                                                                title="<?= __('store.apply_coupon_code') ?>" data-coupon-code="<?= $c->code ?>"><?= __('store.apply') ?></button>
-                                                    </div>
-                                                </div>
-                                            <?php elseif ($c->allow_for == 'A'): ?>
-                                                <div class="coupon-items">
-                                                    <div class="content-coupon">
-                                                        <h4><?= $c->code ?></h4>
-                                                        <span class="price-coupon">Giảm giá: <?= (float)$c->discount ?>%</span>
-                                                        <span class="price-coupon">Đơn giá tối thiểu: <?= c_format($c->total_amount) ?> </span>
-                                                        <div class="date-time-mj">
-                                                            <span><i class='bx bx-alarm'></i></span>
-                                                            <span><?= $c->date_end ?></span>
-                                                        </div>
-                                                    </div>
-                                                    <div class="btn-coupon-mj">
-                                                        <button class="btn-apply-code"
-                                                                title="<?= __('store.apply_coupon_code') ?>" data-coupon-code="<?= $c->code ?>"><?= __('store.apply') ?></button>
-                                                    </div>
-                                                </div>
-                                            <?php endif; ?>
-                                        <?php endif; ?>
-                                    <?php } ?>
-                                </div>
-                            <?php endif; ?>
-                            <div class="coupon-msg mt-1"></div>
-
-
-                            <!-- Mã giảm giá cũ -->
-
-                            <?php $this->load->helper('date');
-                            $date = mdate('%Y-%m-%d', now()); ?>
-                            <?php if ($coupon != null): ?>
-                            <div class="row giam-gia">
-                                <div class="row">
-                                    <div class="col-12 mt-4">
-                                        <h3>Danh sách mã giảm giá</h3>
+                                <!-- quantity-area -->
+                                <div class="quantity">
+                                    <div class="quantity-area" id="field1">
+                                        <button type="button" id="sub" class="sub" <?= ($product['product_type'] == 'video' || $product['product_type'] == 'videolink') ? 'disabled' : ''; ?>>
+                                            <i class="fa fa-minus"></i></button>
+                                        <input id="product-quantity" type="text" id="1" min="1" name="quantity" value="1" <?= ($product['product_type'] == 'video' || $product['product_type'] == 'videolink') ? 'disabled' : ''; ?>>
+                                        <button type="button" id="add" class="add" <?= ($product['product_type'] == 'video' || $product['product_type'] == 'videolink') ? 'disabled' : ''; ?>>
+                                            <i class="fa fa-plus"></i></button>
                                     </div>
-                                    <?php foreach ($coupon as $c): ?>
-                                        <?php if ($c->date_end >= $date): ?>
-                                            <?php if ($c->allow_for == 'S' && in_array($product['product_id'], $c->products)): ?>
-                                                <div class="col-6">
-                                                    <hr>
-                                                    <h4 class="coupon-code-apply"
-                                                        style="color: #363949"><?= $c->code ?></h4>
-                                                    <span class="text-danger">Giảm giá: <?= (float)$c->discount ?>%</span>
-                                                    <!--                                                    <span class="text-danger">-----</span>-->
-                                                    <!--                                                    <span class="text-danger">Đơn giá tối thiểu: -->
-                                                    <? //= c_format($c->total_amount) ?><!--</span>-->
-                                                    <hr>
-                                                </div>
-                                                <div class="col-6">
-                                                    <button class="btn btn-apply-coupon bg-main text-white btn-apply-code"
-                                                            title="<?= __('store.apply_coupon_code') ?>"
-                                                            data-coupon-code="<?= $c->code ?>"><?= __('store.apply') ?></button>
-                                                </div>
-                                            <?php elseif ($c->allow_for == 'A'): ?>
-                                                <div class="col-6">
-                                                    <hr>
-                                                    <h4 class="coupon-code-apply"
-                                                        style="color: #363949"><?= $c->code ?></h4>
-                                                    <span class="text-danger">Giảm giá: <?= (float)$c->discount ?>%</span>
-                                                    <!--                                                    <span class="text-danger">-----</span>-->
-                                                    <!--                                                    <span class="text-danger">Đơn giá tối thiểu: -->
-                                                    <? //= c_format($c->total_amount) ?><!--</span>-->
-                                                    <hr>
-                                                </div>
-                                                <div class="col-6">
-                                                    <button class="btn btn-apply-coupon bg-main text-white btn-apply-code"
-                                                            title="<?= __('store.apply_coupon_code') ?>"
-                                                            data-coupon-code="<?= $c->code ?>"><?= __('store.apply') ?></button>
-                                                </div>
-                                            <?php endif; ?>
-                                        <?php endif; ?>
-                                    <?php endforeach; ?>
+                                    <div class="compair-icons">
+                                        <!-- w-listed -->
+                                        <span id="btn-add-to-wishlist" class="<?= $is_wishlisted_class ?>"><i class="fa fa-heart" aria-hidden="true"></i></span>
+                                        <?php $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?>
+                                        <span class="share" data-social-share data-share-url="<?= $actual_link; ?>"><i class='bx bx-share-alt'></i></span>
+                                    </div>
                                 </div>
+                                <?php if ($order_id && ($product['product_type'] == 'video' || $product['product_type'] == 'videolink')) : ?>
+                                    <?php $urls = base_url('store/vieworderdetails/' . $order_id . "?referance=" . $product['product_id']); ?>
+                                    <button class="btn btn-cart-detail bg-main2 " onclick="location.href ='<?= $urls ?>'"><?= __('store.start_course') ?></button>
+                                <?php else : ?>
+                                    <button data-product_id="<?= $product['product_id'] ?>" data-product_name="<?= (!empty($product['product_name'])) ? $product['product_name'] : 'Ovancare' ?>" class="button-cart btn btn-cart-detail btn-cart">
+                                        <span><?php echo __('store.add_to_cart') ?></span></button>
+                                <?php endif ?>
+                                <div class="apply-coupon input-coupon-mj">
+                                    <input class="coupon-code" type="text" name="coupon" placeholder="<?= __('store.enter_coupon_code') ?>">
+                                    <button class="btn btn-apply-coupon bg-main text-white btn-apply-coupon" title="<?= __('store.apply_coupon_code') ?>"><?= __('store.apply') ?></button>
+                                    <img alt="<?= __('store.image') ?>" src="<?= base_url('assets/store/default/'); ?>img/coupen.png" class="couponicon">
+                                </div>
+
+                                <!-- COUPON -->
+                                <!-- Mã giảm giá mới -->
+                                <?php $this->load->helper('date');
+                                $date = mdate('%Y-%m-%d', now()); ?>
+                                <?php if ($coupon != null) : ?>
+                                    <div class="coupon-mj mt-4 coupon-slider">
+                                        <?php foreach ($coupon as $c) { ?>
+                                            <?php if ($c->date_end >= $date) : ?>
+                                                <?php if ($c->allow_for == 'S' && in_array($product['product_id'], $c->products)) : ?>
+                                                    <div class="coupon-items">
+                                                        <div class="content-coupon">
+                                                            <h4><?= $c->code ?></h4>
+                                                            <span class="price-coupon">Giảm giá: <?= (float)$c->discount ?>%</span>
+                                                            <span class="price-coupon">Đơn giá tối thiểu: <?= c_format($c->total_amount) ?> </span>
+                                                            <div class="date-time-mj">
+                                                                <span><i class='bx bx-alarm'></i></span>
+                                                                <span><?= $c->date_end ?></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="btn-coupon-mj">
+                                                            <button class="btn-apply-code" title="<?= __('store.apply_coupon_code') ?>" data-coupon-code="<?= $c->code ?>"><?= __('store.apply') ?></button>
+                                                        </div>
+                                                    </div>
+                                                <?php elseif ($c->allow_for == 'A') : ?>
+                                                    <div class="coupon-items">
+                                                        <div class="content-coupon">
+                                                            <h4><?= $c->code ?></h4>
+                                                            <span class="price-coupon">Giảm giá: <?= (float)$c->discount ?>%</span>
+                                                            <span class="price-coupon">Đơn giá tối thiểu: <?= c_format($c->total_amount) ?> </span>
+                                                            <div class="date-time-mj">
+                                                                <span><i class='bx bx-alarm'></i></span>
+                                                                <span><?= $c->date_end ?></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="btn-coupon-mj">
+                                                            <button class="btn-apply-code" title="<?= __('store.apply_coupon_code') ?>" data-coupon-code="<?= $c->code ?>"><?= __('store.apply') ?></button>
+                                                        </div>
+                                                    </div>
+                                                <?php endif; ?>
+                                            <?php endif; ?>
+                                        <?php } ?>
+                                    </div>
                                 <?php endif; ?>
                                 <div class="coupon-msg mt-1"></div>
-                            </div>
-                            <?php
-                            foreach ($variations as $key => $value) {
-                                ?>
-                                <div class="variation-row my-1 <?= ($key != "colors") ? "ft-variation-row" : "ft-color-row"; ?>">
-                                    <span class="varition-title"><?= ucwords(strtolower($key)) ?></span>
-                                    <div class="variations color ml-2">
-                                        <?php
-                                        for ($i = 0; $i < sizeOf($value); $i++) {
-                                            $this_price = isset($value[$i]->price) ? $value[$i]->price : 0;
-                                            if ($key == "colors") {
-                                                ?>
-                                                <span data-variation-type="<?= $key; ?>"
-                                                      data-variation-price="<?= $this_price; ?>"
-                                                      data-variation-code="<?= $value[$i]->code; ?>"
-                                                      data-variation-name="<?= $value[$i]->name; ?>" class=""
-                                                      style="color:<?= $value[$i]->code; ?>; <?= ($value[$i]->code == '#FFFFFF') ? "color:#000;" : ""; ?>"><i
-                                                            style="background:<?= $value[$i]->code; ?>;"></i> <?= $value[$i]->name; ?></span>
-                                                <?php
-                                            } else {
-                                                $this_name = isset($value[$i]->name) ? $value[$i]->name : $value[$i];
-                                                ?>
-                                                <span data-variation-type="<?= $key; ?>"
-                                                      data-variation-price="<?= $this_price; ?>"
-                                                      data-variation-option="<?= $this_name; ?>" class=""
-                                                      style="border-color:#fff;"> <?= $this_name ?></span>
-                                                <?php
-                                            }
-                                        }
-                                        ?>
+
+
+                                <!-- Mã giảm giá cũ -->
+
+                                <?php $this->load->helper('date');
+                                $date = mdate('%Y-%m-%d', now()); ?>
+                                <?php if ($coupon != null) : ?>
+                                    <div class="row giam-gia">
+                                        <div class="row">
+                                            <div class="col-12 mt-4">
+                                                <h3>Danh sách mã giảm giá</h3>
+                                            </div>
+                                            <?php foreach ($coupon as $c) : ?>
+                                                <?php if ($c->date_end >= $date) : ?>
+                                                    <?php if ($c->allow_for == 'S' && in_array($product['product_id'], $c->products)) : ?>
+                                                        <div class="col-6">
+                                                            <hr>
+                                                            <h4 class="coupon-code-apply" style="color: #363949"><?= $c->code ?></h4>
+                                                            <span class="text-danger">Giảm giá: <?= (float)$c->discount ?>%</span>
+                                                            <!--                                                    <span class="text-danger">-----</span>-->
+                                                            <!--                                                    <span class="text-danger">Đơn giá tối thiểu: -->
+                                                            <? //= c_format($c->total_amount) 
+                                                            ?><!--</span>-->
+                                                            <hr>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <button class="btn btn-apply-coupon bg-main text-white btn-apply-code" title="<?= __('store.apply_coupon_code') ?>" data-coupon-code="<?= $c->code ?>"><?= __('store.apply') ?></button>
+                                                        </div>
+                                                    <?php elseif ($c->allow_for == 'A') : ?>
+                                                        <div class="col-6">
+                                                            <hr>
+                                                            <h4 class="coupon-code-apply" style="color: #363949"><?= $c->code ?></h4>
+                                                            <span class="text-danger">Giảm giá: <?= (float)$c->discount ?>%</span>
+                                                            <!--                                                    <span class="text-danger">-----</span>-->
+                                                            <!--                                                    <span class="text-danger">Đơn giá tối thiểu: -->
+                                                            <? //= c_format($c->total_amount) 
+                                                            ?><!--</span>-->
+                                                            <hr>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <button class="btn btn-apply-coupon bg-main text-white btn-apply-code" title="<?= __('store.apply_coupon_code') ?>" data-coupon-code="<?= $c->code ?>"><?= __('store.apply') ?></button>
+                                                        </div>
+                                                    <?php endif; ?>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    <?php endif; ?>
+                                    <div class="coupon-msg mt-1"></div>
                                     </div>
-                                </div>
-                                <?php
-                            }
-                            ?>
+                                    <?php
+                                    foreach ($variations as $key => $value) {
+                                    ?>
+                                        <div class="variation-row my-1 <?= ($key != "colors") ? "ft-variation-row" : "ft-color-row"; ?>">
+                                            <span class="varition-title"><?= ucwords(strtolower($key)) ?></span>
+                                            <div class="variations color ml-2">
+                                                <?php
+                                                for ($i = 0; $i < sizeOf($value); $i++) {
+                                                    $this_price = isset($value[$i]->price) ? $value[$i]->price : 0;
+                                                    if ($key == "colors") {
+                                                ?>
+                                                        <span data-variation-type="<?= $key; ?>" data-variation-price="<?= $this_price; ?>" data-variation-code="<?= $value[$i]->code; ?>" data-variation-name="<?= $value[$i]->name; ?>" class="" style="color:<?= $value[$i]->code; ?>; <?= ($value[$i]->code == '#FFFFFF') ? "color:#000;" : ""; ?>"><i style="background:<?= $value[$i]->code; ?>;"></i> <?= $value[$i]->name; ?></span>
+                                                    <?php
+                                                    } else {
+                                                        $this_name = isset($value[$i]->name) ? $value[$i]->name : $value[$i];
+                                                    ?>
+                                                        <span data-variation-type="<?= $key; ?>" data-variation-price="<?= $this_price; ?>" data-variation-option="<?= $this_name; ?>" class="" style="border-color:#fff;"> <?= $this_name ?></span>
+                                                <?php
+                                                    }
+                                                }
+                                                ?>
+                                            </div>
+                                        </div>
+                                    <?php
+                                    }
+                                    ?>
+                            </div>
                         </div>
-                    </div>
                 </div>
 </section>
 
