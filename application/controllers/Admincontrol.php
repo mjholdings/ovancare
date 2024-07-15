@@ -1,11 +1,11 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 use App\User;
+use App\MembershipPlan;
+use App\MembershipUser;
 
-class Admincontrol extends MY_Controller
-{
-	function __construct()
-	{
+class Admincontrol extends MY_Controller {
+	function __construct() {
 		parent::__construct();
 		$this->load->model('user_model', 'user');
 		$this->load->model('Order_model', 'order');
@@ -35,8 +35,7 @@ class Admincontrol extends MY_Controller
 		}
 	}
 
-	public function system_update_report()
-	{
+	public function system_update_report() {
 		// Verify that the user is an admin
 		$userdetails = $this->userdetails();
 
@@ -74,8 +73,7 @@ class Admincontrol extends MY_Controller
 		$this->load->view('update_report', $data);
 	}
 
-	public function script_details()
-	{
+	public function script_details() {
 		$userdetails = $this->userdetails();
 
 		list($code, $res) = api('codecanyon/get-details', ['licence' => CODECANYON_LICENCE]);
@@ -83,14 +81,12 @@ class Admincontrol extends MY_Controller
 		$this->view($data, 'script_details/index');
 	}
 
-	public function update_langueges_data()
-	{
+	public function update_langueges_data() {
 		$this->update_user_langauges();
 		redirect('/admincontrol/dashboard');
 	}
 
-	public function system_status()
-	{
+	public function system_status() {
 
 		$userdetails = $this->userdetails();
 
@@ -103,8 +99,7 @@ class Admincontrol extends MY_Controller
 		$this->view($data, 'system_status');
 	}
 
-	public function date_compare($element1, $element2)
-	{
+	public function date_compare($element1, $element2) {
 
 		$datetime1 = strtotime($element1['created_at']);
 
@@ -114,8 +109,7 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function clear_commission_tables()
-	{
+	public function clear_commission_tables() {
 
 		// Demo Mode
 		if (ENVIRONMENT === 'demo') {
@@ -268,8 +262,7 @@ class Admincontrol extends MY_Controller
 		echo json_encode($json);
 	}
 
-	public function clear_tables()
-	{
+	public function clear_tables() {
 
 		// Demo Mode
 		if (ENVIRONMENT === 'demo') {
@@ -938,8 +931,7 @@ class Admincontrol extends MY_Controller
 	}
 
 	// function to delete all files and subfolders from folder
-	public function deleteAll($dir, $remove = false)
-	{
+	public function deleteAll($dir, $remove = false) {
 		$structure = glob(rtrim($dir, "/") . '/*');
 
 		if (is_array($structure)) {
@@ -955,8 +947,7 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function logs()
-	{
+	public function logs() {
 
 		$data = array();
 
@@ -1222,22 +1213,19 @@ class Admincontrol extends MY_Controller
 		die;
 	}
 
-	public function page_404()
-	{
+	public function page_404() {
 		$this->load->view("404");
 	}
 
 
-	public function install_new_version()
-	{
+	public function install_new_version() {
 		$userdetails = $this->userdetails();
 
 		$this->view($data, 'setting/install_new_version');
 	}
 
 
-	public function language_import()
-	{
+	public function language_import() {
 
 		$userdetails = $this->userdetails();
 
@@ -1336,8 +1324,7 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function language_export($id = 'default')
-	{
+	public function language_export($id = 'default') {
 
 		$userdetails = $this->userdetails();
 
@@ -1395,8 +1382,7 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function language()
-	{
+	public function language() {
 
 		$userdetails = $this->userdetails();
 
@@ -1416,8 +1402,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function coupon_manage($coupon_id = 0)
-	{
+	public function coupon_manage($coupon_id = 0) {
 
 		$userdetails = $this->userdetails();
 
@@ -1433,8 +1418,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function coupon_delete($coupon_id)
-	{
+	public function coupon_delete($coupon_id) {
 
 		$userdetails = $this->userdetails();
 
@@ -1448,8 +1432,7 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function coupon()
-	{
+	public function coupon() {
 
 		$userdetails = $this->userdetails();
 
@@ -1478,8 +1461,7 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function save_coupon()
-	{
+	public function save_coupon() {
 
 		$userdetails = $this->userdetails();
 
@@ -1563,8 +1545,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function change_language($language_id = null)
-	{
+	public function change_language($language_id = null) {
 		if (empty($language_id) || !is_numeric($language_id)) {
 			show_404();
 			return;
@@ -1584,8 +1565,7 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function change_currency($currency_code = null)
-	{
+	public function change_currency($currency_code = null) {
 		if (empty($currency_code)) {
 			show_404();
 			return;
@@ -1608,8 +1588,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function lang_status_toggle()
-	{
+	public function lang_status_toggle() {
 		try {
 			$userdetails = $this->userdetails();
 			$json = array();
@@ -1633,8 +1612,7 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function update_language()
-	{
+	public function update_language() {
 
 		$userdetails = $this->userdetails();
 		$json = array();
@@ -1722,8 +1700,7 @@ class Admincontrol extends MY_Controller
 		echo json_encode($json);
 	}
 
-	public function translation($language_id)
-	{
+	public function translation($language_id) {
 
 		$userdetails = $this->userdetails();
 
@@ -1738,8 +1715,7 @@ class Admincontrol extends MY_Controller
 	}
 
 	// Upload and Extract zip file
-	public function language_zip_upload()
-	{
+	public function language_zip_upload() {
 
 		$userdetails = $this->userdetails();
 
@@ -1800,8 +1776,7 @@ class Admincontrol extends MY_Controller
 		redirect(base_url('/admincontrol/language'));
 	}
 
-	private function deleteDir($dir)
-	{
+	private function deleteDir($dir) {
 		$it = new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS);
 		$files = new RecursiveIteratorIterator(
 			$it,
@@ -1817,8 +1792,7 @@ class Admincontrol extends MY_Controller
 		rmdir($dir);
 	}
 
-	public function get_translation()
-	{
+	public function get_translation() {
 		$userdetails = $this->userdetails();
 		$default_language = $this->db->query("SELECT * FROM language WHERE is_default=1")->row_array();
 		$file_name = $this->input->post('id', true);
@@ -1839,8 +1813,7 @@ class Admincontrol extends MY_Controller
 		echo json_encode($newArray);
 	}
 
-	public function save_translation()
-	{
+	public function save_translation() {
 
 		$userdetails = $this->userdetails();
 
@@ -1866,15 +1839,13 @@ class Admincontrol extends MY_Controller
 		die;
 	}
 
-	public function get_update_language()
-	{
+	public function get_update_language() {
 		$userdetails = $this->userdetails();
 		$json = $this->db->query("SELECT * FROM language WHERE id = " . (int)$this->input->post('id', true))->row_array();
 		echo json_encode($json);
 	}
 
-	public function translation_edit($lang_id = 0)
-	{
+	public function translation_edit($lang_id = 0) {
 		$userdetails = $this->userdetails();
 		$data['flags_files'] = glob("./assets/vertical/assets/images/flags/*.*");
 		$data['flags_code'] = [];
@@ -1891,8 +1862,7 @@ class Admincontrol extends MY_Controller
 		$this->view($data, 'language/edit');
 	}
 
-	public function delete_update_language()
-	{
+	public function delete_update_language() {
 		$userdetails = $this->userdetails();
 		if ((int)$this->input->post('id', true) != 1) {
 			$path = APPPATH . 'language/' . (int)$this->input->post('id', true) . "/";
@@ -1902,8 +1872,7 @@ class Admincontrol extends MY_Controller
 		echo json_encode(array());
 	}
 
-	public function mails()
-	{
+	public function mails() {
 		$data = array();
 		$data['templates'] = $this->db->query("SELECT * FROM mail_templates")->result_array();
 		$data['emailsetting'] 	= $this->Product_model->getSettings('emailsetting');
@@ -1957,8 +1926,7 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function preview_mail($template_id)
-	{
+	public function preview_mail($template_id) {
 		$this->load->model('Mail_model');
 		$data['id'] = $template_id;
 		$data['prefix'] = '';
@@ -1966,8 +1934,7 @@ class Admincontrol extends MY_Controller
 		echo $this->Mail_model->preview_mail($data);
 	}
 
-	public function mails_edit($template_id)
-	{
+	public function mails_edit($template_id) {
 
 		$data = array();
 
@@ -2025,8 +1992,7 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function backup($action = '')
-	{
+	public function backup($action = '') {
 
 		$userdetails = $this->userdetails();
 
@@ -2157,8 +2123,7 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function userdetails()
-	{
+	public function userdetails() {
 		if (isset($this->session) && $this->session->userdata('user_type') !== FALSE && $this->session->userdata('user_type') == 'admin') {
 			$this->session->unset_userdata('user');
 			$this->session->unset_userdata('client');
@@ -2175,16 +2140,14 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function getSiteSetting()
-	{
+	public function getSiteSetting() {
 
 		return $this->Product_model->getSettings('site');
 	}
 
 
 
-	public function index($slug)
-	{
+	public function index($slug) {
 
 		if ($this->userdetails()) {
 			redirect($this->admin_domain_url, 'refresh');
@@ -2195,8 +2158,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function notification()
-	{
+	public function notification() {
 
 		$userdetails = $this->userdetails();
 
@@ -2250,8 +2212,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function register($refid = null)
-	{
+	public function register($refid = null) {
 
 		if ($this->userdetails()) {
 			redirect($this->admin_domain_url, 'refresh');
@@ -2320,8 +2281,7 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function changePassword()
-	{
+	public function changePassword() {
 
 		$userdetails = $this->userdetails();
 
@@ -2373,8 +2333,7 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function ask_again_withdrawal()
-	{
+	public function ask_again_withdrawal() {
 
 		$this->db->query("UPDATE wallet SET status=1 WHERE (wv != 'V2' OR wv IS NULL) AND status = 2");
 
@@ -2397,8 +2356,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function wallet_withdraw()
-	{
+	public function wallet_withdraw() {
 
 		$userdetails = $this->userdetails();
 
@@ -2584,8 +2542,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function wallet_requests_details($id)
-	{
+	public function wallet_requests_details($id) {
 
 		$userdetails = $this->userdetails();
 
@@ -2653,8 +2610,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function get_withdrwal_history($id)
-	{
+	public function get_withdrwal_history($id) {
 		$status_history = $this->db->query("SELECT * FROM wallet_requests_history WHERE req_id={$id} ORDER BY id DESC ")->result_array();
 
 		$json['html'] = '';
@@ -2678,8 +2634,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function wallet_requests_list()
-	{
+	public function wallet_requests_list() {
 
 		$userdetails = $this->userdetails();
 
@@ -2880,8 +2835,7 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function mywallet()
-	{
+	public function mywallet() {
 
 		$userdetails = $this->userdetails();
 
@@ -3040,8 +2994,7 @@ class Admincontrol extends MY_Controller
 		$this->view($data, 'users/wallet');
 	}
 
-	public function change_commission_status()
-	{
+	public function change_commission_status() {
 
 		$id = $this->input->post('id');
 
@@ -3082,8 +3035,7 @@ class Admincontrol extends MY_Controller
 		echo json_encode($json);
 	}
 
-	public function getRecurringTransaction()
-	{
+	public function getRecurringTransaction() {
 
 		$id = (int)$this->input->post("id");
 
@@ -3131,8 +3083,7 @@ class Admincontrol extends MY_Controller
 		echo json_encode($json);
 	}
 
-	public function ajax_dashboard()
-	{
+	public function ajax_dashboard() {
 		$userdetails = $this->userdetails();
 		$hcurrency = $this->Product_model->getSettings('site', 'hide_currency_from');
 		$data['hcurrency'] = (isset($hcurrency['hide_currency_from']) && str_contains($hcurrency['hide_currency_from'], 'admin'));
@@ -3376,8 +3327,7 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function dashboard()
-	{
+	public function dashboard() {
 
 		$userdetails = $this->userdetails();
 
@@ -3495,8 +3445,7 @@ class Admincontrol extends MY_Controller
 
 		$this->view($data, 'dashboard/dashboard');
 	}
-	public function popular_affiliates_sorting()
-	{
+	public function popular_affiliates_sorting() {
 
 		$hcurrency = $this->Product_model->getSettings('site', 'hide_currency_from');
 
@@ -3520,8 +3469,7 @@ class Admincontrol extends MY_Controller
 		echo json_encode($json);
 	}
 
-	public function admin_user()
-	{
+	public function admin_user() {
 
 		$userdetails = $this->userdetails();
 
@@ -3531,8 +3479,7 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function admin_user_form($user_id = 0)
-	{
+	public function admin_user_form($user_id = 0) {
 
 		$userdetails = $this->userdetails();
 
@@ -3728,8 +3675,7 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function admin_user_delete($user_id)
-	{
+	public function admin_user_delete($user_id) {
 		$userdetails = $this->userdetails();
 		if ($userdetails['id'] == 1) {
 			if ((int)$user_id == 1) {
@@ -3748,16 +3694,14 @@ class Admincontrol extends MY_Controller
 		redirect('/admincontrol/admin_user');
 	}
 
-	public function logout()
-	{
+	public function logout() {
 		$this->session->unset_userdata('administrator');
 		$this->session->sess_destroy();
 		redirect($this->admin_domain_url);
 		exit;
 	}
 
-	public function deleteUser($id)
-	{
+	public function deleteUser($id) {
 
 		$userdetails = $this->userdetails();
 
@@ -3768,8 +3712,8 @@ class Admincontrol extends MY_Controller
 		redirect('admincontrol/manageUsers');
 	}
 
-	public function award_level($offset = 0)
-	{
+	public function award_level($offset = 0) {
+
 		$userdetails = $this->userdetails();
 		$award_level = $this->Product_model->getSettings('award_level', 'status');
 		$data['award_level_status'] = $award_level['status'];
@@ -3783,16 +3727,12 @@ class Admincontrol extends MY_Controller
 			$data['pagination'] = $this->pagination->create_links();
 			$data['award_level'] = $this->Product_model->getAllAwardLevel($config['per_page'], $offset);
 			$data['CurrencySymbol'] = $this->currency->getSymbol();
-		}
-
-		// update level 
-		$this->update_user_levels();
+		}		
 
 		$this->view($data, 'award_level/index');
 	}
 
-	public function create_award_level()
-	{
+	public function create_award_level() {
 		$userdetails = $this->userdetails();
 
 		$award_level = $this->Product_model->getSettings('award_level', 'status');
@@ -3854,8 +3794,7 @@ class Admincontrol extends MY_Controller
 		$this->view($data, 'award_level/create');
 	}
 
-	public function update_award_level($id)
-	{
+	public function update_award_level($id) {
 		$userdetails = $this->userdetails();
 
 		$award_level = $this->Product_model->getSettings('award_level', 'status');
@@ -3940,8 +3879,7 @@ class Admincontrol extends MY_Controller
 		}
 	}
 
-	public function delete_award_level($id)
-	{
+	public function delete_award_level($id) {
 		$userdetails = $this->userdetails();
 		$result['status'] = 0;
 		$result['message'] = __('admin.something_went_wrong');
@@ -3972,8 +3910,7 @@ class Admincontrol extends MY_Controller
 	}
 
 	// khen thưởng
-	public function reward($offset = 0)
-	{
+	public function reward($offset = 0) {
 		$userdetails = $this->userdetails();
 		$this->load->library('pagination');
 		$config['base_url'] = base_url('admincontrol/reward');
@@ -3987,8 +3924,7 @@ class Admincontrol extends MY_Controller
 		$this->view($data, 'reward/index');
 	}
 
-	public function create_reward()
-	{
+	public function create_reward() {
 		$userdetails = $this->userdetails();
 		$data['CurrencySymbol'] = $this->currency->getSymbol();
 
@@ -4024,8 +3960,7 @@ class Admincontrol extends MY_Controller
 		$this->view($data, 'reward/create');
 	}
 
-	public function update_reward($id)
-	{
+	public function update_reward($id) {
 		$userdetails = $this->userdetails();
 
 		if (isset($id)) {
@@ -4076,8 +4011,7 @@ class Admincontrol extends MY_Controller
 		}
 	}
 
-	public function delete_reward($id)
-	{
+	public function delete_reward($id) {
 		$userdetails = $this->userdetails();
 		$result['status'] = 0;
 		$result['message'] = __('admin.something_went_wrong');
@@ -4099,8 +4033,7 @@ class Admincontrol extends MY_Controller
 		die();
 	}
 	//end khen thưởng
-	public function addproduct()
-	{
+	public function addproduct() {
 
 		$userdetails = $this->userdetails();
 
@@ -4118,8 +4051,7 @@ class Admincontrol extends MY_Controller
 		$this->view($data, 'product/add_product');
 	}
 
-	public function updateproduct($id = null)
-	{
+	public function updateproduct($id = null) {
 
 		$userdetails = $this->userdetails();
 
@@ -4151,8 +4083,7 @@ class Admincontrol extends MY_Controller
 		$this->view($data, 'product/add_product');
 	}
 
-	public function duplicateProduct($product_id)
-	{
+	public function duplicateProduct($product_id) {
 
 		$userdetails = $this->userdetails();
 
@@ -4163,8 +4094,7 @@ class Admincontrol extends MY_Controller
 		redirect(base_url('admincontrol/listproduct'));
 	}
 
-	public function editProduct()
-	{
+	public function editProduct() {
 
 		$userdetails = $this->userdetails();
 
@@ -4876,8 +4806,7 @@ class Admincontrol extends MY_Controller
 		}
 	}
 
-	public function lmsResourceupdate()
-	{
+	public function lmsResourceupdate() {
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$id  		 = $this->input->post('id');
 			$product_id  = $this->input->post('product_id');
@@ -4905,8 +4834,7 @@ class Admincontrol extends MY_Controller
 		}
 	}
 
-	private function getSettings($file, $data)
-	{
+	private function getSettings($file, $data) {
 		extract($data);
 		ob_start();
 		require($file);
@@ -4915,8 +4843,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function store_dashboard()
-	{
+	public function store_dashboard() {
 
 		$userdetails = $this->userdetails();
 
@@ -5060,8 +4987,7 @@ class Admincontrol extends MY_Controller
 		$this->view($data, 'store/dashboard');
 	}
 
-	public function store_dashboard_order_list()
-	{
+	public function store_dashboard_order_list() {
 
 		$userdetails = $this->userdetails();
 
@@ -5113,8 +5039,7 @@ class Admincontrol extends MY_Controller
 		echo json_encode($json);
 	}
 
-	public function product_logs()
-	{
+	public function product_logs() {
 
 		$category_id = (int)$this->input->post("category_id", true);
 
@@ -5143,8 +5068,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function listproduct_ajax($page = 1)
-	{
+	public function listproduct_ajax($page = 1) {
 
 		$userdetails = $this->userdetails();
 
@@ -5216,8 +5140,7 @@ class Admincontrol extends MY_Controller
 		echo json_encode($json);
 	}
 
-	public function listproduct($only_review = false)
-	{
+	public function listproduct($only_review = false) {
 
 		$userdetails = $this->userdetails();
 
@@ -5325,8 +5248,7 @@ class Admincontrol extends MY_Controller
 		}
 	}
 
-	public function bulkProductImportFromUrl()
-	{
+	public function bulkProductImportFromUrl() {
 		$userdetails = $this->userdetails();
 
 		$f_result = [
@@ -5384,8 +5306,7 @@ class Admincontrol extends MY_Controller
 		echo $this->load->view('admincontrol/product/bulk_upload_modal', $data, true);
 	}
 
-	public function bulkProductImport()
-	{
+	public function bulkProductImport() {
 
 		require_once APPPATH . '/core/phpspreadsheet/autoload.php';
 
@@ -5499,8 +5420,7 @@ class Admincontrol extends MY_Controller
 		echo $this->load->view('admincontrol/product/bulk_upload_modal', $data, true);
 	}
 
-	public function initialProductImportCheck($post)
-	{
+	public function initialProductImportCheck($post) {
 
 		try {
 
@@ -5714,8 +5634,7 @@ class Admincontrol extends MY_Controller
 		}
 	}
 
-	public function bulkProductImportConfirm()
-	{
+	public function bulkProductImportConfirm() {
 
 		$data = json_decode(base64_decode($_POST['products']), true);
 		$category_id = json_decode(base64_decode($_POST['category_id']), true);
@@ -5753,8 +5672,7 @@ class Admincontrol extends MY_Controller
 		echo $this->load->view('admincontrol/product/bulk_upload_modal', $result, true);
 	}
 
-	public function createUpdateImportedProduct($post, $category_id)
-	{
+	public function createUpdateImportedProduct($post, $category_id) {
 
 		try {
 
@@ -5879,8 +5797,7 @@ class Admincontrol extends MY_Controller
 		die;
 	}
 
-	private function getProductXlsIndex($xlsHeaders)
-	{
+	private function getProductXlsIndex($xlsHeaders) {
 		$headers = $this->productXLSheaders();
 		$newHeaders = [];
 		foreach ($headers as $key => $value) {
@@ -5890,8 +5807,7 @@ class Admincontrol extends MY_Controller
 		return $newHeaders;
 	}
 
-	private function productXLSheaders()
-	{
+	private function productXLSheaders() {
 		return array(
 			'product_id' => 'Product ID',
 
@@ -5917,8 +5833,7 @@ class Admincontrol extends MY_Controller
 		);
 	}
 
-	public function exportproduct()
-	{
+	public function exportproduct() {
 
 		$userdetails = $this->userdetails();
 
@@ -6014,8 +5929,7 @@ class Admincontrol extends MY_Controller
 		exit;
 	}
 
-	public function exportproductXML()
-	{
+	public function exportproductXML() {
 
 		$userdetails = $this->userdetails();
 		$store_setting = $this->Product_model->getSettings('store');
@@ -6112,16 +6026,14 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function downloadprodcutxmlstructurefile($filename = NULL)
-	{
+	public function downloadprodcutxmlstructurefile($filename = NULL) {
 		$userdetails = $this->userdetails();
 		$this->load->helper('download');
 		$data = file_get_contents(FCPATH . 'assets/xml/export_products_structure.xml');
 		force_download("export_products_structure.xml", $data);
 	}
 
-	public function downloadprodcutxmlfile($filename = NULL)
-	{
+	public function downloadprodcutxmlfile($filename = NULL) {
 		$userdetails = $this->userdetails();
 		$this->load->helper('download');
 		$data = file_get_contents(FCPATH . 'assets/xml/export_products.xml');
@@ -6129,16 +6041,14 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function insertnotification($postData = null)
-	{
+	public function insertnotification($postData = null) {
 
 		if (!empty($postData)) $this->Product_model->create_data('notification', $postData);
 	}
 
 
 
-	public function listorders()
-	{
+	public function listorders() {
 
 		$userdetails = $this->userdetails();
 
@@ -6174,8 +6084,7 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function order_change_status()
-	{
+	public function order_change_status() {
 
 		$order_id = (int)$this->input->post("id", true);
 
@@ -6193,8 +6102,7 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function vieworder($order_id = null)
-	{
+	public function vieworder($order_id = null) {
 		$this->db->db_debug = FALSE;
 		try {
 			$userdetails = $this->userdetails();
@@ -6236,8 +6144,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function orderaction($order_id, $order_action, $transaction = false)
-	{
+	public function orderaction($order_id, $order_action, $transaction = false) {
 
 		$userdetails = $this->userdetails();
 
@@ -6291,8 +6198,7 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function deleteusers($id = null, $type = 'user')
-	{
+	public function deleteusers($id = null, $type = 'user') {
 
 		$userdetails = $this->userdetails();
 
@@ -6318,8 +6224,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function addusers($id = null)
-	{
+	public function addusers($id = null) {
 
 		$userdetails = $this->userdetails();
 
@@ -6752,8 +6657,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function add_transaction()
-	{
+	public function add_transaction() {
 
 		$this->load->library('form_validation');
 
@@ -6811,8 +6715,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function getpaymentdetail($user_id)
-	{
+	public function getpaymentdetail($user_id) {
 
 		$userdetails = $this->userdetails();
 
@@ -6854,8 +6757,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function getCountryName($country_id)
-	{
+	public function getCountryName($country_id) {
 
 		$query = $this->db->get_where('countries', array('id' => $country_id))->row_array();
 
@@ -6870,8 +6772,7 @@ class Admincontrol extends MY_Controller
 
 
 	// Tên trạng thái
-	public function getStateName($state_id)
-	{
+	public function getStateName($state_id) {
 
 		$query = $this->db->get_where('states', array('id' => $state_id))->row_array();
 
@@ -6886,8 +6787,7 @@ class Admincontrol extends MY_Controller
 
 
 	// Tuyến dưới
-	public function downline($user_id)
-	{
+	public function downline($user_id) {
 
 		$userdetails = $this->userdetails();
 
@@ -6908,8 +6808,7 @@ class Admincontrol extends MY_Controller
 	* User Controllers
 	*/
 
-	public function update_user_tree()
-	{
+	public function update_user_tree() {
 		// Xóa dữ liệu cũ trong bảng users_direct và users_indirect
 		$this->db->truncate('users_direct');
 		$this->db->truncate('users_indirect');
@@ -6978,12 +6877,11 @@ class Admincontrol extends MY_Controller
 			$this->db->insert('users_indirect', $data);
 		}
 
-		echo "Bảng users_direct và users_indirect đã được cập nhật.";
+		// echo "Bảng users_direct và users_indirect đã được cập nhật.";
 	}
 
 	// User Recruitment
-	public function update_user_recruitment()
-	{
+	public function update_user_recruitment() {
 		// Xóa dữ liệu cũ trong bảng users_recruitment
 		$this->db->truncate('user_recruitment');
 
@@ -7028,12 +6926,11 @@ class Admincontrol extends MY_Controller
 			$this->db->insert('user_recruitment', $data);
 		}
 
-		echo "Bảng users_recruitment đã được cập nhật.";
+		// echo "Bảng users_recruitment đã được cập nhật.";
 	}
 
 	// User Revenue - Doanh thu
-	public function calculate_revenue()
-	{
+	public function calculate_revenue() {
 		// Xóa dữ liệu cũ trong bảng user_revenue
 		$this->db->truncate('user_revenue');
 
@@ -7082,12 +6979,11 @@ class Admincontrol extends MY_Controller
 			}
 		}
 
-		echo "Bảng user_revenue đã được cập nhật.";
+		// echo "Bảng user_revenue đã được cập nhật.";
 	}
 
 	// User Update Revenue - Doanh thu khác
-	public function update_revenue()
-	{
+	public function update_revenue() {
 		// Lấy danh sách tất cả các user từ bảng users_revenue
 		$this->db->select('user_id, revenue, order_id, product_id');
 		$query = $this->db->get('user_revenue');
@@ -7114,12 +7010,11 @@ class Admincontrol extends MY_Controller
 			$this->db->update('user_revenue', $data);
 		}
 
-		echo "Bảng user_revenue đã được cập nhật.";
+		// echo "Bảng user_revenue đã được cập nhật.";
 	}
 
 	// Tính toán doanh thu trực tiếp
-	private function calculate_revenue_direct($user_id)
-	{
+	private function calculate_revenue_direct($user_id) {
 		// Lấy danh sách ids_direct từ bảng users_direct
 		$this->db->select('ids_direct');
 		$this->db->where('user_id', $user_id);
@@ -7139,8 +7034,7 @@ class Admincontrol extends MY_Controller
 	}
 
 	// Tính toán doanh thu gián tiếp
-	private function calculate_revenue_indirect($user_id)
-	{
+	private function calculate_revenue_indirect($user_id) {
 		// Lấy danh sách ids_indirect từ bảng users_indirect
 		$this->db->select('ids_indirect');
 		$this->db->where('user_id', $user_id);
@@ -7160,8 +7054,7 @@ class Admincontrol extends MY_Controller
 	}
 
 	// User Consum - Tiêu dùng
-	public function calculate_consum()
-	{
+	public function calculate_consum() {
 		// Xóa dữ liệu cũ trong bảng user_consum
 		$this->db->truncate('user_consum');
 
@@ -7212,12 +7105,11 @@ class Admincontrol extends MY_Controller
 			}
 		}
 
-		echo "Bảng user_consum đã được cập nhật.";
+		// echo "Bảng user_consum đã được cập nhật.";
 	}
 
 	// Cập nhật consum cho direct và indirect
-	public function update_consum()
-	{
+	public function update_consum() {
 		// Lấy danh sách tất cả các user từ bảng user_consum
 		$this->db->select('user_id, consum');
 		$query = $this->db->get('user_consum');
@@ -7245,12 +7137,11 @@ class Admincontrol extends MY_Controller
 			$this->db->update('user_consum', $data);
 		}
 
-		echo "Bảng user_consum đã được cập nhật.";
+		// echo "Bảng user_consum đã được cập nhật.";
 	}
 
 	// Tính doanh thu trực tiếp
-	private function calculate_consum_direct($user_id)
-	{
+	private function calculate_consum_direct($user_id) {
 		// Lấy danh sách ids_direct từ bảng users_direct
 		$this->db->select('ids_direct');
 		$this->db->where('user_id', $user_id);
@@ -7270,8 +7161,7 @@ class Admincontrol extends MY_Controller
 	}
 
 	// Tính doanh thu gián tiếp
-	private function calculate_consum_indirect($user_id)
-	{
+	private function calculate_consum_indirect($user_id) {
 		// Lấy danh sách ids_indirect từ bảng users_indirect
 		$this->db->select('ids_indirect');
 		$this->db->where('user_id', $user_id);
@@ -7291,8 +7181,7 @@ class Admincontrol extends MY_Controller
 	}
 
 	// Tính toán cập nhật User Rank
-	public function update_user_rank()
-	{
+	public function update_user_rank() {
 		// Xóa dữ liệu cũ trong bảng user_rank
 		$this->db->truncate('user_rank');
 
@@ -7373,12 +7262,11 @@ class Admincontrol extends MY_Controller
 			$this->db->insert('user_rank', $data);
 		}
 
-		echo "Bảng user_rank đã được cập nhật.";
+		// echo "Bảng user_rank đã được cập nhật.";
 	}
 
 	// Tính toán star - value return value not id
-	public function calculate_user_star($level_id, $value = false)
-	{
+	public function calculate_user_star($level_id, $value = false) {
 		// Tìm trong bảng star_level với con_award_level_id = $level_id
 		$this->db->select('id, star');
 		$this->db->where('con_award_level_id', $level_id);
@@ -7392,8 +7280,7 @@ class Admincontrol extends MY_Controller
 	}
 
 	// Tính toán reward của user
-	public function calculate_user_reward($level_id, $value = false)
-	{
+	public function calculate_user_reward($level_id, $value = false) {
 
 		// Tìm trong bảng reward với con_award_level_id = $level_id
 		$this->db->select('id, name');
@@ -7408,8 +7295,7 @@ class Admincontrol extends MY_Controller
 	}
 
 	// Danh sách thành viên
-	public function userslist()
-	{
+	public function userslist() {
 
 		$userdetails = $this->userdetails();
 
@@ -7737,8 +7623,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function get_user_data()
-	{
+	public function get_user_data() {
 
 		// Demo Mode
 		if (ENVIRONMENT === 'demo') {
@@ -7900,8 +7785,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function import_user_data()
-	{
+	public function import_user_data() {
 
 		$filter = $this->input->post(null, true);;
 
@@ -7918,8 +7802,7 @@ class Admincontrol extends MY_Controller
 		die;
 	}
 
-	public function userslisttree()
-	{
+	public function userslisttree() {
 
 		$userdetails = $this->userdetails();
 
@@ -7942,8 +7825,7 @@ class Admincontrol extends MY_Controller
 		$this->view($data, 'users/tree');
 	}
 
-	public function addons()
-	{
+	public function addons() {
 
 		$userdetails = $this->userdetails();
 
@@ -8016,8 +7898,7 @@ class Admincontrol extends MY_Controller
 		$this->view($data, 'addons/index');
 	}
 
-	private function modules_list($requestingFor = null)
-	{
+	private function modules_list($requestingFor = null) {
 
 		if ($requestingFor == null) {
 
@@ -8127,8 +8008,7 @@ class Admincontrol extends MY_Controller
 		return $integration_modules;
 	}
 
-	public function userslistmail()
-	{
+	public function userslistmail() {
 
 		$userdetails = $this->userdetails();
 
@@ -8203,30 +8083,25 @@ class Admincontrol extends MY_Controller
 	}
 
 	// Branch
-	public function addbranch($page = 1)
-	{
+	public function addbranch($page = 1) {
 		$this->view($data, 'branchs/add_branch');
 	}
 
-	public function listbranchs($page = 1)
-	{
+	public function listbranchs($page = 1) {
 		$this->view($data, 'branch/index');
 	}
 
 
 	// Stock
-	public function addstock($page = 1)
-	{
+	public function addstock($page = 1) {
 		$this->view($data, 'stocks/add_stock');
 	}
 
-	public function liststocks($page = 1)
-	{
+	public function liststocks($page = 1) {
 		$this->view($data, 'stocks/index');
 	}
 
-	public function addclients($id = null)
-	{
+	public function addclients($id = null) {
 
 		$userdetails = $this->userdetails();
 
@@ -8346,8 +8221,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function listclients($page = 1)
-	{
+	public function listclients($page = 1) {
 
 		$userdetails = $this->userdetails();
 
@@ -8387,8 +8261,7 @@ class Admincontrol extends MY_Controller
 		$this->view($data, 'clients/index');
 	}
 
-	public function affiliate_theme()
-	{
+	public function affiliate_theme() {
 
 		$userdetails = $this->userdetails();
 
@@ -8501,8 +8374,7 @@ class Admincontrol extends MY_Controller
 		}
 	}
 
-	public function setting()
-	{
+	public function setting() {
 
 		$userdetails = $this->userdetails();
 
@@ -8560,8 +8432,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function store_setting()
-	{
+	public function store_setting() {
 
 
 		$userdetails = $this->userdetails();
@@ -9190,8 +9061,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function market_tools_setting()
-	{
+	public function market_tools_setting() {
 
 		$userdetails = $this->userdetails();
 
@@ -9248,8 +9118,7 @@ class Admincontrol extends MY_Controller
 		$this->view($data, 'setting/market_tools_setting');
 	}
 
-	public function saas_setting()
-	{
+	public function saas_setting() {
 		$userdetails = $this->userdetails();
 		if (empty($userdetails)) {
 			redirect($this->admin_domain_url);
@@ -9295,8 +9164,7 @@ class Admincontrol extends MY_Controller
 		$this->view($data, 'setting/saas_setting');
 	}
 
-	public function wallet_setting()
-	{
+	public function wallet_setting() {
 		$userdetails = $this->userdetails();
 		if (empty($userdetails)) {
 			redirect($this->admin_domain_url);
@@ -9339,8 +9207,7 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function paymentsetting()
-	{
+	public function paymentsetting() {
 
 		$this->load->library('deflanguage');
 
@@ -9627,8 +9494,7 @@ class Admincontrol extends MY_Controller
 		}
 	}
 
-	public function mlm_settings()
-	{
+	public function mlm_settings() {
 
 		$userdetails = $this->userdetails();
 
@@ -9674,8 +9540,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function mlm_levels()
-	{
+	public function mlm_levels() {
 
 		$userdetails = $this->userdetails();
 
@@ -9724,8 +9589,7 @@ class Admincontrol extends MY_Controller
 		$this->view($data, 'setting/mlm_levels');
 	}
 	//                custom
-	public function mlm_levels_hang_hoa()
-	{
+	public function mlm_levels_hang_hoa() {
 
 		$userdetails = $this->userdetails();
 
@@ -9797,8 +9661,7 @@ class Admincontrol extends MY_Controller
 		//dd($data);
 		$this->view($data, 'setting/mlm_levels_hang_hoa');
 	}
-	public function mlm_levels_te_bao_goc()
-	{
+	public function mlm_levels_te_bao_goc() {
 
 		$userdetails = $this->userdetails();
 
@@ -9868,8 +9731,7 @@ class Admincontrol extends MY_Controller
 
 		$this->view($data, 'setting/mlm_levels_te_bao_goc');
 	}
-	public function mlm_levels_dich_vu()
-	{
+	public function mlm_levels_dich_vu() {
 
 		$userdetails = $this->userdetails();
 
@@ -9939,8 +9801,7 @@ class Admincontrol extends MY_Controller
 
 		$this->view($data, 'setting/mlm_levels_dich_vu');
 	}
-	public function mlm_levels_dao_tao()
-	{
+	public function mlm_levels_dao_tao() {
 
 		$userdetails = $this->userdetails();
 
@@ -10010,8 +9871,7 @@ class Admincontrol extends MY_Controller
 
 		$this->view($data, 'setting/mlm_levels_dao_tao');
 	}
-	public function mlm_levels_nha_phan_phoi_cap_chien_luoc()
-	{
+	public function mlm_levels_nha_phan_phoi_cap_chien_luoc() {
 
 		$userdetails = $this->userdetails();
 
@@ -10086,8 +9946,7 @@ class Admincontrol extends MY_Controller
 	//end custom
 
 
-	public function generateproductcode($affiliateads_id = null)
-	{
+	public function generateproductcode($affiliateads_id = null) {
 
 		$userdetails = $this->userdetails();
 
@@ -10111,14 +9970,12 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function setAffiliateClick($aff_id = null, $user_id = null)
-	{
+	public function setAffiliateClick($aff_id = null, $user_id = null) {
 	}
 
 
 
-	public function addsaveads($adsId = null)
-	{
+	public function addsaveads($adsId = null) {
 
 		$userdetails = $this->userdetails();
 
@@ -10186,8 +10043,7 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function editProfile()
-	{
+	public function editProfile() {
 
 		$userdetails = $this->userdetails();
 
@@ -10270,8 +10126,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function getstate($country_id = null)
-	{
+	public function getstate($country_id = null) {
 
 		$userdetails = $this->userdetails();
 
@@ -10305,8 +10160,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function delete_image($image_id = null)
-	{
+	public function delete_image($image_id = null) {
 
 		$userdetails = $this->userdetails();
 
@@ -10326,8 +10180,7 @@ class Admincontrol extends MY_Controller
 		}
 	}
 
-	public function resetnotify()
-	{
+	public function resetnotify() {
 		$this->output->set_content_type('application/json');
 
 		$result['status'] = 0;
@@ -10346,8 +10199,7 @@ class Admincontrol extends MY_Controller
 		$this->output->set_output(json_encode($result));
 	}
 
-	public function updatenotify($country_id = null)
-	{
+	public function updatenotify($country_id = null) {
 
 		$userdetails = $this->userdetails();
 
@@ -10404,8 +10256,7 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function getnotificationnew()
-	{
+	public function getnotificationnew() {
 
 		$userdetails = $this->userdetails();
 
@@ -10422,8 +10273,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function getnotificationall()
-	{
+	public function getnotificationall() {
 
 		$userdetails = $this->userdetails();
 
@@ -10440,8 +10290,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function getnotification()
-	{
+	public function getnotification() {
 		$userdetails = $this->userdetails();
 		if (empty($userdetails)) {
 			redirect($this->admin_domain_url);
@@ -10495,8 +10344,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function productupload($id = null)
-	{
+	public function productupload($id = null) {
 
 		$userdetails = $this->userdetails();
 
@@ -10665,8 +10513,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function videoupload($id = null)
-	{
+	public function videoupload($id = null) {
 
 		$userdetails = $this->userdetails();
 
@@ -10790,8 +10637,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function deleteAllusersMultiple()
-	{
+	public function deleteAllusersMultiple() {
 
 		// Demo Mode
 		if (ENVIRONMENT === 'demo') {
@@ -10840,8 +10686,7 @@ class Admincontrol extends MY_Controller
 		echo json_encode($json);
 	}
 
-	public function deleteGoogleAds()
-	{
+	public function deleteGoogleAds() {
 
 		$responce = $this->db->query("DELETE FROM google_ads WHERE id =" . $_POST['id']);
 		if ($responce) {
@@ -10853,15 +10698,13 @@ class Admincontrol extends MY_Controller
 		}
 		echo json_encode($json);
 	}
-	function refreshGoogleAds()
-	{
+	function refreshGoogleAds() {
 		$data['googleads'] 	= $this->Setting_model->getGoogleAds();
 		$json['adsList'] = $this->load->view("admincontrol/users/part/ads_tr", $data, true);
 		echo json_encode($json);
 	}
 
-	public function deleteAllusers()
-	{
+	public function deleteAllusers() {
 
 		$json = array();
 
@@ -10898,8 +10741,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function showTree()
-	{
+	public function showTree() {
 
 		$post = $this->input->post(null, true);
 
@@ -10916,8 +10758,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function myreferal_ajax($user_id)
-	{
+	public function myreferal_ajax($user_id) {
 
 		$data = $this->Product_model->getMyUnder($user_id);
 
@@ -10926,8 +10767,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function deleteUsersConfirm()
-	{
+	public function deleteUsersConfirm() {
 
 		// Demo Mode
 		if (ENVIRONMENT === 'demo') {
@@ -10997,8 +10837,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function delete($id = null)
-	{
+	public function delete($id = null) {
 
 		if (!empty($id)) {
 
@@ -11014,8 +10853,7 @@ class Admincontrol extends MY_Controller
 		redirect(base_url() . 'admincontrol/userslist');
 	}
 
-	public function deleteAllproducts()
-	{
+	public function deleteAllproducts() {
 
 		$post = $this->input->post(null, true);
 
@@ -11074,8 +10912,7 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function user_info()
-	{
+	public function user_info() {
 
 		$userdetails = $this->userdetails();
 
@@ -11084,8 +10921,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function docs()
-	{
+	public function docs() {
 
 		$data['doc_config'] = $this->Product_model->getSettings('doc');
 		$this->load->view($control . '/includes/header', $data);
@@ -11097,8 +10933,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function form_manage($form_id = 0)
-	{
+	public function form_manage($form_id = 0) {
 
 		$userdetails = $this->userdetails();
 
@@ -11136,8 +10971,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function form()
-	{
+	public function form() {
 
 		$userdetails = $this->userdetails();
 
@@ -11184,8 +11018,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function save_form()
-	{
+	public function save_form() {
 
 		$userdetails = $this->userdetails();
 
@@ -11336,8 +11169,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function form_coupon_manage($form_coupon_id = 0)
-	{
+	public function form_coupon_manage($form_coupon_id = 0) {
 
 		$userdetails = $this->userdetails();
 
@@ -11353,8 +11185,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function form_coupon_delete($form_coupon_id)
-	{
+	public function form_coupon_delete($form_coupon_id) {
 
 		$userdetails = $this->userdetails();
 
@@ -11368,8 +11199,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function form_coupon()
-	{
+	public function form_coupon() {
 
 		$userdetails = $this->userdetails();
 
@@ -11384,8 +11214,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function save_form_coupon()
-	{
+	public function save_form_coupon() {
 
 		$userdetails = $this->userdetails();
 
@@ -11460,8 +11289,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function generateformcode($form = 0)
-	{
+	public function generateformcode($form = 0) {
 
 		$userdetails = $this->userdetails();
 
@@ -11485,8 +11313,7 @@ class Admincontrol extends MY_Controller
 		}
 	}
 
-	public function deleteAllforms($form = 0)
-	{
+	public function deleteAllforms($form = 0) {
 
 		$this->load->model("Form_model");
 
@@ -11512,8 +11339,7 @@ class Admincontrol extends MY_Controller
 		redirect(base_url() . 'admincontrol/listproduct');
 	}
 
-	public function form_delete($form = 0)
-	{
+	public function form_delete($form = 0) {
 
 		$this->load->model("Form_model");
 
@@ -11531,8 +11357,7 @@ class Admincontrol extends MY_Controller
 		redirect(base_url() . 'admincontrol/listproduct');
 	}
 
-	public function currency_list()
-	{
+	public function currency_list() {
 
 		$userdetails = $this->userdetails();
 
@@ -11545,8 +11370,7 @@ class Admincontrol extends MY_Controller
 		$this->view($data, 'currency/index');
 	}
 
-	public function currency_delete($currency_id)
-	{
+	public function currency_delete($currency_id) {
 
 		$userdetails = $this->userdetails();
 
@@ -11558,8 +11382,7 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function currency_edit($currency_id = 0)
-	{
+	public function currency_edit($currency_id = 0) {
 
 		$userdetails = $this->userdetails();
 
@@ -11653,8 +11476,7 @@ class Admincontrol extends MY_Controller
 		$this->view($data, 'currency/form');
 	}
 
-	public function currency_refresh()
-	{
+	public function currency_refresh() {
 
 		$currency_data = array();
 
@@ -11717,8 +11539,7 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function order_attechment($filename, $mask)
-	{
+	public function order_attechment($filename, $mask) {
 
 		$userdetails = $this->userdetails();
 
@@ -11761,8 +11582,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function u_status_toggle($user_id)
-	{
+	public function u_status_toggle($user_id) {
 
 		// Demo Mode
 		if (ENVIRONMENT === 'demo') {
@@ -11783,8 +11603,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function info_remove_tran_multiple()
-	{
+	public function info_remove_tran_multiple() {
 
 		$uniqIDS = [];
 
@@ -11839,8 +11658,7 @@ class Admincontrol extends MY_Controller
 		echo json_encode($json);
 	}
 
-	public function confirm_remove_tran_multi()
-	{
+	public function confirm_remove_tran_multi() {
 
 		$json = [];
 
@@ -11887,8 +11705,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function info_remove_tran()
-	{
+	public function info_remove_tran() {
 
 		$delete_id = $this->input->post("id", true);
 
@@ -11925,8 +11742,7 @@ class Admincontrol extends MY_Controller
 		echo json_encode($json);
 	}
 
-	public function info_remove_tran_by_commission()
-	{
+	public function info_remove_tran_by_commission() {
 
 		$dataCollection = $this->Wallet_model->getDeleteData((int)$this->input->post("id", true));
 
@@ -11969,8 +11785,7 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function confirm_remove_tran()
-	{
+	public function confirm_remove_tran() {
 
 		$json['dataCollection'] = $dataCollection = $this->Wallet_model->getDeleteData((int)$this->input->post("id", true));
 
@@ -12001,8 +11816,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function info_recursion_tran()
-	{
+	public function info_recursion_tran() {
 
 		$mainID = $this->input->post("id", true);
 
@@ -12077,8 +11891,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function confirm_recursion_tran()
-	{
+	public function confirm_recursion_tran() {
 		$data = $this->input->post();
 
 		$mainID = $data['transaction_id'];
@@ -12120,8 +11933,7 @@ class Admincontrol extends MY_Controller
 		echo json_encode($json);
 	}
 
-	public function wallet_change_status()
-	{
+	public function wallet_change_status() {
 
 		$id = (int)$this->input->post("id", true);
 
@@ -12262,8 +12074,7 @@ class Admincontrol extends MY_Controller
 		echo json_encode($json);
 	}
 
-	function list_files($path)
-	{
+	function list_files($path) {
 
 		$files = array();
 
@@ -12303,8 +12114,7 @@ class Admincontrol extends MY_Controller
 		return $result;
 	}
 
-	public function front_template()
-	{
+	public function front_template() {
 
 		$userdetails = $this->userdetails();
 
@@ -12394,8 +12204,7 @@ class Admincontrol extends MY_Controller
 		$this->view($data, 'template_editor/editor');
 	}
 
-	public function load_image_manager()
-	{
+	public function load_image_manager() {
 
 		$filter_name = '';
 
@@ -12571,8 +12380,7 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function image_upload_filemanager()
-	{
+	public function image_upload_filemanager() {
 
 		$json = array();
 
@@ -12639,8 +12447,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function folder_filemanager()
-	{
+	public function folder_filemanager() {
 
 		$json = array();
 
@@ -12688,8 +12495,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function delete_image_filemanager()
-	{
+	public function delete_image_filemanager() {
 
 		$json = array();
 
@@ -12770,8 +12576,7 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function editor_get_file()
-	{
+	public function editor_get_file() {
 
 		$json = array();
 
@@ -12794,8 +12599,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function editor_save_file()
-	{
+	public function editor_save_file() {
 
 		$json = array();
 
@@ -12817,8 +12621,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function registration_builder()
-	{
+	public function registration_builder() {
 		$userdetails = $this->userdetails();
 		if ($this->input->server('REQUEST_METHOD') == 'POST') {
 			$post = $this->input->post(null, true);
@@ -12860,8 +12663,7 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function sendAffiliateEmail()
-	{
+	public function sendAffiliateEmail() {
 
 		// Demo Mode
 		if (ENVIRONMENT === 'demo') {
@@ -12926,8 +12728,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function theme_setting()
-	{
+	public function theme_setting() {
 
 		$userdetails = $this->userdetails();
 
@@ -12967,8 +12768,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function getDatesFromType()
-	{
+	public function getDatesFromType() {
 
 		$userdetails = $this->userdetails();
 
@@ -12992,8 +12792,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function get_integartion_data($return  = false)
-	{
+	public function get_integartion_data($return  = false) {
 
 		$userdetails = $this->userdetails();
 
@@ -13320,8 +13119,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function category_auto()
-	{
+	public function category_auto() {
 
 		$userdetails = $this->userdetails();
 
@@ -13335,8 +13133,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function store_category_delete($category_id = 0)
-	{
+	public function store_category_delete($category_id = 0) {
 
 		$userdetails = $this->userdetails();
 
@@ -13354,8 +13151,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function store_category_add($category_id = 0)
-	{
+	public function store_category_add($category_id = 0) {
 
 		$userdetails = $this->userdetails();
 
@@ -13494,8 +13290,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function store_category($page = 1)
-	{
+	public function store_category($page = 1) {
 
 		$userdetails = $this->userdetails();
 
@@ -13539,8 +13334,7 @@ class Admincontrol extends MY_Controller
 		$this->view($data, 'store/store_category');
 	}
 
-	public function get_orders_transactions($orderType, $orderId, $type = '')
-	{
+	public function get_orders_transactions($orderType, $orderId, $type = '') {
 		$userdetails = $this->userdetails();
 
 		if (!$this->userdetails()) {
@@ -13578,8 +13372,7 @@ class Admincontrol extends MY_Controller
 		die;
 	}
 
-	public function store_orders($page = 1)
-	{
+	public function store_orders($page = 1) {
 
 		$userdetails = $this->userdetails();
 
@@ -13639,8 +13432,7 @@ class Admincontrol extends MY_Controller
 		$this->view($data, 'store/orders');
 	}
 
-	public function get_latest_dashboard_orders($page = 1)
-	{
+	public function get_latest_dashboard_orders($page = 1) {
 
 		$userdetails = $this->userdetails();
 
@@ -13671,8 +13463,7 @@ class Admincontrol extends MY_Controller
 		}
 	}
 
-	public function store_logs($page = 0)
-	{
+	public function store_logs($page = 0) {
 
 		$userdetails = $this->userdetails();
 
@@ -13720,8 +13511,7 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function store_markettools($page = 0)
-	{
+	public function store_markettools($page = 0) {
 		set_default_currency();
 		$userdetails = $this->userdetails();
 		$this->load->model('Form_model');
@@ -13817,8 +13607,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function info_remove_order()
-	{
+	public function info_remove_order() {
 
 		$id = (int)$this->input->post("id", true);
 
@@ -13861,8 +13650,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function confirm_remove_order()
-	{
+	public function confirm_remove_order() {
 
 		$id = $this->input->post('id', true);
 
@@ -13918,8 +13706,7 @@ class Admincontrol extends MY_Controller
 		echo json_encode($json);
 	}
 
-	public function calc_commission()
-	{
+	public function calc_commission() {
 
 		$data = $this->input->post(null, true);
 
@@ -13959,8 +13746,7 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function withdrawal_payment_gateways_doc()
-	{
+	public function withdrawal_payment_gateways_doc() {
 		set_default_currency();
 
 		$data = [];
@@ -13970,8 +13756,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function withdrawal_payment_gateways()
-	{
+	public function withdrawal_payment_gateways() {
 
 		set_default_currency();
 
@@ -13986,8 +13771,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function withdrawal_payment_gateways_status_change($code)
-	{
+	public function withdrawal_payment_gateways_status_change($code) {
 		// Demo Mode
 		if (ENVIRONMENT === 'demo') {
 			$this->session->set_flashdata('error', __('admin.demo_mode'));
@@ -14008,8 +13792,7 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function withdrawal_payment_gateways_edit($code = null)
-	{
+	public function withdrawal_payment_gateways_edit($code = null) {
 
 		// Demo Mode
 		if (ENVIRONMENT === 'demo') {
@@ -14057,8 +13840,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function withdrawal_payment_gateways_setting_save($code)
-	{
+	public function withdrawal_payment_gateways_setting_save($code) {
 
 		$post = $this->input->post(null, true);
 		$this->Setting_model->save('withdrawalpayment_' . $code, $post);
@@ -14070,8 +13852,7 @@ class Admincontrol extends MY_Controller
 		echo json_encode($json);
 	}
 
-	public function withdrawal_payment_gateways_setting_save_ajax()
-	{
+	public function withdrawal_payment_gateways_setting_save_ajax() {
 
 		// Demo Mode
 		if (ENVIRONMENT === 'demo') {
@@ -14102,8 +13883,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function contactus($id = null)
-	{
+	public function contactus($id = null) {
 		$data  = array();
 		$where = array('notification_type' => 'contact_us', 'notification_id' => $id);
 		$data['notification_details'] = $this->Common_model->select_where_result('notification', $where);
@@ -14113,8 +13893,7 @@ class Admincontrol extends MY_Controller
 
 
 
-	public function orders_notifications($id = null)
-	{
+	public function orders_notifications($id = null) {
 		$userdetails = $this->userdetails();
 
 		if (empty($userdetails)) {
@@ -14138,8 +13917,7 @@ class Admincontrol extends MY_Controller
 			redirect('/admincontrol/notification');
 	}
 
-	public function click_notification($id = null)
-	{
+	public function click_notification($id = null) {
 		$userdetails = $this->userdetails();
 
 		if (empty($userdetails)) {
@@ -14167,8 +13945,7 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function usergroup()
-	{
+	public function usergroup() {
 		$userdetails = $this->userdetails();
 
 		$data['groups'] = $this->user->getgrouplist();
@@ -14176,8 +13953,7 @@ class Admincontrol extends MY_Controller
 		$this->view($data, 'usergroup/index');
 	}
 
-	public function group_form($id = '')
-	{
+	public function group_form($id = '') {
 		$userdetails = $this->userdetails();
 
 		if (!empty($id)) {
@@ -14187,8 +13963,7 @@ class Admincontrol extends MY_Controller
 		$this->view($data, 'usergroup/form');
 	}
 
-	public function admin_group_form()
-	{
+	public function admin_group_form() {
 
 		$userdetails = $this->userdetails();
 
@@ -14271,8 +14046,7 @@ class Admincontrol extends MY_Controller
 		}
 	}
 
-	public function group_status_toggle()
-	{
+	public function group_status_toggle() {
 		try {
 			$userdetails = $this->userdetails();
 			$json = array();
@@ -14292,8 +14066,7 @@ class Admincontrol extends MY_Controller
 		echo json_encode($json);
 	}
 
-	public function delete_user_group()
-	{
+	public function delete_user_group() {
 		$id = $this->input->post('id');
 
 		$this->db->select('id');
@@ -14319,8 +14092,7 @@ class Admincontrol extends MY_Controller
 		}
 	}
 
-	public function doLoginAff()
-	{
+	public function doLoginAff() {
 		if (!$this->userdetails()) {
 			die('Unauthorized Access!');
 		} else {
@@ -14331,8 +14103,7 @@ class Admincontrol extends MY_Controller
 		}
 	}
 
-	public function vendor_deposits()
-	{
+	public function vendor_deposits() {
 		$userdetails = $this->userdetails();
 
 		$market_vendor_marketvendorstatus = $this->Product_model->getSettings('market_vendor', 'marketvendorstatus');
@@ -14408,8 +14179,7 @@ class Admincontrol extends MY_Controller
 		$this->view($data, 'users/deposit');
 	}
 
-	public function vendor_deposit_details($id)
-	{
+	public function vendor_deposit_details($id) {
 
 		$userdetails = $this->userdetails();
 
@@ -14478,8 +14248,7 @@ class Admincontrol extends MY_Controller
 		$this->view($data, 'users/vendor_deposit_details');
 	}
 
-	public function get_vendor_deposit_history($id)
-	{
+	public function get_vendor_deposit_history($id) {
 
 		$status_history = $this->db->query("SELECT * FROM deposit_requests_history WHERE vd_id={$id} ORDER BY id DESC ")->result_array();
 
@@ -14501,8 +14270,7 @@ class Admincontrol extends MY_Controller
 		die;
 	}
 
-	public function payment_gateway()
-	{
+	public function payment_gateway() {
 
 		$userdetails = $this->userdetails();
 
@@ -14581,8 +14349,7 @@ class Admincontrol extends MY_Controller
 		$this->view($data, 'users/payment_gateway');
 	}
 
-	public function payment_gateway_edit($edit_code)
-	{
+	public function payment_gateway_edit($edit_code) {
 
 		$userdetails = $this->userdetails();
 
@@ -14664,8 +14431,7 @@ class Admincontrol extends MY_Controller
 		}
 	}
 
-	public function payment_gateway_documentation()
-	{
+	public function payment_gateway_documentation() {
 		$data = array();
 		foreach (glob(APPPATH . "/payment_gateway/sample_data/*") as $file)
 			$data['sample_data'][] = pathinfo(basename($file))['filename'];
@@ -14673,22 +14439,19 @@ class Admincontrol extends MY_Controller
 		$this->view($data, 'users/payment_gateway_documentation');
 	}
 
-	public function payment_gateway_documentation_sample_data($filename)
-	{
+	public function payment_gateway_documentation_sample_data($filename) {
 		if (file_exists(APPPATH . 'payment_gateway/sample_data/' . $filename . '.json'))
 			debug(file_get_contents(APPPATH . 'payment_gateway/sample_data/' . $filename . '.json'));
 		else
 			redirect('admincontrol/payment_gateway_documentation');
 	}
 
-	public function payment_gateway_documentation_to_pdf()
-	{
+	public function payment_gateway_documentation_to_pdf() {
 		$this->load->helper('documentation');
 		documentationToPdf();
 	}
 
-	public function payment_gateway_sample_data_to_pdf()
-	{
+	public function payment_gateway_sample_data_to_pdf() {
 		foreach (glob(APPPATH . "/payment_gateway/sample_data/*") as $file) {
 			$sample_data['filename'] = pathinfo(basename($file))['filename'];
 			$sample_data['structure'] = file_get_contents($file);
@@ -14700,8 +14463,7 @@ class Admincontrol extends MY_Controller
 		sampleDataToPdf($data);
 	}
 
-	public function payment_gateway_install()
-	{
+	public function payment_gateway_install() {
 
 		// Demo Mode
 		if (ENVIRONMENT === 'demo') {
@@ -14834,8 +14596,7 @@ class Admincontrol extends MY_Controller
 		die();
 	}
 
-	private function clearPaymentGatewayTmpDirectory($tmpDirectory, $rmdir = false)
-	{
+	private function clearPaymentGatewayTmpDirectory($tmpDirectory, $rmdir = false) {
 		$files = glob($tmpDirectory . '*', GLOB_MARK);
 		foreach ($files as $file) {
 			if (is_dir($file))
@@ -14850,8 +14611,7 @@ class Admincontrol extends MY_Controller
 		return;
 	}
 
-	public function payment_gateway_status_change($code)
-	{
+	public function payment_gateway_status_change($code) {
 
 		// Demo Mode
 		if (ENVIRONMENT === 'demo') {
@@ -14884,8 +14644,7 @@ class Admincontrol extends MY_Controller
 		}
 	}
 
-	public function delete_payment_gateway($code)
-	{
+	public function delete_payment_gateway($code) {
 		$this->load->config('payment_gateway');
 		$payment_method = config_item('payment_method');
 		if (!in_array($code, $payment_method)) {
@@ -14922,8 +14681,7 @@ class Admincontrol extends MY_Controller
 		redirect('admincontrol/payment_gateway');
 	}
 
-	public function all_transaction()
-	{
+	public function all_transaction() {
 		$userdetails = $this->userdetails();
 		$filter = $this->input->post(null, true);
 		$this->load->model('Order_model');
@@ -14956,8 +14714,7 @@ class Admincontrol extends MY_Controller
 		$this->view($data, 'users/all_transaction');
 	}
 
-	public function all_transaction_export_to_excel()
-	{
+	public function all_transaction_export_to_excel() {
 		$userdetails = $this->userdetails();
 		$filter = $this->input->get(null, true);
 
@@ -14966,8 +14723,7 @@ class Admincontrol extends MY_Controller
 		exportToExcel($all_transaction);
 	}
 
-	public function all_transaction_export_to_pdf()
-	{
+	public function all_transaction_export_to_pdf() {
 		$userdetails = $this->userdetails();
 		$filter = $this->input->get(null, true);
 		$this->load->helper('all_transaction');
@@ -14975,8 +14731,7 @@ class Admincontrol extends MY_Controller
 		exportToPdf($userdetails['admin'], $all_transaction);
 	}
 
-	public function getOrderDetails()
-	{
+	public function getOrderDetails() {
 		$post = $this->input->post(null, true);
 
 		$filter = array(
@@ -14999,8 +14754,7 @@ class Admincontrol extends MY_Controller
 		echo $this->load->view("admincontrol/store/order_details_mb", $data, true);
 	}
 
-	public function uploadMailImages()
-	{
+	public function uploadMailImages() {
 		if (!is_dir('assets/user_upload/mail_template_images')) {
 			mkdir('./assets/user_upload/mail_template_images', 0644, TRUE);
 		}
@@ -15023,9 +14777,21 @@ class Admincontrol extends MY_Controller
 		exit;
 	}
 
+	// Nâng cấp thành viên
+	public function rank_upgrade() {
+		if (!$this->userdetails()) {
+			die();
+		}
+
+		// Kiểm tra và nâng cấp các thành viên nếu đủ điều kiện
+		$this->update_user_levels();
+
+		// Xogn thì quay lại
+		// redirect(base_url('admincontrol/award_level'));
+	}
+
 	// Tính thưởng
-	public function commission_payout()
-	{
+	public function commission_payout() {
 
 		if (!$this->userdetails()) {
 			die();
@@ -15047,17 +14813,17 @@ class Admincontrol extends MY_Controller
 
 		$this->order->updateAllCommWallet(); // wallet
 
-		// redirect(base_url('admincontrol/award_level'));
+		redirect(base_url('admincontrol/award_level'));
 
 		// End Update
 	}
 
 	// Kiểm tra nhảy cấp
-	public function check_award_level()
-	{
+	public function check_award_level() {
 		if (!$this->userdetails()) {
 			die();
 		}
+
 
 		if ($this->input->server('REQUEST_METHOD') == 'POST') {
 
@@ -15082,12 +14848,17 @@ class Admincontrol extends MY_Controller
 			if ($jumped_user)
 				$result['message'] = __('admin.user_jumped_to_level');
 
+			// Nâng cấp độ đủ điều kiện
+			if ($jumped_user && $result['index'] <= 0) {
+				$this->rank_upgrade();
+				$result['message'] = __('Đã cập nhật lại cấp độ thành viên');
+			}
+
 			echo json_encode($result);
 		}
 	}
 
-	public function multiApproveDecline()
-	{
+	public function multiApproveDecline() {
 		$post = $this->input->post(null, true);
 
 		$approval_data = [];
@@ -15241,20 +15012,17 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function set_default_admin_url()
-	{
+	public function set_default_admin_url() {
 		$set_default = $this->Setting_model->set_default_admin_url();
 		echo $set_default;
 	}
 
-	public function set_default_front_url()
-	{
+	public function set_default_front_url() {
 		$set_default = $this->Setting_model->set_default_front_url();
 		echo $set_default;
 	}
 
-	public function update_store_status()
-	{
+	public function update_store_status() {
 		$status = $this->input->post('status');
 
 		$update = $this->Setting_model->update_store_status($status);
@@ -15267,32 +15035,28 @@ class Admincontrol extends MY_Controller
 		echo $update;
 	}
 
-	public function update_store_menu_on_front()
-	{
+	public function update_store_menu_on_front() {
 		$status = $this->input->post('status');
 
 		$update = $this->Setting_model->update_store_menu_on_front($status);
 		echo $update;
 	}
 
-	public function update_cookies_menu()
-	{
+	public function update_cookies_menu() {
 		$status = $this->input->post('status');
 		$update = $this->Setting_model->update_cookies_menu($status);
 		echo $update;
 	}
 
 
-	public function update_store_menu_on_front_blank()
-	{
+	public function update_store_menu_on_front_blank() {
 		$status = $this->input->post('status');
 
 		$update = $this->Setting_model->update_store_menu_on_front_blank($status);
 		echo $update;
 	}
 
-	public function update_store_mode()
-	{
+	public function update_store_mode() {
 
 		$mode = $this->input->post('mode');
 		$theme = $this->input->post('theme');
@@ -15302,8 +15066,7 @@ class Admincontrol extends MY_Controller
 		echo $update;
 	}
 
-	public function update_all_settings()
-	{
+	public function update_all_settings() {
 
 		$status = $this->input->post('status');
 		$setting_key = $this->input->post('setting_key');
@@ -15327,8 +15090,7 @@ class Admincontrol extends MY_Controller
 		echo $update;
 	}
 
-	public function getShippingDetails()
-	{
+	public function getShippingDetails() {
 		if ($this->input->server('REQUEST_METHOD') === 'POST') {
 			$user_id = $this->input->post('id');
 			$data = $this->db->query("SELECT shipping_address.*,countries.name as country_name,states.name as state_name FROM shipping_address INNER JOIN countries ON countries.id=shipping_address.country_id INNER JOIN states ON states.id=shipping_address.state_id WHERE user_id = $user_id")->row_array();
@@ -15337,14 +15099,12 @@ class Admincontrol extends MY_Controller
 		}
 	}
 
-	public function cron()
-	{
+	public function cron() {
 		$userdetails = $this->userdetails();
 		$this->view($data, 'cron/index');
 	}
 
-	public function update_product_settings()
-	{
+	public function update_product_settings() {
 		$status = $this->input->post('status');
 		$setting_key = $this->input->post('setting_key');
 		$product_id = $this->input->post('product_id');
@@ -15353,8 +15113,7 @@ class Admincontrol extends MY_Controller
 		echo $update;
 	}
 
-	public function default_theme_settings()
-	{
+	public function default_theme_settings() {
 		$setting = $this->input->post('setting');
 		$color = $this->input->post('color');
 
@@ -15362,8 +15121,7 @@ class Admincontrol extends MY_Controller
 		echo $update;
 	}
 
-	public function default_font_settings()
-	{
+	public function default_font_settings() {
 		$setting = $this->input->post('setting');
 		$font = $this->input->post('font');
 
@@ -15371,8 +15129,7 @@ class Admincontrol extends MY_Controller
 		echo $update;
 	}
 
-	public function set_default_theme_color_settings()
-	{
+	public function set_default_theme_color_settings() {
 		$setting_array = [
 			'admin_side_bar_color' => '#ffffff',
 			'admin_side_bar_scroll_color' => '#007bff',
@@ -15398,8 +15155,7 @@ class Admincontrol extends MY_Controller
 		echo $update;
 	}
 
-	public function set_default_theme_font_settings()
-	{
+	public function set_default_theme_font_settings() {
 		$setting_array = [
 			'admin_side_font' => 'Be Vietnam Pro',
 			'user_side_font' => 'Poppins',
@@ -15412,27 +15168,23 @@ class Admincontrol extends MY_Controller
 		echo $update;
 	}
 
-	public function firstsetting()
-	{
+	public function firstsetting() {
 		$userdetails = $this->userdetails();
 		$this->view($data, '../firstsetting/index');
 	}
 
 
-	public function todolist()
-	{
+	public function todolist() {
 		$userdetails = $this->userdetails();
 		$this->view($data, 'todo/todo');
 	}
 
-	public function ticketssubject()
-	{
+	public function ticketssubject() {
 		$userdetails = $this->userdetails();
 		$this->view($data, 'ticket/ticket-subject');
 	}
 
-	public function tickets()
-	{
+	public function tickets() {
 		$userdetails = $this->userdetails();
 		$this->load->model('Tickets_model');
 		$this->load->model('Product_model');
@@ -15442,8 +15194,7 @@ class Admincontrol extends MY_Controller
 		$data['subjects'] = $this->Tickets_model->getsubjectlist();
 		$this->view($data, 'ticket/ticket-listing');
 	}
-	public function ticketdetails($ticket_id = Null)
-	{
+	public function ticketdetails($ticket_id = Null) {
 		$userdetails = $this->userdetails();
 		$this->userdetails();
 		$this->load->model('Tickets_model');
@@ -15459,8 +15210,7 @@ class Admincontrol extends MY_Controller
 			redirect(base_url('admincontrol/tickets'), 'refresh');
 		}
 	}
-	public function ticketcreate()
-	{
+	public function ticketcreate() {
 		$userdetails = $this->userdetails();
 		$data['subjects'] = $this->Common_model->get_data_all_asc('tickets_subject', [], 'id,subject', 'id');
 		$data['users'] = $this->db->query("SELECT id,username FROM users WHERE type = 'user'")->result_array();
@@ -15468,8 +15218,7 @@ class Admincontrol extends MY_Controller
 		$this->view($data, 'ticket/ticket-create');
 	}
 
-	public function countries_and_states()
-	{
+	public function countries_and_states() {
 		$userdetails = $this->userdetails();
 		//$data['countries'] = $this->Common_model->get_data_all_asc('countries',[],'*','name');
 		$data['countries'] = $this->db->query("SELECT * FROM countries ORDER BY name ASC")->result_array();
@@ -15477,8 +15226,7 @@ class Admincontrol extends MY_Controller
 		$this->view($data, 'countries_and_states/list');
 	}
 
-	public function createUpdateCountry()
-	{
+	public function createUpdateCountry() {
 		$userdetails = $this->userdetails();
 		$this->load->library('form_validation');
 		$json = array();
@@ -15536,8 +15284,7 @@ class Admincontrol extends MY_Controller
 		echo json_encode($json);
 	}
 
-	public function createUpdateState()
-	{
+	public function createUpdateState() {
 
 		$userdetails = $this->userdetails();
 
@@ -15593,8 +15340,7 @@ class Admincontrol extends MY_Controller
 		echo json_encode($json);
 	}
 
-	public function deleteCountry($id)
-	{
+	public function deleteCountry($id) {
 		$userdetails = $this->userdetails();
 		$country = $this->db->query("SELECT created_by FROM countries WHERE id='{$id}'")->row_array();
 		if ($userdetails['type'] == 'admin' || $country['created_by'] == $userdetails['id']) {
@@ -15608,8 +15354,7 @@ class Admincontrol extends MY_Controller
 		header('Location: ' . $_SERVER['HTTP_REFERER']);
 	}
 
-	public function deleteState($id)
-	{
+	public function deleteState($id) {
 		$userdetails = $this->userdetails();
 		$state = $this->db->query("SELECT created_by FROM states WHERE id='{$id}'")->row_array();
 		if ($userdetails['type'] == 'admin' || $state['created_by'] == $userdetails['id']) {
@@ -15622,8 +15367,7 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function refactor_database()
-	{
+	public function refactor_database() {
 		try {
 			// Demo Mode
 			if (ENVIRONMENT === 'demo') {
@@ -15657,8 +15401,7 @@ class Admincontrol extends MY_Controller
 		header('Location: ' . $_SERVER['HTTP_REFERER']);
 	}
 
-	public function uncompleted_payments()
-	{
+	public function uncompleted_payments() {
 		$userdetails = $this->userdetails();
 		$filter = $this->input->post(null, true);
 		$this->load->model('Order_model');
@@ -15706,8 +15449,7 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function listreviews_ajax($page = 1)
-	{
+	public function listreviews_ajax($page = 1) {
 
 		$userdetails = $this->userdetails();
 		$get = $this->input->get(null, true);
@@ -15756,8 +15498,7 @@ class Admincontrol extends MY_Controller
 		echo json_encode($json);
 	}
 
-	public function manage_review($id = null)
-	{
+	public function manage_review($id = null) {
 		$userdetails = $this->userdetails();
 		$post = $this->input->post(null, true);
 		if (!empty($post) && isset($post['product_name'])) {
@@ -15891,8 +15632,7 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function deleteReview($id = null)
-	{
+	public function deleteReview($id = null) {
 
 		$userdetails = $this->userdetails();
 		if (empty($userdetails)) {
@@ -15909,8 +15649,7 @@ class Admincontrol extends MY_Controller
 		redirect('admincontrol/listproduct');
 	}
 
-	public function checkDateTime($date)
-	{
+	public function checkDateTime($date) {
 		$format = 'Y-m-d H:i:s';
 		$d = DateTime::createFromFormat($format, $date);
 		if ($d && $d->format($format) == $date)
@@ -15921,22 +15660,19 @@ class Admincontrol extends MY_Controller
 		}
 	}
 
-	public function bulkReviewImportFromUrl()
-	{
+	public function bulkReviewImportFromUrl() {
 		$userdetails = $this->userdetails();
 		$data = $this->Review_model->bulkReviewImportFromUrlData($userdetails);
 		echo $this->load->view("admincontrol/product/bulk_review_upload_modal", $data, true);
 	}
 
-	public function bulkReviewsImport()
-	{
+	public function bulkReviewsImport() {
 		$userdetails = $this->userdetails();
 		$data = $this->Review_model->bulkReviewsImportData($userdetails);
 		echo $this->load->view("admincontrol/product/bulk_review_upload_modal", $data, true);
 	}
 
-	public function bulkReviewImportConfirm()
-	{
+	public function bulkReviewImportConfirm() {
 		$userdetails = $this->userdetails();
 		$data = json_decode(base64_decode($_POST['reviews']), true);
 		$result = $this->Review_model->bulkReviewImportConfirmData($userdetails, $data);
@@ -15944,31 +15680,27 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function exportReviewXML()
-	{
+	public function exportReviewXML() {
 		$userdetails = $this->userdetails();
 		$json = $this->Review_model->exportReviewXMLData($userdetails);
 		echo json_encode($json);
 	}
 
-	public function downloadproductreviewxmlstructurefile($filename = NULL)
-	{
+	public function downloadproductreviewxmlstructurefile($filename = NULL) {
 		$userdetails = $this->userdetails();
 		$this->load->helper('download');
 		$data = file_get_contents(FCPATH . 'assets/xml/export_admin_product_reviews_structure.xml');
 		force_download("export_admin_product_reviews_structure.xml", $data);
 	}
 
-	public function downloadproductreviewxmlfile($filename = NULL)
-	{
+	public function downloadproductreviewxmlfile($filename = NULL) {
 		$userdetails = $this->userdetails();
 		$this->load->helper('download');
 		$data = file_get_contents(FCPATH . 'assets/xml/export_admin_product_reviews.xml');
 		force_download("export_admin_product_reviews.xml", $data);
 	}
 
-	public function getTermAndCondition()
-	{
+	public function getTermAndCondition() {
 		$userdetails = $this->userdetails();
 		$post = $this->input->post(null, true);
 		if (!empty($post) && isset($post['language_id'])) {
@@ -15979,8 +15711,7 @@ class Admincontrol extends MY_Controller
 		echo json_encode($json);
 	}
 
-	public function getStaticPages()
-	{
+	public function getStaticPages() {
 		$userdetails = $this->userdetails();
 		$post = $this->input->post(null, true);
 		if (!empty($post) && isset($post['language_id'])) {
@@ -15998,15 +15729,13 @@ class Admincontrol extends MY_Controller
 		echo json_encode($json);
 	}
 
-	function troubleshoot()
-	{
+	function troubleshoot() {
 		$userdetails = $this->userdetails();
 		$data = array();
 		$this->view($data, 'document/troubleshoot');
 	}
 
-	public function tutorial()
-	{
+	public function tutorial() {
 		$userdetails = $this->userdetails();
 		$data = array();
 		$data['site'] = $this->Product_model->getSettings('site');
@@ -16019,30 +15748,26 @@ class Admincontrol extends MY_Controller
 
 		$this->view($data, '../tutorial/index');
 	}
-	public function listTutorals_ajax($page = 1)
-	{
+	public function listTutorals_ajax($page = 1) {
 		$userdetails = $this->userdetails();
 		$this->load->model('Tutorial_model');
 		$this->Tutorial_model->list();
 	}
 
-	public function manage_tutorial($id = null)
-	{
+	public function manage_tutorial($id = null) {
 		$userdetails = $this->userdetails();
 		$this->load->model('Tutorial_model');
 		$data = $this->Tutorial_model->manage($userdetails, $id);
 		$this->view($data, '../tutorial/manage_tutorial');
 	}
 
-	public function getTutorialCategory()
-	{
+	public function getTutorialCategory() {
 		$this->load->model('Tutorial_model');
 		$json['html'] = $this->Tutorial_model->getCateogryDropdown();
 		echo json_encode($json);
 	}
 
-	public function deleteTutorial($id = null)
-	{
+	public function deleteTutorial($id = null) {
 		$userdetails = $this->userdetails();
 		if (empty($userdetails)) {
 			redirect($this->admin_domain_url);
@@ -16060,23 +15785,20 @@ class Admincontrol extends MY_Controller
 	}
 
 
-	public function listTutorialCategory_ajax($page = 1)
-	{
+	public function listTutorialCategory_ajax($page = 1) {
 		$userdetails = $this->userdetails();
 		$this->load->model('Tutorial_model');
 		$this->Tutorial_model->listCategory();
 	}
 
-	public function manage_tutorial_catgory($id = null)
-	{
+	public function manage_tutorial_catgory($id = null) {
 		$userdetails = $this->userdetails();
 		$this->load->model('Tutorial_model');
 		$data = $this->Tutorial_model->manageCategory($userdetails, $id);
 		$this->view($data, '../tutorial/manage_category');
 	}
 
-	public function deleteTutorialCategory($id = null)
-	{
+	public function deleteTutorialCategory($id = null) {
 		$userdetails = $this->userdetails();
 		if (empty($userdetails)) {
 			redirect($this->admin_domain_url);
@@ -16095,8 +15817,7 @@ class Admincontrol extends MY_Controller
 		redirect('admincontrol/tutorial');
 	}
 
-	public function getLoginContent_ajax()
-	{
+	public function getLoginContent_ajax() {
 		$userdetails = $this->userdetails();
 		$post = $this->input->post(null, true);
 		if (!empty($post) && isset($post['language_id'])) {
@@ -16115,8 +15836,7 @@ class Admincontrol extends MY_Controller
 	}
 
 	// Chi nhánh
-	public function branch($offset = 0)
-	{
+	public function branch($offset = 0) {
 		$userdetails = $this->userdetails();
 		$this->load->library('pagination');
 		$config['base_url'] = base_url('admincontrol/branch');
@@ -16129,8 +15849,7 @@ class Admincontrol extends MY_Controller
 		$this->view($data, 'branch/index');
 	}
 
-	public function create_branch()
-	{
+	public function create_branch() {
 		$userdetails = $this->userdetails();
 		$ref = $this->input->get('ref'); // Lấy giá trị ref từ URL
 
@@ -16172,8 +15891,7 @@ class Admincontrol extends MY_Controller
 		$this->view($data, 'branch/create');
 	}
 
-	public function update_branch($id)
-	{
+	public function update_branch($id) {
 		$userdetails = $this->userdetails();
 		$ref = $this->input->get('ref'); // Lấy giá trị ref từ URL
 
@@ -16229,8 +15947,7 @@ class Admincontrol extends MY_Controller
 		}
 	}
 
-	public function delete_branch($id)
-	{
+	public function delete_branch($id) {
 		$userdetails = $this->userdetails();
 		$ref = $this->input->get('ref'); // Lấy giá trị ref từ URL
 
@@ -16255,8 +15972,7 @@ class Admincontrol extends MY_Controller
 		die();
 	}
 
-	public function branch_bonus($offset = 0)
-	{
+	public function branch_bonus($offset = 0) {
 		$userdetails = $this->userdetails();
 		$this->load->library('pagination');
 		$config['base_url'] = base_url('admincontrol/branch_bonus');
@@ -16271,8 +15987,7 @@ class Admincontrol extends MY_Controller
 	// End chi nhánh
 
 	// Stocks
-	public function stock_listproduct($only_review = false)
-	{
+	public function stock_listproduct($only_review = false) {
 
 		$userdetails = $this->userdetails();
 
@@ -16378,8 +16093,7 @@ class Admincontrol extends MY_Controller
 		}
 	}
 
-	public function stock_updateproduct($id = null)
-	{
+	public function stock_updateproduct($id = null) {
 
 		$userdetails = $this->userdetails();
 
@@ -16426,8 +16140,7 @@ class Admincontrol extends MY_Controller
 		$this->view($data, 'product_stock/add_product');
 	}
 
-	public function stock_duplicateProduct($product_id)
-	{
+	public function stock_duplicateProduct($product_id) {
 
 		$userdetails = $this->userdetails();
 
@@ -16438,8 +16151,7 @@ class Admincontrol extends MY_Controller
 		redirect(base_url('admincontrol/stock_listproduct'));
 	}
 
-	public function stock_editProduct()
-	{
+	public function stock_editProduct() {
 
 		$userdetails = $this->userdetails();
 
@@ -17196,8 +16908,7 @@ class Admincontrol extends MY_Controller
 		}
 	}
 
-	public function stock_listproduct_ajax($page = 1)
-	{
+	public function stock_listproduct_ajax($page = 1) {
 
 		$userdetails = $this->userdetails();
 
@@ -17269,65 +16980,126 @@ class Admincontrol extends MY_Controller
 		echo json_encode($json);
 	}
 
-	// Cập nhật plan_id level cho user
-	public function update_user_levels()
-	{
+	// Cập nhật Rank for level cho user
+	public function update_user_levels() {
+
 		// Lấy các bản ghi từ bảng award_level
 		$this->db->where('level_number >=', 2);
 		$this->db->order_by('level_number', 'asc');
 		$query = $this->db->get('award_level');
 
+		// Chạy qua mỗi cấp độ bắt đầu từ số 2
 		foreach ($query->result() as $award_level) {
-			// Lấy danh sách user có điều kiện cần cập nhật
-			$this->db->select('u.id, u.plan_id, urv.revenue, ure.ids_direct');
-			$this->db->from('users u');
-			$this->db->join('user_rank ur', 'u.id = ur.user_id', 'left');
-			$this->db->join('user_revenue urv', 'u.id = urv.user_id', 'left');
-			$this->db->join('user_recruitment ure', 'u.id = ure.user_id', 'left');
-			$this->db->where('u.plan_id !=', -1);
-			$this->db->where('ur.user_level <', $award_level->level_number);
-			$this->db->order_by('u.id', 'asc');
-			$users_query = $this->db->get();
 
-			foreach ($users_query->result() as $user) {
+			// Lấy ID của cấp độ sẽ nâng cấp lên nếu đạt điều kiện
+			$new_level_id = $award_level->id;
+			$new_level_number = $award_level->level_number;
+
+			// Lấy plan member ship của level hiện tại
+			// Gọi hàm get_plan_id_by_level để lấy plan_id cho level_number đã cho
+			$new_plan = $this->get_plan_id_by_level($new_level_number);
+
+			if ($new_plan) {
+				$new_plan_id = $new_plan->plan_id;
+			} else {
+				$new_plan_id = 6;
+			}
+
+			// Lấy điều kiện để được thăng cấp
+			$condition_recuruitment_number = $award_level->recuruitment_number;
+			$condition_recuruitment_level = $award_level->recuruitment_level;
+			$condition_revenue = $award_level->minimum_earning;
+
+			// Lấy danh sách user có điều kiện cần tăng cấp dựa vào
+			// Cấp độ muốn lấy < new_level_number, 
+			$users_query = $this->get_users_by_level($new_level_number);
+
+			// Với mỗi users cấp độ dưới trong danh sách cấp độ nhỏ hơn
+			foreach ($users_query as $user) {
+
 				// Kiểm tra doanh số cá nhân và số lượng thành viên trực tiếp
 				$user_id = $user->id;
-				$required_number = $award_level->recuruitment_number;
-				$required_level = $award_level->recuruitment_level;
-				if ($user->revenue >= $award_level->minimum_earning && $this->user->check_direct_member_level($user_id, $required_number, $required_level)) {
+
+				if ($user->revenue >= $condition_revenue && $this->user->check_direct_member_level($user_id, $condition_recuruitment_number, $condition_recuruitment_level)) {
+
 					// Cập nhật plan_id và level_id mới cho user
-					$this->db->where('id', $user->id);
-					$this->db->update('users', array(
-						'plan_id' => $this->get_plan_id_by_level($award_level->level_number)->plan_id,
-						'level_id' => $this->get_plan_id_by_level($award_level->level_number)->level_id
-					));
+					$this->upgrade_plan($user_id, $new_plan_id);
 				}
 			}
-			
+
+			// Cập nhật bảng rank và doanh thu			
+			$this->calculate_revenue();
+			$this->update_revenue();
 			$this->update_user_rank();
-			$this->update_user_revenue();
+		}
+	}
+
+	// Buy new plan - Update Level
+	public function upgrade_plan($user_id, $new_planid, $status_id = 1, $comment = 'Tăng cấp') {
+
+		$user = App\User::find($user_id);
+		$plan = MembershipPlan::find($new_planid);
+
+		$membership = $plan->buy($user, $status_id, $comment, 'Policy by System', 0, '', $plan);
+
+		// set default plan acive if refund given
+		if ((int)$status_id == 8) {
+			$this->setDefaultPlan($user_id);
+		}
+	}
+
+
+	// Lấy danh sách User theo level cấp dưới
+	public function get_users_by_level($new_level_number) {
+		$this->db->select('award_level.level_number, users.id, users.level_id, users.type, user_revenue.revenue, user_revenue.revenue_direct, user_revenue.revenue_indirect');
+		$this->db->from('users');
+		$this->db->join('award_level', 'users.level_id = award_level.id', 'left');
+		$this->db->join('user_revenue', 'users.id = user_revenue.user_id', 'left');
+		$this->db->where('users.type', 'user');
+
+		if ($new_level_number == 2) {
+			$this->db->where('users.level_id', 0);
+			$this->db->or_where('award_level.level_number', $new_level_number - 1);
+		} else {
+			$this->db->where('award_level.level_number', $new_level_number - 1);
 		}
 
-		// Chạy cập nhật bảng user_rank và bảng user_revenue ở đây nếu cần
+		$query = $this->db->get();
 
-		// Ví dụ:
+		// Kiểm tra và xử lý kết quả trả về
+		if ($query->num_rows() > 0) {
+			return $query->result();
+		} else {
+			return array(); // hoặc return null; tùy theo logic của bạn
+		}
+	}
 
+
+	// Lấy Plan ID của Level Number mới
+	public function get_memberplan_by_level($number_level) {
+		// Join the membership_plans and award_level tables
+		$this->db->select('membership_plans.id as memberplan_id');
+		$this->db->from('membership_plans');
+		$this->db->join('award_level', 'membership_plans.level_id = award_level.id');
+		$this->db->where('award_level.level_number', $number_level);
+
+		$query = $this->db->get();
+		return $query->row(); // Return a single row
 	}
 
 	// lấy plan_id của 1 level
-	public function get_plan_id_by_level($level_number)
-	{
+	public function get_plan_id_by_level($level_number) {
 		$this->db->select('membership_plans.id as plan_id');
 		$this->db->from('award_level');
 		$this->db->join('membership_plans', 'membership_plans.level_id = award_level.id');
-		$this->db->where('award_level.level_numbe', $level_number);
+		$this->db->where('award_level.level_number', $level_number);
 
 		$query = $this->db->get();
 
 		if ($query->num_rows() > 0) {
-			return $query->row();
+			return $query->row(); // Return a single row
 		} else {
-			return null;
+			return null; // Return null if no row found
 		}
 	}
 }

@@ -1,6 +1,5 @@
 <?php
-class User_model extends MY_Model
-{
+class User_model extends MY_Model {
 	protected $_table = 'users';
 	public $register_rules = array(
 		'firstname' => array(
@@ -111,49 +110,39 @@ class User_model extends MY_Model
 		)
 	);
 
-	function login($username)
-	{
+	function login($username) {
 		return $this->db->where('username', $username)->or_where('email', $username)
 			->get('users')->row_array();
 	}
 
-	function getCountries()
-	{
+	function getCountries() {
 		return $this->db->select('id,name')->from('countries')->get()->result_array();
 	}
-	function getState($country_id)
-	{
+	function getState($country_id) {
 		return $this->db->select('id,name')->from('states')->where('country_id', $country_id)->get()->result_array();
 	}
-	function update_user_login($user_id)
-	{
+	function update_user_login($user_id) {
 		return $this->db->where('id', $user_id)->update('users', array('online' => '1'));
 	}
-	function update_user($user_id, $url)
-	{
+	function update_user($user_id, $url) {
 		return $this->db->where('id', $user_id)->update('users', $url);
 	}
 
-	function get_user_by_id($usr_id)
-	{
+	function get_user_by_id($usr_id) {
 		return $this->db->get_where('users', array('id' => $usr_id))->row_array();
 	}
-	function get_user_by_type($type)
-	{
+	function get_user_by_type($type) {
 		return $this->db->get_where('users', array('type' => $type))->row_array();
 	}
 
-	function checkmail($mail)
-	{
+	function checkmail($mail) {
 		return $this->db->get_where('users', array('email' => $mail))->row_array();
 	}
-	function checkuser($username)
-	{
+	function checkuser($username) {
 		return $this->db->get_where('users', array('username' => $username))->row_array();
 	}
 
-	function getUserCountry()
-	{
+	function getUserCountry() {
 		$this->db->select('count(*) as num, countries.name');
 		$this->db->from('users');
 		$this->db->group_by('users.country');
@@ -162,8 +151,7 @@ class User_model extends MY_Model
 		return $query->result();
 	}
 
-	function getUserCountryUserId($user_id)
-	{
+	function getUserCountryUserId($user_id) {
 		$this->db->select('countries.name,countries.name,sortname');
 		$this->db->from('users');
 		$this->db->join('countries', 'users.country=countries.id');
@@ -171,11 +159,9 @@ class User_model extends MY_Model
 		$query = $this->db->get();
 		return $query->row_array();
 	}
-	function custom_query()
-	{
+	function custom_query() {
 	}
-	function getAllNotification($user_id = null)
-	{
+	function getAllNotification($user_id = null) {
 		$this->db->from('notification');
 		if (!empty($user_id)) {
 			$this->db->where('notification_view_user_id', $user_id);
@@ -185,8 +171,7 @@ class User_model extends MY_Model
 		$query = $this->db->get();
 		return $query->result_array();
 	}
-	function getAllNotificationPaging($notification_viewfor = null, $user_id = null, $limit, $start)
-	{
+	function getAllNotificationPaging($notification_viewfor = null, $user_id = null, $limit, $start) {
 		$this->db->from('notification');
 		$this->db->limit($limit, $start);
 		if (!empty($notification_viewfor)) {
@@ -213,8 +198,7 @@ class User_model extends MY_Model
 	/*
 	* user group 
 	*/
-	function checkgroup($group_name, $id)
-	{
+	function checkgroup($group_name, $id) {
 		$where['group_name'] = $group_name;
 		if (!empty($id)) {
 			$where['id !='] = $id;
@@ -222,33 +206,27 @@ class User_model extends MY_Model
 		return $this->db->get_where('user_groups', $where)->row_array();
 	}
 
-	function groupinsert($data)
-	{
+	function groupinsert($data) {
 		return $this->db->insert('user_groups', $data);
 	}
 
-	function update_group($id, $data)
-	{
+	function update_group($id, $data) {
 		return  $this->db->update('user_groups', $data, ['id' => $id]);
 	}
 
-	function getgrouplist()
-	{
+	function getgrouplist() {
 		return $this->db->query('select user_groups.*, COUNT(integration_tools.id) as tools_count, integration_tools.allow_groups, users.groups, COUNT(users.id) as users_count from user_groups left join integration_tools ON FIND_IN_SET(user_groups.id, integration_tools.allow_groups) left join users ON FIND_IN_SET(user_groups.id, users.groups) GROUP BY user_groups.id ORDER BY user_groups.created_at DESC')->result();
 	}
 
-	function getDefaultGroup()
-	{
+	function getDefaultGroup() {
 		return $this->db->get_where('user_groups', ['is_default' => 1])->row();
 	}
 
-	function getgroupdetails($id)
-	{
+	function getgroupdetails($id) {
 		return $this->db->get_where('user_groups', ['id' => $id])->row();
 	}
 
-	function setStarForUser()
-	{
+	function setStarForUser() {
 		$get_user_star_3_query = "SELECT order_products.refer_id FROM order_products INNER JOIN `order` ON order_products.order_id = `order`.id WHERE `order`.`status` = 1 AND order_products.refer_id > 1 GROUP BY EXTRACT(month FROM `order`.created_at), order_products.refer_id HAVING SUM(order_products.total) >= 30000000 AND SUM(order_products.total) < 50000000 ORDER BY EXTRACT(month FROM `order`.created_at);";
 
 		$get_user_star_4_query = "SELECT order_products.refer_id FROM order_products INNER JOIN `order` ON order_products.order_id = `order`.id WHERE `order`.`status` = 1 AND order_products.refer_id > 1 GROUP BY EXTRACT(month FROM `order`.created_at), order_products.refer_id HAVING SUM(order_products.total) >= 50000000 AND SUM(order_products.total) < 100000000 ORDER BY EXTRACT(month FROM `order`.created_at);";
@@ -291,29 +269,25 @@ class User_model extends MY_Model
 	* User
 	*/
 	// Lấy toàn bộ cây dưới dạng mảng
-	public function getTree()
-	{
+	public function getTree() {
 		$query = $this->db->get('users');
 		return $query->result_array();
 	}
 
 	// Lấy thông tin của một node
-	public function getNode($id)
-	{
+	public function getNode($id) {
 		$query = $this->db->get_where('users', array('id' => $id));
 		return $query->row_array();
 	}
 
 	// Lấy các con của một node
-	public function getChildren($id)
-	{
+	public function getChildren($id) {
 		$query = $this->db->get_where('users', array('refid' => $id));
 		return $query->result_array();
 	}
 
 	// Lấy toàn bộ phần con bằng cách đệ quy
-	public function getAllDescendants($id)
-	{
+	public function getAllDescendants($id) {
 		$descendants = [];
 
 		$children = $this->getChildren($id);
@@ -329,8 +303,7 @@ class User_model extends MY_Model
 	/*
 	* Branch 
 	*/
-	function checkbranch($branch_name, $id)
-	{
+	function checkbranch($branch_name, $id) {
 		$where['name'] = $branch_name;
 		if (!empty($id)) {
 			$where['id !='] = $id;
@@ -338,34 +311,28 @@ class User_model extends MY_Model
 		return $this->db->get_where('branch', $where)->row_array();
 	}
 
-	function branchinsert($data)
-	{
+	function branchinsert($data) {
 		return $this->db->insert('branch', $data);
 	}
 
-	function update_branch($id, $data)
-	{
+	function update_branch($id, $data) {
 		return  $this->db->update('branch', $data, ['id' => $id]);
 	}
 
-	function getbranchlist()
-	{
+	function getbranchlist() {
 		return $this->db->query('select * from branch')->result();
 	}
 
-	function getDefaultBranch()
-	{
+	function getDefaultBranch() {
 		return $this->db->get_where('branch', ['is_default' => 1])->row();
 	}
 
-	function getbranchdetails($id)
-	{
+	function getbranchdetails($id) {
 		return $this->db->get_where('branch', ['id' => $id])->row();
 	}
 
 	// TÍNH THƯỞNG ***************
-	public function calculate_commissions()
-	{
+	public function calculate_commissions() {
 
 		// Kết nối đến cơ sở dữ liệu
 		$db = $this->db;
@@ -460,7 +427,7 @@ class User_model extends MY_Model
 
 			// Lấy cấp độ hiện tại của user
 			$current_level = $this->get_user_current_rank($user_id);
-			
+
 			if ($current_level == 0) {
 				$current_level = 1;
 			}
@@ -476,8 +443,7 @@ class User_model extends MY_Model
 	}
 
 	// Hàm lấy tổng doanh thu
-	public function get_total_revenue()
-	{
+	public function get_total_revenue() {
 		$this->db->select_sum('revenue');
 		$result = $this->db->get('user_revenue')->row();
 
@@ -489,8 +455,7 @@ class User_model extends MY_Model
 	}
 
 	// Hàm lấy cấp độ hiện tại của user
-	private function get_user_current_rank($user_id)
-	{
+	private function get_user_current_rank($user_id) {
 		// Lấy user_level từ bảng user_rank với user_id cụ thể
 		$this->db->select('user_level');
 		$this->db->from('user_rank');
@@ -505,8 +470,7 @@ class User_model extends MY_Model
 	}
 
 	// Hàm lấy settings hiện tại của user
-	private function get_user_current_setting($user_level)
-	{
+	private function get_user_current_setting($user_level) {
 		// Lấy bản ghi đầu tiên từ bảng award_level với level_number bằng user_level
 		$this->db->select('*');
 		$this->db->from('award_level');
@@ -518,16 +482,15 @@ class User_model extends MY_Model
 	}
 
 	// Hàm lấy thông tin tuyển dụng của user
-	private function get_user_recruitment($user_id)
-	{
+	private function get_user_recruitment($user_id) {
 		$this->db->where('user_id', $user_id);
 		$query = $this->db->get('user_recruitment');
 		return $query->result();
 	}
 
 	// Hàm kiểm tra cấp độ thành viên trực tiếp
-	private function check_direct_member_level($user_id, $required_number, $required_level)
-	{
+	public function check_direct_member_level($user_id, $required_number, $required_level) {
+		
 		// Lấy danh sách ids_direct từ bảng user_recruitment
 		$this->db->select('ids_direct');
 		$this->db->from('user_recruitment');
@@ -591,8 +554,7 @@ class User_model extends MY_Model
 	}
 
 	// Hàm cập nhật thông tin hoa hồng vào bảng user_commission
-	private function update_commission($user_id, $order_id, $product_id, $created_time, $method, $type, $value)
-	{
+	private function update_commission($user_id, $order_id, $product_id, $created_time, $method, $type, $value) {
 		$data = array(
 			'user_id' => $user_id,
 			'order_id' => $order_id,
@@ -605,4 +567,5 @@ class User_model extends MY_Model
 		);
 		$this->db->insert('user_comission', $data);
 	}
+
 }
