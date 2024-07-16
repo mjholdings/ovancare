@@ -5586,7 +5586,7 @@ a {
 
 button {
   white-space: nowrap;
-  min-width: 90px;
+  min-width: auto;
 }
 
 .about-founder {
