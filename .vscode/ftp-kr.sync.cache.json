@@ -766,8 +766,8 @@
                     },
                     "product.php": {
                       "type": "-",
-                      "size": 48041,
-                      "lmtime": 1720867738198,
+                      "size": 48777,
+                      "lmtime": 1721029183211,
                       "modified": false
                     },
                     "product_list.php": {
@@ -2142,7 +2142,7 @@
                 },
                 "Order_model.php": {
                   "type": "-",
-                  "size": 95645,
+                  "size": 103218,
                   "lmtime": 0,
                   "modified": true
                 },
@@ -2154,8 +2154,8 @@
                 },
                 "Product_model.php": {
                   "type": "-",
-                  "size": 226388,
-                  "lmtime": 1720758263690,
+                  "size": 227716,
+                  "lmtime": 1721011023170,
                   "modified": false
                 },
                 "Report_model.php": {
@@ -2220,7 +2220,7 @@
                 },
                 "User_model.php": {
                   "type": "-",
-                  "size": 21638,
+                  "size": 20361,
                   "lmtime": 1720691038306,
                   "modified": true
                 },
@@ -2232,7 +2232,7 @@
                 },
                 "Wallet_model.php": {
                   "type": "-",
-                  "size": 73526,
+                  "size": 75541,
                   "lmtime": 0,
                   "modified": true
                 },
@@ -2561,7 +2561,7 @@
                     "slick.js": {
                       "type": "-",
                       "size": 91966,
-                      "lmtime": 1720867442524,
+                      "lmtime": 1720867800252,
                       "modified": false
                     },
                     "slick.less": {

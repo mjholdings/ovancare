@@ -263,7 +263,7 @@ $allvideo = $this->Product_model->getAllVideos($product['product_id']);
                                 <?php $this->load->helper('date');
                                 $date = mdate('%Y-%m-%d', now()); ?>
                                 <?php if ($coupon != null) : ?>
-                                    <div class="coupon-mj mt-4 coupon-slider">
+                                    <div class="cupon-mj mt-4 coupon-slider">
                                         <?php foreach ($coupon as $c) { ?>
                                             <?php if ($c->date_end >= $date) : ?>
                                                 <?php if ($c->allow_for == 'S' && in_array($product['product_id'], $c->products)) : ?>
