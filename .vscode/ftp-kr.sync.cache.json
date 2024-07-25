@@ -766,8 +766,8 @@
                     },
                     "product.php": {
                       "type": "-",
-                      "size": 48777,
-                      "lmtime": 1721029183211,
+                      "size": 48776,
+                      "lmtime": 1721104189889,
                       "modified": false
                     },
                     "product_list.php": {
@@ -2496,8 +2496,8 @@
                     "style.css": {
                       "type": "-",
                       "size": 102699,
-                      "lmtime": 1720165050795,
-                      "modified": true
+                      "lmtime": 1721106426630,
+                      "modified": false
                     },
                     "sweetalert2.min.css": {
                       "type": "-",
